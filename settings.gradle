@@ -1,0 +1,5 @@
+rootProject.name = 'rozsa-language-processor'
+include 'lib'
+
+
+project(':lib').name = 'rozsa-language-processor'
