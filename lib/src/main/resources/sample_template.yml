@@ -1,0 +1,8 @@
+
+data:
+  "userRole": "${IF auth.user.type EQUALS "admin" AND auth.accessLevel EQUALS "full" THEN auth.user.type ELSE EMPTY STRING}",
+  "loginStatus": "$auth.session.status",
+  "accessType": ${IF userRole EQUALS "admin" THEN "unrestricted" ELSE "restricted"},
+  "sessionState": "$auth.session.state",
+  "authenticationMethod": "$auth.method",
+  "deviceType": ${SWITCH auth.device CASE "mobile" THEN "phone" CASE "desktop" THEN "computer" ELSE EMPTY STRING}
