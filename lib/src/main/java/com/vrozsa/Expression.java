@@ -4,15 +4,13 @@ import com.vrozsa.tokens.Token;
 
 import java.util.Optional;
 
-class Expression {
+public class Expression {
     private static char START_BRACKET = '{';
     private static char END_BRACKET = '}';
 
     private int startIdx;
     private int endIdx;
-
     private char[] content;
-
     private Token token;
 
     public Expression(int startIdx, char[] content) {
@@ -20,7 +18,7 @@ class Expression {
         this.content = content;
     }
 
-    public void evaluate() {
+    public void read() {
         var nextIdx = startIdx;
 
         // Skip the starting expression bracket if necessary.
@@ -28,13 +26,17 @@ class Expression {
             nextIdx++;
         }
 
-        Optional<Token> next = TokenScanner.findNext(nextIdx, content);
+        Optional<Token> next = StartingTokenScanner.instance().findNext(nextIdx, content);
 
-        if (next.isPresent()) {
-            System.out.println("Token found: " + next.get());
-        }
-        else {
+        if (next.isEmpty()) {
             System.out.println("Token not found!");
+            return;
         }
+
+        System.out.println("Token found: " + next.get());
+
+        token = next.get();
+
+        token.read();
     }
 }

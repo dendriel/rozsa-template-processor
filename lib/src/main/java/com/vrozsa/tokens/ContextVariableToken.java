@@ -13,4 +13,9 @@ public class ContextVariableToken extends Token {
         super(TokenType.CONTEXT_VARIABLE, input);
         this.variable = variable;
     }
+
+    @Override
+    public void read() {
+
+    }
 }

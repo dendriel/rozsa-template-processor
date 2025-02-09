@@ -10,6 +10,8 @@ public abstract class Token {
         this.input = input;
     }
 
+    public abstract void read();
+
     @Override
     public String toString() {
         return "Token{" +

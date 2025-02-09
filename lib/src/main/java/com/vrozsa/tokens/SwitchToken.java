@@ -8,4 +8,9 @@ public class SwitchToken extends Token {
     public static TokenType type() {
         return TokenType.SWITCH;
     }
+
+    @Override
+    public void read() {
+
+    }
 }
