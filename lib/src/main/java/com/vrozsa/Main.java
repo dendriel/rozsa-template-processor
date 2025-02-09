@@ -8,7 +8,7 @@ public class Main {
 
         var expressionScanner = new ExpressionScanner();
 
-        String content = new FileReader().readFile("sample_template.yml");
+        var content = new FileReader().readFile("sample_template.yml").toCharArray();
 
         var result = expressionScanner.scan(content);
         System.out.println("Scanned content: " + result);

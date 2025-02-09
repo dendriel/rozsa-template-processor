@@ -11,11 +11,11 @@ class Expression {
     private int startIdx;
     private int endIdx;
 
-    private String content;
+    private char[] content;
 
     private Token token;
 
-    public Expression(int startIdx, String content) {
+    public Expression(int startIdx, char[] content) {
         this.startIdx = startIdx;
         this.content = content;
     }
@@ -24,7 +24,7 @@ class Expression {
         var nextIdx = startIdx;
 
         // Skip the starting expression bracket if necessary.
-        if (content.charAt(nextIdx) == START_BRACKET) {
+        if (content[nextIdx] == START_BRACKET) {
             nextIdx++;
         }
 

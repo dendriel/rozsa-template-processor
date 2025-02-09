@@ -1,45 +1,39 @@
 package com.vrozsa.tokens;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 public enum StartingToken {
-    IF(List.of("IF"), IfToken::new),
-    SWITCH(List.of("SWITCH"), SwitchToken::new),
+    IF(IfToken.type(), IfToken::new),
+    SWITCH(SwitchToken.type(), SwitchToken::new),
 //    FILTER,
 //    UPPERCASE,
 //    LOWERCASE
     ;
 
+    private final TokenType type;
+
     private final Function<TokenInput, Token> tokenCreator;
 
-    private final List<String> keywords;
-
-    StartingToken(List<String> keywords, Function<TokenInput, Token> tokenCreator) {
-        this.keywords = keywords;
+    StartingToken(TokenType type, Function<TokenInput, Token> tokenCreator) {
+        this.type = type;
         this.tokenCreator = tokenCreator;
     }
 
-    public Token newToken(int startIdx, int endIdx, String content) {
+    public Token newToken(int startIdx, int endIdx, char[] content) {
         return tokenCreator.apply(new TokenInput(startIdx, endIdx, content));
-    }
-
-    public boolean match(String name) {
-        return keywords.stream()
-                .anyMatch(key -> key.equals(name));
     }
 
     public static boolean anyMatch(String name) {
         // TODO review the performance of this
         return Arrays.stream(values())
-                .anyMatch(k -> k.match(name));
+                .anyMatch(k -> k.type.match(name));
     }
 
-    public static Optional<Token> create(String name, int startIdx, int endIdx, String content) {
+    public static Optional<Token> create(String name, int startIdx, int endIdx, char[] content) {
         for (var tokenType : values()) {
-            if (tokenType.match(name)) {
+            if (tokenType.type.match(name)) {
                 var newToken = tokenType.newToken(startIdx, endIdx, content);
                 return Optional.of(newToken);
             }

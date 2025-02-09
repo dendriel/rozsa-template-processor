@@ -23,12 +23,12 @@ public class TokenScanner {
 
 
     // look for the next valid token.
-    public static Optional<Token> findNext(final int idx, final String content) {
+    public static Optional<Token> findNext(final int idx, final char[] content) {
         var nextIdx = idx;
 
         var keywordBuilder = new StringBuilder();
 
-        var nextChar = content.charAt(nextIdx++);
+        var nextChar = content[nextIdx++];
         if (!startingCharsChecker.isValid(nextChar)) {
             var msg = "Invalid starting character at index: " + (nextIdx-1);
             throw new RuntimeException(msg); // todo: do error handling
@@ -36,9 +36,9 @@ public class TokenScanner {
 
         keywordBuilder.append(nextChar);
 
-        while (nextIdx < content.length()) {
+        while (nextIdx < content.length) {
 
-            nextChar = content.charAt(nextIdx);
+            nextChar = content[nextIdx];
             if (!middleCharsChecker.isValid(nextChar)) {
                 break;
             }

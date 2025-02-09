@@ -10,7 +10,7 @@ public class ContextVariableToken extends Token {
      * @param input token metadata.
      */
     public ContextVariableToken(String variable, TokenInput input) {
-        super(input);
+        super(TokenType.CONTEXT_VARIABLE, input);
         this.variable = variable;
     }
 }

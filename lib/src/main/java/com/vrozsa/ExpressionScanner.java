@@ -4,11 +4,11 @@ class ExpressionScanner {
 
     private static final Character EXPRESSION_TOKEN = '$';
 
-    Expression[] scan(String text) {
+    Expression[] scan(final char[] text) {
 
-        for (int i = 0; i < text.length(); i++) {
+        for (int i = 0; i < text.length; i++) {
 
-            var nextChar = text.charAt(i);
+            var nextChar = text[i];
 
             if (!EXPRESSION_TOKEN.equals(nextChar)) {
                 continue;
