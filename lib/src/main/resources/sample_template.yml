@@ -1,6 +1,6 @@
 
 data:
-  "userRole2": "${IF auth.user THEN auth.user.type}",
+  "userRole2\x": "${ IF auth.user THEN auth.user.type}",
   "userRole": "${IF auth.user.type EQUALS "admin" AND auth.accessLevel EQUALS "full" THEN auth.user.type ELSE EMPTY STRING}",
   "loginStatus": "$auth.session.status",
   "accessType": ${IF userRole EQUALS "admin" THEN "unrestricted" ELSE "restricted"},

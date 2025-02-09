@@ -6,7 +6,6 @@ import com.vrozsa.tokens.Token;
 import java.util.Optional;
 
 import static com.vrozsa.Reader.assertValidIndex;
-import static com.vrozsa.Reader.validIndex;
 
 public class Expression {
     private static char START_BRACKET = '{';
@@ -28,6 +27,10 @@ public class Expression {
 
     public int endIdx() {
         return endIdx;
+    }
+
+    public int length() {
+        return endIdx - startIdx;
     }
 
     public void read() {
@@ -60,5 +63,20 @@ public class Expression {
         }
 
         endIdx = nextIdx;
+    }
+
+    public void evaluate(ContextHolder context) {
+        token.evaluate(context);
+    }
+
+    public String getResult() {
+        return (String) token.getResult();
+    }
+
+    @Override
+    public String toString() {
+        return "Expression{" +
+                "token=" + token +
+                '}';
     }
 }

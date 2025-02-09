@@ -1,7 +1,11 @@
 package com.vrozsa.tokens;
 
-public class ContextVariableToken extends Token {
+import com.vrozsa.ContextHolder;
+import com.vrozsa.exceptions.ContextVariableNotFoundException;
 
+import java.util.Optional;
+
+public class ContextVariableToken extends Token {
     private final String variable;
 
     /**
@@ -17,5 +21,17 @@ public class ContextVariableToken extends Token {
     @Override
     public void read() {
         endIdx = startIdx() + variable.length() - 1;
+    }
+
+    @Override
+    public Object evaluate(ContextHolder context) {
+        Optional<Object> optValue = context.get(variable);
+
+        if (optValue.isEmpty()) {
+            throw new ContextVariableNotFoundException(variable);
+        }
+
+        result = optValue.get();
+        return result;
     }
 }

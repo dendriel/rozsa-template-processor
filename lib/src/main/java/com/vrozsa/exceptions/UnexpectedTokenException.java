@@ -2,7 +2,7 @@ package com.vrozsa.exceptions;
 
 import com.vrozsa.tokens.TokenType;
 
-public class UnexpectedTokenException extends BaseLanguageProcessorException {
+public class UnexpectedTokenException extends LanguageProcessorException {
 
     private final TokenType expected;
     private final TokenType received;

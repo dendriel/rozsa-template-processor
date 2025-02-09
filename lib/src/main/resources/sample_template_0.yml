@@ -1,0 +1,11 @@
+
+data:
+  "userRole": "${ IF valid_user THEN user.type}",
+  "userRole2\x": "${IF invalid_user THEN user.type2 }",
+  "userRole3": "${IF valid_user THEN user.type}",
+  "userRole4": "${
+                  IF
+                    invalid_user
+                  THEN
+                    user.type2
+                  }",

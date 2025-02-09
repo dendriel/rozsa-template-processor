@@ -1,6 +1,7 @@
 package com.vrozsa.tokens;
 
 import com.vrozsa.AuxiliaryTokenScanner;
+import com.vrozsa.ContextHolder;
 import com.vrozsa.ContextVariableScanner;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.UnexpectedTokenException;
@@ -9,11 +10,14 @@ import java.util.Optional;
 
 import static com.vrozsa.tokens.TokenType.CONTEXT_VARIABLE;
 import static com.vrozsa.tokens.TokenType.THEN;
+import static java.util.Objects.isNull;
 
 public class IfToken extends Token {
-    private Token condition;
+    private Condition condition;
     private Token then;
     private Token orElse;
+
+    private String result;
 
     public IfToken(TokenInput input) {
         super(myType(), input);
@@ -46,10 +50,11 @@ public class IfToken extends Token {
             throw new RuntimeException("Invalid syntax close to index " + startIdx);
         }
 
-        condition = nextToken.get();
-        condition.read();
+        var conditionToken = nextToken.get();
+        conditionToken.read();
+        condition = new Condition(conditionToken);
 
-        var nextIdx = condition.endIdx() + 1; // next char after the condition
+        var nextIdx = conditionToken.endIdx() + 1; // next char after the condition
         nextIdx = Reader.nextValidCharIndex(nextIdx, content);
 
         var thenToken = AuxiliaryTokenScanner.instance().findNext(nextIdx, content);
@@ -78,6 +83,42 @@ public class IfToken extends Token {
 //        if (nextToken.isEmpty()) {
 //            throw new RuntimeException("Invalid syntax close to index " + startIdx);
 //        }
+    }
+
+    @Override
+    public Object evaluate(ContextHolder context) {
+
+        var isTrueCondition = condition.evaluate(context);
+
+        if (isTrueCondition) {
+            result = (String) then.evaluate(context);
+            return result;
+        }
+
+        if (isNull(orElse)) {
+
+            // TODO: orElse
+            result = "";
+            return result;
+        }
+
+        result = (String) orElse.evaluate(context);
+
+        return result;
+    }
+
+    @Override
+    public String getResult() {
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "IfToken{" +
+                "condition=" + condition +
+                ", then=" + then +
+                ", orElse=" + orElse +
+                '}';
     }
 
     // TODO should be a member inner class?
@@ -114,6 +155,18 @@ public class IfToken extends Token {
 
             variable.read();
             endIdx = variable.endIdx();
+        }
+
+        @Override
+        public Object evaluate(ContextHolder context) {
+            return variable.evaluate(context);
+        }
+
+        @Override
+        public String toString() {
+            return "ThenToken{" +
+                    "variable=" + variable +
+                    '}';
         }
     }
 }

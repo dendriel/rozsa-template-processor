@@ -3,10 +3,17 @@ package com.vrozsa;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Scans for expressions in the content.
+ */
 public class ExpressionScanner {
 
     private static final Character EXPRESSION_TOKEN = '$';
     private static final Character ESCAPE_TOKEN = '\\';
+
+    private static final CharacterChecker escapeCharChecker = CharacterChecker.of(
+            new CharacterSingle('\\')
+    );
 
     public static List<Expression> scan(final int idx, final char[] content) {
 
@@ -18,7 +25,7 @@ public class ExpressionScanner {
 
             var nextChar = content[i];
 
-            if (ESCAPE_TOKEN.equals(nextChar)) {
+            if (escapeCharChecker.match(nextChar)) {
                 // If the next char is the escape character, skip the next char.
                 i++;
                 System.out.println("Skipped escaped token \\" + content[i] + " at " + (i - 1));

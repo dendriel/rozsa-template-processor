@@ -1,13 +1,14 @@
 package com.vrozsa.tokens;
 
-
-import static com.vrozsa.tokens.TokenType.THEN;
+import com.vrozsa.ContextHolder;
 
 public abstract class Token {
     private final TokenType type;
-    private final TokenInput input;
+    protected final TokenInput input;
 
     protected int endIdx;
+
+    protected Object result;
 
     protected Token(TokenType type, TokenInput input) {
         this.type = type;
@@ -15,6 +16,12 @@ public abstract class Token {
     }
 
     public abstract void read();
+
+    public abstract Object evaluate(ContextHolder context);
+
+    public Object getResult() {
+        return result;
+    }
 
     public int startIdx() {
         return input.startIdx();

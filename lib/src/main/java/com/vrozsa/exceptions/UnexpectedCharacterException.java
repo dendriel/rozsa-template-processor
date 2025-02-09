@@ -1,6 +1,6 @@
 package com.vrozsa.exceptions;
 
-public class UnexpectedCharacterException extends BaseLanguageProcessorException {
+public class UnexpectedCharacterException extends LanguageProcessorException {
     private final char expected;
     private final char received;
     private final int index;

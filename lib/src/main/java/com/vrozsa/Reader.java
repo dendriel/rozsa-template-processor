@@ -4,16 +4,15 @@ import com.vrozsa.exceptions.IncompleteTokenException;
 
 public class Reader {
     private static final CharacterChecker separatorCharsChecker = CharacterChecker.of(
-            new CharacterSingle(32), // space
-            new CharacterSingle(9) // tab
+            new CharacterSingle(' '),
+            new CharacterSingle('\t'),
+            new CharacterSingle('\n')
     );
 
     /**
      * Read until the next valid character.
      * @param startIdx starting index in the content.
      * @param content content to read.
-     * @param skipEscaped skip escaped characters. Useful when reading the whole documment. Inside expressions we don't
-     *                    expect escaped characters, so we don't skip to detect them.
      * @return the next valid character index.
      */
     public static int nextValidCharIndex(final int startIdx, final char[] content) {

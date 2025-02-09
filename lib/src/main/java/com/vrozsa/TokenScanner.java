@@ -8,14 +8,17 @@ import java.util.Optional;
 
 abstract class TokenScanner {
     private static final CharacterChecker startingCharsChecker = CharacterChecker.of(
-            new CharacterRange(65, 90), // A-Z
-            new CharacterRange(97, 122) // a-z
+            new CharacterRange('A', 'Z'),
+            new CharacterRange('a', 'z'),
+            new CharacterRange('0', '9')
     );
 
     private static final CharacterChecker middleCharsChecker = CharacterChecker.of(
-            new CharacterRange(65, 90), // A-Z
-            new CharacterRange(97, 122), // a-z
-            new CharacterSingle(46) // .
+            new CharacterRange('A', 'Z'), // TODO: use classes to define default ranges
+            new CharacterRange('a', 'z'),
+            new CharacterRange('0', '9'),
+            new CharacterSingle('.'),
+            new CharacterSingle('_')
     );
 
 
