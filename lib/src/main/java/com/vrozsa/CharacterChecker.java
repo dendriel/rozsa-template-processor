@@ -15,7 +15,7 @@ class CharacterChecker {
         return new CharacterChecker(Arrays.asList(charRanges));
     }
 
-    boolean isValid(int targetChar) {
+    boolean match(int targetChar) {
         for (var range : charRanges) {
             if (range.isValid(targetChar)) {
                 return true;

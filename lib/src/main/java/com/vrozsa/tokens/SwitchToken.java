@@ -2,10 +2,10 @@ package com.vrozsa.tokens;
 
 public class SwitchToken extends Token {
     public SwitchToken(TokenInput input) {
-        super(type(), input);
+        super(myType(), input);
     }
 
-    public static TokenType type() {
+    public static TokenType myType() {
         return TokenType.SWITCH;
     }
 

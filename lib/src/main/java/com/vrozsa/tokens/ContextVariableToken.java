@@ -16,6 +16,6 @@ public class ContextVariableToken extends Token {
 
     @Override
     public void read() {
-
+        endIdx = startIdx() + variable.length() - 1;
     }
 }

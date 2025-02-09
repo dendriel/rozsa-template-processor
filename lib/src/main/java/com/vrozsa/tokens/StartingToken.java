@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public enum StartingToken {
-    IF(IfToken.type(), IfToken::new),
-    SWITCH(SwitchToken.type(), SwitchToken::new),
+    IF(IfToken.myType(), IfToken::new),
+    SWITCH(SwitchToken.myType(), SwitchToken::new),
 //    FILTER,
 //    UPPERCASE,
 //    LOWERCASE

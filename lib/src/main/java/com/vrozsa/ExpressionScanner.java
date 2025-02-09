@@ -1,23 +1,27 @@
 package com.vrozsa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpressionScanner {
 
     private static final Character EXPRESSION_TOKEN = '$';
     private static final Character ESCAPE_TOKEN = '\\';
-    private static final List<Character> SEPARATOR_TOKENS = List.of(' ', '\t');
 
-    public static Expression[] scan(final int idx, final char[] text) {
+    public static List<Expression> scan(final int idx, final char[] content) {
 
-        for (int i = idx; i < text.length; i++) {
+        var expressions = new ArrayList<Expression>();
 
-            var nextChar = text[i];
+        int startIdx = Reader.nextValidCharIndex(idx, content);
+
+        for (int i = startIdx; i < content.length; i++) {
+
+            var nextChar = content[i];
 
             if (ESCAPE_TOKEN.equals(nextChar)) {
                 // If the next char is the escape character, skip the next char.
                 i++;
-                System.out.println("Skipped escaped token \\" + text[i] + " at " + (i - 1));
+                System.out.println("Skipped escaped token \\" + content[i] + " at " + (i - 1));
                 continue;
             }
 
@@ -26,38 +30,31 @@ public class ExpressionScanner {
             }
 
             var expressionStartIdx = i + 1;
-            Expression expression = new Expression(expressionStartIdx, text);
+            var expression = new Expression(expressionStartIdx, content);
 
             expression.read();
 
+            // find closing bracket
 //            int endIndx = expression.endIndex();
 
-            System.out.println("Expression starts at " + i);
+            expressions.add(expression);
+
+            System.out.println(String.format("Expression starts at %d, %d and ends at %d", expressionStartIdx, expression.startIdx(), expression.endIdx()));
         }
 
 
-        return new Expression[0];
+        return expressions;
     }
 
-    public static boolean isNextTokenAnExpression(final int idx, final char[] text) {
-        for (int i = idx; i < text.length; i++) {
+    public static boolean isNextTokenAnExpression(final int idx, final char[] content) {
+        var nextChar = content[idx];
 
-            var nextChar = text[i];
-
-            if (SEPARATOR_TOKENS.contains(nextChar)) {
-                // skip blank characters
-                continue;
-            }
-
-            if (ESCAPE_TOKEN.equals(nextChar)) {
-                // If the next char is the escape character, the next token is not an expression.
-                System.out.println("Found escaped token \\" + text[i] + " at " + (i - 1));
-                return false;
-            }
-
-            return EXPRESSION_TOKEN.equals(nextChar);
+        if (ESCAPE_TOKEN.equals(nextChar)) {
+            // If the next char is the escape character, the next token is not an expression.
+            System.out.println("Found escaped token \\" + content[idx] + " at " + (idx - 1));
+            return false;
         }
 
-        return false;
+        return EXPRESSION_TOKEN.equals(nextChar);
     }
 }

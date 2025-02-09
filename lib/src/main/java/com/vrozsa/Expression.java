@@ -1,8 +1,12 @@
 package com.vrozsa;
 
+import com.vrozsa.exceptions.UnexpectedCharacterException;
 import com.vrozsa.tokens.Token;
 
 import java.util.Optional;
+
+import static com.vrozsa.Reader.assertValidIndex;
+import static com.vrozsa.Reader.validIndex;
 
 public class Expression {
     private static char START_BRACKET = '{';
@@ -16,6 +20,14 @@ public class Expression {
     public Expression(int startIdx, char[] content) {
         this.startIdx = startIdx;
         this.content = content;
+    }
+
+    public int startIdx() {
+        return startIdx;
+    }
+
+    public int endIdx() {
+        return endIdx;
     }
 
     public void read() {
@@ -33,10 +45,20 @@ public class Expression {
             return;
         }
 
-        System.out.println("Token found: " + next.get());
-
         token = next.get();
+        System.out.println("Token found: " + token);
 
         token.read();
+
+        nextIdx = token.endIdx() + 1;
+        nextIdx = Reader.nextValidCharIndex(nextIdx, content);
+
+        assertValidIndex(nextIdx, content);
+
+        if (content[nextIdx] != END_BRACKET) {
+            throw new UnexpectedCharacterException(END_BRACKET, content[nextIdx], nextIdx);
+        }
+
+        endIdx = nextIdx;
     }
 }
