@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 import static com.vrozsa.tokens.TokenType.THEN;
 
-public class AuxiliaryTokenScanner extends TokenScanner {
+public class AuxiliaryTokenScanner extends AbstractTokenScanner {
     private static final AuxiliaryTokenScanner INSTANCE = new AuxiliaryTokenScanner();
 
     private static final EnumMap<TokenType, Function<TokenInput, Token>> tokensCreator = new EnumMap<>(Map.ofEntries(
@@ -24,13 +24,13 @@ public class AuxiliaryTokenScanner extends TokenScanner {
     }
 
     @Override
-    protected boolean anyMatch(String name) {
+    protected boolean matchAnyToken(String name) {
         return tokensCreator.keySet().stream()
                 .anyMatch(k -> k.match(name));
     }
 
     @Override
-    public Optional<Token> create(String name, int startIdx, int endIdx, char[] content) {
+    public Optional<Token> createToken(String name, int startIdx, int endIdx, char[] content) {
         for (var tokenType : tokensCreator.keySet()) {
             if (tokenType.match(name)) {
                 var newToken = tokensCreator.get(tokenType).apply(new TokenInput(startIdx, endIdx, content));

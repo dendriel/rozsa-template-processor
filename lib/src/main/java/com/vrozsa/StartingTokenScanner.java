@@ -5,7 +5,7 @@ import com.vrozsa.tokens.Token;
 
 import java.util.Optional;
 
-public class StartingTokenScanner extends TokenScanner {
+public class StartingTokenScanner extends AbstractTokenScanner {
     private static final StartingTokenScanner INSTANCE = new StartingTokenScanner();
 
     public static StartingTokenScanner instance() {
@@ -13,12 +13,12 @@ public class StartingTokenScanner extends TokenScanner {
     }
 
     @Override
-    protected boolean anyMatch(String name) {
+    protected boolean matchAnyToken(String name) {
         return StartingToken.anyMatch(name);
     }
 
     @Override
-    protected Optional<Token> create(String name, int startIdx, int endIdx, char[] content) {
+    protected Optional<Token> createToken(String name, int startIdx, int endIdx, char[] content) {
         return StartingToken.create(name, startIdx, endIdx, content);
     }
 }

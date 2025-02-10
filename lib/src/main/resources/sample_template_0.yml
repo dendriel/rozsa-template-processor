@@ -1,5 +1,7 @@
 
 data:
+  "raw_variable": "$user.type2",
+  "raw_variable2": $valid_user,
   "userRole": "${ IF valid_user THEN user.type}",
   "userRole2\x": "${IF invalid_user THEN user.type2 }",
   "userRole3": "${IF valid_user THEN user.type}",
@@ -9,3 +11,5 @@ data:
                   THEN
                     user.type2
                   }",
+
+$valid_user and $user.type2

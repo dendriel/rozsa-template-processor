@@ -1,5 +1,6 @@
 package com.vrozsa;
 
+import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.exceptions.UnexpectedCharacterException;
 import com.vrozsa.tokens.Token;
 
@@ -11,9 +12,10 @@ public class Expression {
     private static char START_BRACKET = '{';
     private static char END_BRACKET = '}';
 
-    private int startIdx;
+    private final int startIdx;
+    private final char[] content;
+    private boolean hasStartBracket;
     private int endIdx;
-    private char[] content;
     private Token token;
 
     public Expression(int startIdx, char[] content) {
@@ -33,19 +35,21 @@ public class Expression {
         return endIdx - startIdx;
     }
 
+    /**
+     * Reads the content of the expression until its closing bracket
+     */
     public void read() {
         var nextIdx = startIdx;
 
         // Skip the starting expression bracket if necessary.
         if (content[nextIdx] == START_BRACKET) {
+            hasStartBracket = true;
             nextIdx++;
         }
 
         Optional<Token> next = StartingTokenScanner.instance().findNext(nextIdx, content);
-
         if (next.isEmpty()) {
-            System.out.println("Token not found!");
-            return;
+            throw new InvalidSyntaxException("Could not find a valid token in the expression", startIdx);
         }
 
         token = next.get();
@@ -53,11 +57,18 @@ public class Expression {
 
         token.read();
 
-        nextIdx = token.endIdx() + 1;
+        nextIdx = token.endIdx();
+
+        if (!hasStartBracket) {
+            endIdx = nextIdx;
+            return;
+        }
+
+        // Go to next char after the token.
+        nextIdx++;
         nextIdx = Reader.nextValidCharIndex(nextIdx, content);
 
         assertValidIndex(nextIdx, content);
-
         if (content[nextIdx] != END_BRACKET) {
             throw new UnexpectedCharacterException(END_BRACKET, content[nextIdx], nextIdx);
         }
@@ -70,7 +81,7 @@ public class Expression {
     }
 
     public String getResult() {
-        return (String) token.getResult();
+        return String.valueOf(token.getResult());
     }
 
     @Override

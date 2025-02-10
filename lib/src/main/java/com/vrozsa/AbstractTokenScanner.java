@@ -1,12 +1,13 @@
 package com.vrozsa;
 
+import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.tokens.ContextVariableToken;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 
 import java.util.Optional;
 
-abstract class TokenScanner {
+abstract class AbstractTokenScanner {
     private static final CharacterChecker startingCharsChecker = CharacterChecker.of(
             new CharacterRange('A', 'Z'),
             new CharacterRange('a', 'z'),
@@ -18,11 +19,17 @@ abstract class TokenScanner {
             new CharacterRange('a', 'z'),
             new CharacterRange('0', '9'),
             new CharacterSingle('.'),
-            new CharacterSingle('_')
+            new CharacterSingle('_'),
+            new CharacterSingle('-')
     );
 
 
-    // look for the next valid token.
+    /**
+     * Look for the next token.
+     * @param idx starting index to scan in the content.
+     * @param content content to be scanned.
+     * @return the next token if found.
+     */
     public Optional<Token> findNext(final int idx, final char[] content) {
         var startIdx = Reader.nextValidCharIndex(idx, content);
 
@@ -30,8 +37,7 @@ abstract class TokenScanner {
 
         var nextChar = content[nextIdx++];
         if (!startingCharsChecker.match(nextChar)) {
-            var msg = "Invalid starting character at index: " + (nextIdx-1) + " value: \"" + content[nextIdx-1] + "\"";
-            throw new RuntimeException(msg); // todo: do error handling
+            throw new InvalidSyntaxException(String.format("Invalid starting character with value %s", content[startIdx]), startIdx);
         }
 
         var keywordBuilder = new StringBuilder();
@@ -49,16 +55,17 @@ abstract class TokenScanner {
         }
 
         var keyword = keywordBuilder.toString();
-        var endIdx = nextIdx - 1; // -1 for the stop character
+        // -1 for the stop character
+        var endIdx = nextIdx - 1;
 
-        if (anyMatch(keyword)) {
-            return create(keyword, startIdx, endIdx, content);
+        if (matchAnyToken(keyword)) {
+            return createToken(keyword, startIdx, endIdx, content);
         }
 
         return Optional.of(new ContextVariableToken(keyword, new TokenInput(startIdx, endIdx, content)));
     }
 
-    protected abstract boolean anyMatch(String name);
+    protected abstract boolean matchAnyToken(String name);
 
-    protected abstract Optional<Token> create(String name, int startIdx, int endIdx, char[] content);
+    protected abstract Optional<Token> createToken(String name, int startIdx, int endIdx, char[] content);
 }

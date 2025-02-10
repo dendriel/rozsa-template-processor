@@ -15,8 +15,13 @@ public class ExpressionScanner {
             new CharacterSingle('\\')
     );
 
+    /**
+     * Scans for expressions in the content.
+     * @param idx the start of the content to scan for expressions
+     * @param content the content to be scanned.
+     * @return a list of expressions found in the content.
+     */
     public static List<Expression> scan(final int idx, final char[] content) {
-
         var expressions = new ArrayList<Expression>();
 
         int startIdx = Reader.nextValidCharIndex(idx, content);
@@ -40,15 +45,10 @@ public class ExpressionScanner {
             var expression = new Expression(expressionStartIdx, content);
 
             expression.read();
-
-            // find closing bracket
-//            int endIndx = expression.endIndex();
-
             expressions.add(expression);
 
             System.out.println(String.format("Expression starts at %d, %d and ends at %d", expressionStartIdx, expression.startIdx(), expression.endIdx()));
         }
-
 
         return expressions;
     }
