@@ -1,13 +1,13 @@
 package com.vrozsa;
 
 // We could use object values and reuse checkers with the same data, but too much effort to little benefit in this case.
-class CharacterRange {
+public class CharacterRange {
     protected static final int EMPTY_CHAR = -1;
     private final int startChar;
 
     private final int endChar;
 
-    CharacterRange(int startChar, int endChar) {
+    public CharacterRange(int startChar, int endChar) {
         this.startChar = startChar;
         this.endChar = endChar;
     }

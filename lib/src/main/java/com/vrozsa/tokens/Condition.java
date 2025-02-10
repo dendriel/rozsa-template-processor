@@ -15,7 +15,14 @@ public class Condition extends Token {
     }
 
     @Override
-    public void read() {}
+    public void read() {
+        conditionToken.read();
+    }
+
+    @Override
+    public int endIdx() {
+        return conditionToken.endIdx();
+    }
 
     @Override
     public Boolean evaluate(ContextHolder context) {

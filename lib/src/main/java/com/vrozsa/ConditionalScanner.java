@@ -1,6 +1,6 @@
 package com.vrozsa;
 
-import com.vrozsa.tokens.Token;
+import com.vrozsa.scanners.ExpressionScanner;
 
 public class ConditionalScanner {
 

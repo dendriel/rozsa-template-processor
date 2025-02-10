@@ -2,6 +2,7 @@ package com.vrozsa;
 
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.exceptions.UnexpectedCharacterException;
+import com.vrozsa.scanners.MainTokenScanner;
 import com.vrozsa.tokens.Token;
 
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class Expression {
             nextIdx++;
         }
 
-        Optional<Token> next = MainTokenScanner.instance().findNext(nextIdx, content);
+        var next = MainTokenScanner.instance().findNext(nextIdx, content);
         if (next.isEmpty()) {
             throw new InvalidSyntaxException("Could not find a valid token in the expression", startIdx);
         }

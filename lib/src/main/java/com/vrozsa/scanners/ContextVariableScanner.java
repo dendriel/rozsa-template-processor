@@ -1,4 +1,4 @@
-package com.vrozsa;
+package com.vrozsa.scanners;
 
 import com.vrozsa.tokens.ContextVariableToken;
 import com.vrozsa.tokens.Token;

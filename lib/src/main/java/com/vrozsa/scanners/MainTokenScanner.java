@@ -1,4 +1,4 @@
-package com.vrozsa;
+package com.vrozsa.scanners;
 
 import com.vrozsa.tokens.IfToken;
 import com.vrozsa.tokens.SwitchToken;

@@ -1,5 +1,7 @@
 package com.vrozsa;
 
+import com.vrozsa.scanners.ExpressionScanner;
+
 public class Main {
     public static void main(String[] args) {
         var content = new FileReader().readFile("sample_template_0.yml").toCharArray();

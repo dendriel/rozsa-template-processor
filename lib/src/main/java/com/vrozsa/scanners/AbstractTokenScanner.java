@@ -1,12 +1,15 @@
-package com.vrozsa;
+package com.vrozsa.scanners;
 
+import com.vrozsa.CharacterChecker;
+import com.vrozsa.CharacterRange;
+import com.vrozsa.CharacterSingle;
+import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.tokens.ContextVariableToken;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -39,7 +42,7 @@ abstract class AbstractTokenScanner {
      * @param content content to be scanned.
      * @return the next token if found.
      */
-    public Optional<Token> findNext(final int idx, final char[] content) {
+    public Optional<? extends Token> findNext(final int idx, final char[] content) {
         var startIdx = Reader.nextValidCharIndex(idx, content);
 
         var nextIdx = startIdx;

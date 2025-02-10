@@ -1,8 +1,9 @@
 package com.vrozsa.tokens;
 
-import com.vrozsa.AuxiliaryTokenScanner;
+import com.vrozsa.scanners.AuxiliaryTokenScanner;
 import com.vrozsa.ContextHolder;
-import com.vrozsa.ContextVariableScanner;
+import com.vrozsa.scanners.ConditionScanner;
+import com.vrozsa.scanners.ContextVariableScanner;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.UnexpectedTokenException;
 
@@ -45,16 +46,15 @@ public class IfToken extends Token {
 //            Expression[] expression = ExpressionScanner.scan(startIdx, input.content());
 //        }
 
-        Optional<Token> nextToken = ContextVariableScanner.instance().findNext(startIdx, content);
-        if (nextToken.isEmpty()) {
+        var conditionToken = ConditionScanner.instance().findNext(startIdx, content);
+        if (conditionToken.isEmpty()) {
             throw new RuntimeException("Invalid syntax close to index " + startIdx);
         }
 
-        var conditionToken = nextToken.get();
-        conditionToken.read();
-        condition = new Condition(conditionToken);
+        condition = conditionToken.get();
 
-        var nextIdx = conditionToken.endIdx() + 1; // next char after the condition
+        // next char after the condition
+        var nextIdx = condition.endIdx() + 1;
         nextIdx = Reader.nextValidCharIndex(nextIdx, content);
 
         var thenToken = AuxiliaryTokenScanner.instance().findNext(nextIdx, content);
@@ -62,9 +62,7 @@ public class IfToken extends Token {
             throw new RuntimeException("Couldn't find the next token from if");
         }
 
-        // TODO: read conditionals
-
-        // Next will be a THEN token.
+        // Next should be a THEN token.
         then = thenToken.get();
         if (!THEN.equals(then.type())) {
             throw new UnexpectedTokenException(THEN, then.type(), nextIdx);
@@ -140,7 +138,7 @@ public class IfToken extends Token {
 
             startIdx = Reader.nextValidCharIndex(startIdx, content());
 
-            Optional<Token> nextToken = ContextVariableScanner.instance().findNext(startIdx, content());
+            var nextToken = ContextVariableScanner.instance().findNext(startIdx, content());
             if (nextToken.isEmpty()) {
                 throw new RuntimeException("Invalid syntax close to index " + startIdx);
             }

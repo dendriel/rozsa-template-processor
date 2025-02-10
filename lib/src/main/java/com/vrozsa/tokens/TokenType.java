@@ -6,6 +6,7 @@ import java.util.List;
 public enum TokenType {
     CONTEXT_VARIABLE,
     CONDITION,
+    CONDITION_GROUP,
     IF("IF"),
     THEN("THEN"),
     ELSE("ELSE"),

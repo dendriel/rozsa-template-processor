@@ -1,4 +1,9 @@
-package com.vrozsa;
+package com.vrozsa.scanners;
+
+import com.vrozsa.CharacterChecker;
+import com.vrozsa.CharacterSingle;
+import com.vrozsa.Expression;
+import com.vrozsa.Reader;
 
 import java.util.ArrayList;
 import java.util.List;

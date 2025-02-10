@@ -4,7 +4,7 @@ package com.vrozsa;
 import java.util.Arrays;
 import java.util.List;
 
-class CharacterChecker {
+public class CharacterChecker {
     private final List<CharacterRange> charRanges;
 
     public CharacterChecker(List<CharacterRange> charRanges) {
@@ -15,7 +15,7 @@ class CharacterChecker {
         return new CharacterChecker(Arrays.asList(charRanges));
     }
 
-    boolean match(int targetChar) {
+    public boolean match(int targetChar) {
         for (var range : charRanges) {
             if (range.isValid(targetChar)) {
                 return true;
