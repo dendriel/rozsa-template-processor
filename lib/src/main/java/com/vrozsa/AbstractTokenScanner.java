@@ -4,8 +4,12 @@ import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.tokens.ContextVariableToken;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
+import com.vrozsa.tokens.TokenType;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 abstract class AbstractTokenScanner {
     private static final CharacterChecker startingCharsChecker = CharacterChecker.of(
@@ -23,6 +27,11 @@ abstract class AbstractTokenScanner {
             new CharacterSingle('-')
     );
 
+    private final Map<TokenType, Function<TokenInput, Token>> tokensCreator;
+
+    AbstractTokenScanner(Map<TokenType, Function<TokenInput, Token>> tokensCreator) {
+        this.tokensCreator = tokensCreator;
+    }
 
     /**
      * Look for the next token.
@@ -65,7 +74,19 @@ abstract class AbstractTokenScanner {
         return Optional.of(new ContextVariableToken(keyword, new TokenInput(startIdx, endIdx, content)));
     }
 
-    protected abstract boolean matchAnyToken(String name);
+    protected boolean matchAnyToken(String name) {
+        return tokensCreator.keySet().stream()
+                .anyMatch(k -> k.match(name));
+    }
 
-    protected abstract Optional<Token> createToken(String name, int startIdx, int endIdx, char[] content);
+    protected Optional<Token> createToken(String name, int startIdx, int endIdx, char[] content) {
+        for (var tokenType : tokensCreator.keySet()) {
+            if (tokenType.match(name)) {
+                var newToken = tokensCreator.get(tokenType).apply(new TokenInput(startIdx, endIdx, content));
+                return Optional.of(newToken);
+            }
+        }
+
+        return Optional.empty();
+    }
 }

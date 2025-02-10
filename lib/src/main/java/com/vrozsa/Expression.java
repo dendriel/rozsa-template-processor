@@ -47,7 +47,7 @@ public class Expression {
             nextIdx++;
         }
 
-        Optional<Token> next = StartingTokenScanner.instance().findNext(nextIdx, content);
+        Optional<Token> next = MainTokenScanner.instance().findNext(nextIdx, content);
         if (next.isEmpty()) {
             throw new InvalidSyntaxException("Could not find a valid token in the expression", startIdx);
         }

@@ -11,7 +11,6 @@ public class Main {
                 .add("user.type2", "ADMIN");
 
         var expressions = ExpressionScanner.scan(0, content);
-        System.out.println("Scanned content: " + expressions);
 
         var contentEvaluator = new ExpressionEvaluator(context, expressions, content);
         var evaluatedContent = contentEvaluator.evaluate();
