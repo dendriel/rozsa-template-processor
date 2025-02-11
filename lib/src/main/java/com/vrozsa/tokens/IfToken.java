@@ -3,13 +3,9 @@ package com.vrozsa.tokens;
 import com.vrozsa.scanners.AuxiliaryTokenScanner;
 import com.vrozsa.ContextHolder;
 import com.vrozsa.scanners.ConditionScanner;
-import com.vrozsa.scanners.ContextVariableScanner;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.UnexpectedTokenException;
 
-import java.util.Optional;
-
-import static com.vrozsa.tokens.TokenType.CONTEXT_VARIABLE;
 import static com.vrozsa.tokens.TokenType.ELSE;
 import static com.vrozsa.tokens.TokenType.THEN;
 import static java.util.Objects.isNull;
@@ -19,31 +15,34 @@ public class IfToken extends Token {
     private Token then;
     private Token orElse;
 
-    private String result;
-
     public IfToken(TokenInput input) {
-        super(myType(), input);
-    }
-
-    // TODO: will be changed
-    public static TokenType myType() {
-        return TokenType.IF;
+        super(TokenType.IF, input);
     }
 
     @Override
     public void read() {
-
         var content = content();
 
-        // Next element after the token
+        // Next valid char after the IF token
         var startIdx = tokenEndIdx() + 1;
-
         startIdx = Reader.nextValidCharIndex(startIdx, content);
 
-        // TODO: First can be an expression, a conditional or a context variable
+        var nextIdx = scanCondition(startIdx);
 
+        nextIdx = scanThenToken(nextIdx);
+
+        scanElseToken(nextIdx);
+    }
+
+    // TODO: The condition can be an expression, a conditional or a context variable
+    /**
+     * Scan the condition.
+     * @param startIdx start index in the content to perform the scan.
+     * @return the next index after the condition.
+     */
+    private int scanCondition(int startIdx) {
         // The first token is a condition
-        var conditionToken = ConditionScanner.instance().findNext(startIdx, content);
+        var conditionToken = ConditionScanner.instance().findNext(startIdx, content());
         if (conditionToken.isEmpty()) {
             throw new RuntimeException("Invalid syntax close to index " + startIdx);
         }
@@ -52,9 +51,16 @@ public class IfToken extends Token {
 
         // next char after the condition
         var nextIdx = condition.endIdx() + 1;
-        nextIdx = Reader.nextValidCharIndex(nextIdx, content);
+        return Reader.nextValidCharIndex(nextIdx, content());
+    }
 
-        var thenToken = AuxiliaryTokenScanner.instance().findNext(nextIdx, content);
+    /**
+     * Scans the mandatory THEN token.
+     * @param startIdx start index in the content to perform the scan.
+     * @return the next index after the condition.
+     */
+    private int scanThenToken(int startIdx) {
+        var thenToken = AuxiliaryTokenScanner.instance().findNext(startIdx, content());
         if (thenToken.isEmpty()) {
             throw new RuntimeException("Couldn't find the next token from if");
         }
@@ -62,24 +68,30 @@ public class IfToken extends Token {
         // Next should be a mandatory THEN token.
         then = thenToken.get();
         if (!THEN.equals(then.type())) {
-            throw new UnexpectedTokenException(THEN, then.type(), nextIdx);
+            throw new UnexpectedTokenException(THEN, then.type(), startIdx);
         }
 
         then.read();
         endIdx = then.endIdx();
 
-        nextIdx = then.endIdx() + 1;
-        nextIdx = Reader.nextValidCharIndex(nextIdx, content);
+        // next char after then expression
+        var nextIdx = then.endIdx() + 1;
+        return Reader.nextValidCharIndex(nextIdx, content());
+    }
 
-        // Scan for optional ELSE token.
-        var elseToken = AuxiliaryTokenScanner.instance().findNext(nextIdx, content);
+    /**
+     * Scan for the optional ELSE token.
+     * @param startIdx start index in the content to perform the scan.
+     */
+    private void scanElseToken(int startIdx) {
+        var elseToken = AuxiliaryTokenScanner.instance().findNext(startIdx, content());
         if (elseToken.isEmpty()) {
             return;
         }
 
         orElse = elseToken.get();
         if (!ELSE.equals(orElse.type())) {
-            throw new UnexpectedTokenException(ELSE, then.type(), nextIdx);
+            throw new UnexpectedTokenException(ELSE, then.type(), startIdx);
         }
 
         orElse.read();
@@ -92,7 +104,7 @@ public class IfToken extends Token {
         var isTrueCondition = (Boolean) condition.evaluate(context);
 
         if (isTrueCondition) {
-            result = (String) then.evaluate(context);
+            result = then.evaluate(context);
             return result;
         }
 
@@ -102,14 +114,14 @@ public class IfToken extends Token {
             return result;
         }
 
-        result = (String) orElse.evaluate(context);
+        result = orElse.evaluate(context);
 
         return result;
     }
 
     @Override
     public String getResult() {
-        return result;
+        return (String)result;
     }
 
     @Override
