@@ -1,13 +1,12 @@
 package com.vrozsa;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
 class FileReader {
 
-    String readFile(String fileName) {
+    static String readFile(String fileName) {
 
         var classLoader = Thread.currentThread().getContextClassLoader();
         try (var inputStream = classLoader.getResourceAsStream(fileName);

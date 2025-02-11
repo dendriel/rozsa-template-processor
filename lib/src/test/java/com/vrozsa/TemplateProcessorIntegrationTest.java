@@ -1,10 +1,13 @@
 package com.vrozsa;
 
-import com.vrozsa.scanners.ExpressionScanner;
+import org.junit.jupiter.api.Test;
 
-public class Main {
-    public static void main(String[] args) {
-        var content = FileReader.readFile("sample_template_1.yml").toCharArray();
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class TemplateProcessorIntegrationTest {
+
+    @Test
+    void testIfThenElseTokenScenarios() {
 
         var context = ContextHolder.create()
                 .add("valid_user", false)
@@ -19,10 +22,11 @@ public class Main {
                 .add("result_then", "result when then value is used")
                 .add("user.type2", "ADMIN");
 
-        var evaluatedContent = new TemplateProcessor().process(content, context);
+        var scenarioContent = FileReader.readFile("if_then_else_scenarios.yml");
+        var expectedResult = FileReader.readFile("if_then_else_scenarios_result.yml");
 
-        System.out.println("\n\n\n\nEvaluated Content:\n" + evaluatedContent);
+        var actualResult = new TemplateProcessor().process(scenarioContent, context);
 
+        assertEquals(expectedResult, actualResult);
     }
-
 }
