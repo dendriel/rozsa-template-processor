@@ -1,0 +1,17 @@
+
+data:
+  "raw_variable": "$user.type2",
+  "raw_variable2": $valid_user,
+  "userRole5": "${ IF foo EQUALS xpto_value THEN equality_result}",
+  "userRole6": "${ IF foo EQUALS bar THEN inequality_result}",
+  "userRole": "${ IF valid_user THEN user.type}",
+  "userRole2\x": "${IF invalid_user THEN user.type2 }",
+  "userRole3": "${IF valid_user THEN user.type}",
+  "userRole4": "${
+                  IF
+                    invalid_user
+                  THEN
+                    user.type2
+                  }",
+
+$valid_user and $user.type2

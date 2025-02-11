@@ -1,21 +1,15 @@
 package com.vrozsa.scanners;
 
 import com.vrozsa.CharacterChecker;
-import com.vrozsa.CharacterRange;
 import com.vrozsa.CharacterSingle;
 import com.vrozsa.Reader;
-import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.tokens.Condition;
 import com.vrozsa.tokens.ContextVariableToken;
-import com.vrozsa.tokens.IfToken;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
-import com.vrozsa.tokens.TokenType;
 
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class ConditionScanner extends AbstractTokenScanner {
 
@@ -40,7 +34,7 @@ public class ConditionScanner extends AbstractTokenScanner {
         var nextChar = content[startIdx];
         if (groupCharChecker.match(nextChar)) {
             var token = super.findNext(startIdx + 1, content);
-
+            // TODO
             return null;
         }
 
@@ -51,8 +45,19 @@ public class ConditionScanner extends AbstractTokenScanner {
 
         var targetToken = token.get();
         targetToken.read();
+        var nextIdx = targetToken.endIdx() + 1;
 
-        return Optional.of(new Condition(targetToken));
+        var optOperator = OperatorScanner.instance().findNext(nextIdx, content);
+
+        if (optOperator.isEmpty()) {
+            // return plain condition.
+            return Optional.of(new Condition(targetToken));
+        }
+
+        var operator = optOperator.get();
+        operator.read();
+
+        return Optional.of(new Condition(targetToken, operator));
     }
 
     @Override

@@ -39,12 +39,7 @@ public class IfToken extends Token {
 
         startIdx = Reader.nextValidCharIndex(startIdx, content);
 
-        // First can be an expression, a conditional or a context variable
-
-        // TODO: handle expressions
-//        if (ExpressionScanner.isNextTokenAnExpression(startIdx, input.content())) {
-//            Expression[] expression = ExpressionScanner.scan(startIdx, input.content());
-//        }
+        // TODO: First can be an expression, a conditional or a context variable
 
         var conditionToken = ConditionScanner.instance().findNext(startIdx, content);
         if (conditionToken.isEmpty()) {
@@ -71,22 +66,14 @@ public class IfToken extends Token {
         then.read();
 
         endIdx = then.endIdx();
-//
-//        // another expression that should not be a conditional
-//
-//        nextIdx = then.endIdx() + 1; // next char after the then token
-//        nextIdx = Reader.nextValidCharIndex(nextIdx, content);
-//
-//        nextToken = ContextVariableScanner.instance().findNext(startIdx, content());
-//        if (nextToken.isEmpty()) {
-//            throw new RuntimeException("Invalid syntax close to index " + startIdx);
-//        }
+
+        // TODO: else
     }
 
     @Override
     public Object evaluate(ContextHolder context) {
 
-        var isTrueCondition = condition.evaluate(context);
+        var isTrueCondition = (Boolean) condition.evaluate(context);
 
         if (isTrueCondition) {
             result = (String) then.evaluate(context);
@@ -94,7 +81,6 @@ public class IfToken extends Token {
         }
 
         if (isNull(orElse)) {
-
             // TODO: orElse
             result = "";
             return result;

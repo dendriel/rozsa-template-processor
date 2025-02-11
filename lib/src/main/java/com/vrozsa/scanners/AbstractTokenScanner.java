@@ -74,7 +74,11 @@ abstract class AbstractTokenScanner {
             return createToken(keyword, startIdx, endIdx, content);
         }
 
-        return Optional.of(new ContextVariableToken(keyword, new TokenInput(startIdx, endIdx, content)));
+        return createFallbackToken(keyword, new TokenInput(startIdx, endIdx, content));
+    }
+
+    protected Optional<? extends Token> createFallbackToken(String keyword, TokenInput tokenInput) {
+        return Optional.of(new ContextVariableToken(keyword, tokenInput));
     }
 
     protected boolean matchAnyToken(String name) {

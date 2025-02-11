@@ -1,6 +1,9 @@
 package com.vrozsa.tokens;
 
 import com.vrozsa.ContextHolder;
+import com.vrozsa.tokens.operators.OperatorToken;
+
+import static java.util.Objects.isNull;
 
 /**
  * Holds a token with condition semantics.
@@ -8,10 +11,10 @@ import com.vrozsa.ContextHolder;
 public class Condition extends Token {
     private final Token conditionToken;
 
-    public Condition(Token token) {
-        super(TokenType.CONDITION, token.input);
+    private final OperatorToken operator;
 
-        conditionToken = token;
+    public Condition(Token token) {
+        this(token, null);
     }
 
     @Override
@@ -19,13 +22,31 @@ public class Condition extends Token {
         conditionToken.read();
     }
 
+    public Condition(Token token, OperatorToken operator) {
+        super(TokenType.CONDITION, token.input);
+
+        conditionToken = token;
+        this.operator = operator;
+    }
+
     @Override
     public int endIdx() {
-        return conditionToken.endIdx();
+        if (isNull(operator)) {
+            return conditionToken.endIdx();
+        }
+
+        return operator.endIdx();
     }
 
     @Override
     public Boolean evaluate(ContextHolder context) {
-        return (Boolean) conditionToken.evaluate(context);
+        var leftSideResult = conditionToken.evaluate(context);
+
+        if (isNull(operator)) {
+            // maybe cast from string
+            return (Boolean) leftSideResult;
+        }
+
+        return operator.evaluate(context, leftSideResult);
     }
 }
