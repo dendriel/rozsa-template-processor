@@ -49,7 +49,7 @@ abstract class AbstractTokenScanner {
 
         var nextChar = content[nextIdx++];
         if (!startingCharsChecker.match(nextChar)) {
-            throw new InvalidSyntaxException(String.format("Invalid starting character with value %s", content[startIdx]), startIdx);
+            return handleInvalidStartingChar(startIdx, content);
         }
 
         var keywordBuilder = new StringBuilder();
@@ -75,6 +75,11 @@ abstract class AbstractTokenScanner {
         }
 
         return createFallbackToken(keyword, new TokenInput(startIdx, endIdx, content));
+    }
+
+    // Here it has a return to allow subclasses to return something instead of throwing.
+    protected Optional<Token> handleInvalidStartingChar(int idx, char[] content) {
+        throw new InvalidSyntaxException(String.format("Invalid starting character with value %s", content[idx]), idx);
     }
 
     protected Optional<? extends Token> createFallbackToken(String keyword, TokenInput tokenInput) {

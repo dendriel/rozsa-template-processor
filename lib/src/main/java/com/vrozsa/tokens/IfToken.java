@@ -10,6 +10,7 @@ import com.vrozsa.exceptions.UnexpectedTokenException;
 import java.util.Optional;
 
 import static com.vrozsa.tokens.TokenType.CONTEXT_VARIABLE;
+import static com.vrozsa.tokens.TokenType.ELSE;
 import static com.vrozsa.tokens.TokenType.THEN;
 import static java.util.Objects.isNull;
 
@@ -41,6 +42,7 @@ public class IfToken extends Token {
 
         // TODO: First can be an expression, a conditional or a context variable
 
+        // The first token is a condition
         var conditionToken = ConditionScanner.instance().findNext(startIdx, content);
         if (conditionToken.isEmpty()) {
             throw new RuntimeException("Invalid syntax close to index " + startIdx);
@@ -57,17 +59,31 @@ public class IfToken extends Token {
             throw new RuntimeException("Couldn't find the next token from if");
         }
 
-        // Next should be a THEN token.
+        // Next should be a mandatory THEN token.
         then = thenToken.get();
         if (!THEN.equals(then.type())) {
             throw new UnexpectedTokenException(THEN, then.type(), nextIdx);
         }
 
         then.read();
-
         endIdx = then.endIdx();
 
-        // TODO: else
+        nextIdx = then.endIdx() + 1;
+        nextIdx = Reader.nextValidCharIndex(nextIdx, content);
+
+        // Scan for optional ELSE token.
+        var elseToken = AuxiliaryTokenScanner.instance().findNext(nextIdx, content);
+        if (elseToken.isEmpty()) {
+            return;
+        }
+
+        orElse = elseToken.get();
+        if (!ELSE.equals(orElse.type())) {
+            throw new UnexpectedTokenException(ELSE, then.type(), nextIdx);
+        }
+
+        orElse.read();
+        endIdx = orElse.endIdx();
     }
 
     @Override
@@ -103,54 +119,5 @@ public class IfToken extends Token {
                 ", then=" + then +
                 ", orElse=" + orElse +
                 '}';
-    }
-
-    // TODO should be a member inner class?
-    public static class ThenToken extends Token {
-
-        private ContextVariableToken variable;
-
-        public ThenToken(TokenInput input) {
-            super(THEN, input);
-        }
-
-        /**
-         * THEN token should have just a context variable to provide the final value.
-         */
-        @Override
-        public void read() {
-            // Next element after the token
-            var startIdx = tokenEndIdx() + 1;
-
-            startIdx = Reader.nextValidCharIndex(startIdx, content());
-
-            var nextToken = ContextVariableScanner.instance().findNext(startIdx, content());
-            if (nextToken.isEmpty()) {
-                throw new RuntimeException("Invalid syntax close to index " + startIdx);
-            }
-
-            var token = nextToken.get();
-            if (token instanceof ContextVariableToken contextVariableToken) {
-                variable = contextVariableToken;
-            }
-            else {
-                throw new UnexpectedTokenException(CONTEXT_VARIABLE, token.type(), startIdx);
-            }
-
-            variable.read();
-            endIdx = variable.endIdx();
-        }
-
-        @Override
-        public Object evaluate(ContextHolder context) {
-            return variable.evaluate(context);
-        }
-
-        @Override
-        public String toString() {
-            return "ThenToken{" +
-                    "variable=" + variable +
-                    '}';
-        }
     }
 }

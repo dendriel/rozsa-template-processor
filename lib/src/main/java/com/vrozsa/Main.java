@@ -15,6 +15,8 @@ public class Main {
                 .add("bar", "xxx")
                 .add("equality_result", "values are equal")
                 .add("inequality_result", "this value wont show")
+                .add("fallback_result", "fallback result from else")
+                .add("result_then", "result when then value is used")
                 .add("user.type2", "ADMIN");
 
         var expressions = ExpressionScanner.scan(0, content);

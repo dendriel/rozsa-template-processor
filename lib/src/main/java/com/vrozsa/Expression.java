@@ -5,13 +5,11 @@ import com.vrozsa.exceptions.UnexpectedCharacterException;
 import com.vrozsa.scanners.MainTokenScanner;
 import com.vrozsa.tokens.Token;
 
-import java.util.Optional;
-
 import static com.vrozsa.Reader.assertValidIndex;
 
 public class Expression {
-    private static char START_BRACKET = '{';
-    private static char END_BRACKET = '}';
+    private static final char START_BRACKET = '{';
+    public static final char END_BRACKET = '}';
 
     private final int startIdx;
     private final char[] content;
