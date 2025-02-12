@@ -1,5 +1,5 @@
-rootProject.name = 'rozsa-language-processor'
+rootProject.name = 'rozsa-template-processor'
 include 'lib'
 
 
-project(':lib').name = 'rozsa-language-processor'
+project(':lib').name = 'rozsa-template-processor'
