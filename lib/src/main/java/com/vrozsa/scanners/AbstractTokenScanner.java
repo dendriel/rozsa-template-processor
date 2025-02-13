@@ -19,7 +19,9 @@ abstract class AbstractTokenScanner {
             new CharacterRange('A', 'Z'),
             new CharacterRange('a', 'z'),
             new CharacterRange('0', '9'),
+            new CharacterSingle('<'),
             new CharacterSingle('='),
+            new CharacterSingle('>'),
             new CharacterSingle('!')
     );
 

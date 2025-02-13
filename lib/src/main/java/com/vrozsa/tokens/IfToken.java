@@ -121,7 +121,7 @@ public class IfToken extends Token {
 
     @Override
     public String getResult() {
-        return (String)result;
+        return String.valueOf(result);
     }
 
     @Override

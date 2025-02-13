@@ -2,6 +2,9 @@ package com.vrozsa;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TemplateProcessorIntegrationTest {
@@ -16,7 +19,7 @@ class TemplateProcessorIntegrationTest {
     }
 
     @Test
-    void contextVariableScenarios() {
+    void testContextVariableScenarios() {
         var context = ContextHolder.create()
                 .add("valid_user", false)
                 .add("user.type", "GUEST")
@@ -42,5 +45,51 @@ class TemplateProcessorIntegrationTest {
                 .add("user.type2", "ADMIN");
 
         assertScenario(context, "if_then_else_scenarios.yml", "if_then_else_scenarios_result.yml");
+    }
+
+    @Test
+    void testConditionOperatorsScenarios() {
+        var context = ContextHolder.create()
+                .add("int01", 100)
+                .add("int02", 200)
+                .add("int_true_result", Integer.MAX_VALUE)
+                .add("int_false_result", Integer.MIN_VALUE)
+
+                .add("byte01", (byte) 10)
+                .add("byte02", (byte) 20)
+                .add("byte_true_result", Byte.MAX_VALUE)
+                .add("byte_false_result", Byte.MIN_VALUE)
+
+                .add("short01", (short) 1000)
+                .add("short02", (short) 2000)
+                .add("short_true_result", Short.MAX_VALUE)
+                .add("short_false_result", Short.MIN_VALUE)
+
+                .add("long01", 10000L)
+                .add("long02", 20000L)
+                .add("long_true_result", Long.MAX_VALUE)
+                .add("long_false_result", Long.MIN_VALUE)
+
+                .add("float01", 10.5f)
+                .add("float02", 20.5f)
+                .add("float_true_result", Float.MAX_VALUE)
+                .add("float_false_result", Float.MIN_VALUE)
+
+                .add("double01", 100.5)
+                .add("double02", 200.5)
+                .add("double_true_result", Double.MAX_VALUE)
+                .add("double_false_result", Double.MIN_VALUE)
+
+                .add("bigInteger01", new BigInteger("100000"))
+                .add("bigInteger02", new BigInteger("200000"))
+                .add("bigInteger_true_result", BigInteger.TEN.pow(100))
+                .add("bigInteger_false_result", BigInteger.ZERO)
+
+                .add("bigDecimal01", new BigDecimal("10.123"))
+                .add("bigDecimal02", new BigDecimal("20.456"))
+                .add("bigDecimal_true_result", new BigDecimal("9999999999.9999"))
+                .add("bigDecimal_false_result", BigDecimal.ZERO);
+
+        assertScenario(context, "condition_operators_scenarios.json", "condition_operators_result.json");
     }
 }
