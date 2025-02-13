@@ -6,9 +6,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TemplateProcessorIntegrationTest {
 
+    static void assertScenario(ContextHolder context, String scenarioFile, String resultFile) {
+        var scenarioContent = FileReader.readFile(scenarioFile);
+        var expectedResult = FileReader.readFile(resultFile);
+
+        var actualResult = new TemplateProcessor().process(scenarioContent, context);
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void contextVariableScenarios() {
+        var context = ContextHolder.create()
+                .add("valid_user", false)
+                .add("user.type", "GUEST")
+                .add("appName", "user-auth-app")
+                .add("user.type2", "ADMIN");
+
+        assertScenario(context, "context_variable_scenarios.txt", "context_variable_result.txt");
+    }
+
     @Test
     void testIfThenElseTokenScenarios() {
-
         var context = ContextHolder.create()
                 .add("valid_user", false)
                 .add("user.type", "GUEST")
@@ -22,11 +41,6 @@ class TemplateProcessorIntegrationTest {
                 .add("result_then", "result when then value is used")
                 .add("user.type2", "ADMIN");
 
-        var scenarioContent = FileReader.readFile("if_then_else_scenarios.yml");
-        var expectedResult = FileReader.readFile("if_then_else_scenarios_result.yml");
-
-        var actualResult = new TemplateProcessor().process(scenarioContent, context);
-
-        assertEquals(expectedResult, actualResult);
+        assertScenario(context, "if_then_else_scenarios.yml", "if_then_else_scenarios_result.yml");
     }
 }

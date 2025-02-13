@@ -1,0 +1,14 @@
+
+This is a plain template. Any text file type, be a json, yml, properties, etc. will be handled the same as a plain text
+file.
+
+plain_variable2: $valid_user,
+quoted_variable: "$user.type2",
+variable_in_a_phrase: "The $appName works via configuration",
+variable_in_a_expression: ${user.type}
+quoted_variable_in_a_expression: "${user.type}"
+variable_in_a_indented_expression: "${
+                                        user.type
+                                    }"
+
+$valid_user and $user.type2

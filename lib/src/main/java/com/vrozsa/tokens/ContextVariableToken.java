@@ -1,7 +1,7 @@
 package com.vrozsa.tokens;
 
 import com.vrozsa.ContextHolder;
-import com.vrozsa.exceptions.ContextVariableNotFoundException;
+import com.vrozsa.exceptions.MissingContextVariableException;
 
 import java.util.Optional;
 
@@ -28,7 +28,7 @@ public class ContextVariableToken extends Token {
         Optional<Object> optValue = context.get(variable);
 
         if (optValue.isEmpty()) {
-            throw new ContextVariableNotFoundException(variable);
+            throw new MissingContextVariableException(variable);
         }
 
         result = optValue.get();

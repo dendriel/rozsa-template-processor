@@ -1,0 +1,12 @@
+
+This is a plain template. Any text file type, be a json, yml, properties, etc. will be handled the same as a plain text
+file.
+
+plain_variable2: false,
+quoted_variable: "ADMIN",
+variable_in_a_phrase: "The user-auth-app works via configuration",
+variable_in_a_expression: GUEST
+quoted_variable_in_a_expression: "GUEST"
+variable_in_a_indented_expression: "GUEST"
+
+false and ADMIN

@@ -11,7 +11,6 @@ Additionally, the Template Processor can also be extended with **custom function
 java methods and with an entire new **vocabulary** to be used in the language expressions.
 
 
-
 # TODO
 
 - Handle conditions with combined expressions such as
@@ -39,3 +38,4 @@ java methods and with an entire new **vocabulary** to be used in the language ex
   - LIST OF
   - IS_PRESENT
   - IS_NOT_PRESENT
+- Create the functional documentation

@@ -1,5 +1,7 @@
 package com.vrozsa;
 
+import com.vrozsa.exceptions.MissingContextVariableException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -23,6 +25,9 @@ public class ContextHolder {
 
     // TODO: handle objects with nodes.
     public Optional<Object> get(String key) {
+        if (!context.containsKey(key)) {
+            return Optional.empty();
+        }
         return Optional.of(context.get(key));
     }
 }
