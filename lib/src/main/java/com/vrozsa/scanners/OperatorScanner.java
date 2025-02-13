@@ -12,15 +12,15 @@ import java.util.function.Function;
 
 import static com.vrozsa.tokens.TokenType.EQUALS;
 import static com.vrozsa.tokens.TokenType.GREATER_THAN;
+import static com.vrozsa.tokens.TokenType.GREATER_THAN_EQUALS;
 import static com.vrozsa.tokens.TokenType.NOT_EQUALS;
 
 public class OperatorScanner extends AbstractTokenScanner {
     private static final EnumMap<TokenType, Function<TokenInput, Token>> tokensCreator = new EnumMap<>(Map.ofEntries(
             Map.entry(EQUALS, EqualsToken::new),
             Map.entry(NOT_EQUALS, NotEqualsToken::new),
-            Map.entry(GREATER_THAN, GreaterThanToken::new)
-//            GREATER_THAN
-//            GREATER_THAN_EQUALS
+            Map.entry(GREATER_THAN, GreaterThanToken::new),
+            Map.entry(GREATER_THAN_EQUALS, GreaterThanEqualsToken::new)
 //            LESS_THAN
 //            LESS_THAN_EQUALS
     ));

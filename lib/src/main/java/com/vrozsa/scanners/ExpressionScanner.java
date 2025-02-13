@@ -51,8 +51,6 @@ public class ExpressionScanner {
 
             expression.read();
             expressions.add(expression);
-
-            System.out.println(String.format("Expression starts at %d, %d and ends at %d", expressionStartIdx, expression.startIdx(), expression.endIdx()));
         }
 
         return expressions;

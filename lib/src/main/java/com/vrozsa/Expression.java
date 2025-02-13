@@ -52,7 +52,7 @@ public class Expression {
         }
 
         token = next.get();
-        System.out.println("Token found: " + token);
+        //System.out.println("Token found: " + token);
 
         token.read();
 
