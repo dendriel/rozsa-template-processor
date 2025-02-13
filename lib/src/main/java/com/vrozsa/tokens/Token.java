@@ -28,7 +28,7 @@ public abstract class Token {
     }
 
     protected int tokenEndIdx() {
-        return startIdx() + type.name().length() - 1;
+        return startIdx() + input.keyword().length() - 1;
     }
 
     public int endIdx() {
@@ -41,6 +41,10 @@ public abstract class Token {
 
     public char[] content() {
         return input.content();
+    }
+
+    public String keyword() {
+        return input.keyword();
     }
 
     @Override

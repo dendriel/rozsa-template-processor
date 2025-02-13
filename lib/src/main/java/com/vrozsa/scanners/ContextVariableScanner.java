@@ -27,7 +27,7 @@ public class ContextVariableScanner extends AbstractTokenScanner {
     }
 
     @Override
-    protected Optional<Token> createToken(String name, int startIdx, int endIdx, char[] content) {
-        return Optional.of(new ContextVariableToken(name, new TokenInput(startIdx, endIdx, content)));
+    protected Optional<Token> createToken(String keyword, int startIdx, int endIdx, char[] content) {
+        return Optional.of(new ContextVariableToken(new TokenInput(keyword, startIdx, endIdx, content)));
     }
 }

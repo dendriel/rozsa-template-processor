@@ -1,6 +1,7 @@
 data:
-  "userRole5": "${ IF foo EQUALS xpto_value THEN result_then}",
-  "userRole6": "${ IF foo EQUALS bar THEN inequality_result ELSE fallback_result  }",
+  "if-then expression": "${ IF foo EQUALS xpto_value THEN result_then}",
+  "equals operator": "${ IF foo == xpto_value THEN result_then}",
+  "full if expression": "${ IF foo EQUALS bar THEN inequality_result ELSE fallback_result  }",
   "userRole": "${ IF valid_user THEN user.type}",
   "userRole2\x": "${IF invalid_user THEN user.type2 }",
   "userRole3": "${IF valid_user THEN user.type}",

@@ -1,6 +1,7 @@
 data:
-  "userRole5": "result when then value is used",
-  "userRole6": "fallback result from else",
+  "if-then expression": "result when then value is used",
+  "equals operator": "result when then value is used",
+  "full if expression": "fallback result from else",
   "userRole": "",
   "userRole2\x": "ADMIN",
   "userRole3": "",

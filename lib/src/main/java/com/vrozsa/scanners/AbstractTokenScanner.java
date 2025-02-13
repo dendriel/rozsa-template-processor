@@ -18,7 +18,8 @@ abstract class AbstractTokenScanner {
     private static final CharacterChecker startingCharsChecker = CharacterChecker.of(
             new CharacterRange('A', 'Z'),
             new CharacterRange('a', 'z'),
-            new CharacterRange('0', '9')
+            new CharacterRange('0', '9'),
+            new CharacterSingle('=')
     );
 
     private static final CharacterChecker middleCharsChecker = CharacterChecker.of(
@@ -27,7 +28,8 @@ abstract class AbstractTokenScanner {
             new CharacterRange('0', '9'),
             new CharacterSingle('.'),
             new CharacterSingle('_'),
-            new CharacterSingle('-')
+            new CharacterSingle('-'),
+            new CharacterSingle('=')
     );
 
     private final Map<TokenType, Function<TokenInput, Token>> tokensCreator;
@@ -74,7 +76,7 @@ abstract class AbstractTokenScanner {
             return createToken(keyword, startIdx, endIdx, content);
         }
 
-        return createFallbackToken(keyword, new TokenInput(startIdx, endIdx, content));
+        return createFallbackToken(keyword, new TokenInput(keyword, startIdx, endIdx, content));
     }
 
     // Here it has a return to allow subclasses to return something instead of throwing.
@@ -83,7 +85,7 @@ abstract class AbstractTokenScanner {
     }
 
     protected Optional<? extends Token> createFallbackToken(String keyword, TokenInput tokenInput) {
-        return Optional.of(new ContextVariableToken(keyword, tokenInput));
+        return Optional.of(new ContextVariableToken(tokenInput));
     }
 
     protected boolean matchAnyToken(String name) {
@@ -94,7 +96,7 @@ abstract class AbstractTokenScanner {
     protected Optional<Token> createToken(String name, int startIdx, int endIdx, char[] content) {
         for (var tokenType : tokensCreator.keySet()) {
             if (tokenType.match(name)) {
-                var newToken = tokensCreator.get(tokenType).apply(new TokenInput(startIdx, endIdx, content));
+                var newToken = tokensCreator.get(tokenType).apply(new TokenInput(name, startIdx, endIdx, content));
                 return Optional.of(newToken);
             }
         }
