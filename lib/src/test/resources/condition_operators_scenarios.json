@@ -138,6 +138,63 @@
       "bigDecimal_less_than_false": ${IF bigDecimal02 LESS_THAN bigDecimal01 THEN bigDecimal_true_result ELSE bigDecimal_false_result},
       "bigDecimal_less_than_symbol": ${IF bigDecimal01 < bigDecimal02 THEN bigDecimal_true_result},
       "bigDecimal_less_than_symbol_false": ${IF bigDecimal02 < bigDecimal01 THEN bigDecimal_true_result ELSE bigDecimal_false_result}
+    },
+    "less_than_equals_scenarios": {
+      "int_less_than_equals": ${IF int01 LESS_THAN_EQUALS int02 THEN int_true_result},
+      "int_less_than_equals_equal": ${IF int01 LESS_THAN_EQUALS int01 THEN int_true_result},
+      "int_less_than_equals_false": ${IF int02 LESS_THAN_EQUALS int01 THEN int_true_result ELSE int_false_result},
+      "int_less_than_equals_symbol": ${IF int01 <= int02 THEN int_true_result},
+      "int_less_than_equals_symbol_equal": ${IF int01 <= int01 THEN int_true_result},
+      "int_less_than_equals_symbol_false": ${IF int02 <= int01 THEN int_true_result ELSE int_false_result},
+
+      "byte_less_than_equals": ${IF byte01 LESS_THAN_EQUALS byte02 THEN byte_true_result},
+      "byte_less_than_equals_equal": ${IF byte01 LESS_THAN_EQUALS byte01 THEN byte_true_result},
+      "byte_less_than_equals_false": ${IF byte02 LESS_THAN_EQUALS byte01 THEN byte_true_result ELSE byte_false_result},
+      "byte_less_than_equals_symbol": ${IF byte01 <= byte02 THEN byte_true_result},
+      "byte_less_than_equals_symbol_equal": ${IF byte01 <= byte01 THEN byte_true_result},
+      "byte_less_than_equals_symbol_false": ${IF byte02 <= byte01 THEN byte_true_result ELSE byte_false_result},
+
+      "short_less_than_equals": ${IF short01 LESS_THAN_EQUALS short02 THEN short_true_result},
+      "short_less_than_equals_equal": ${IF short01 LESS_THAN_EQUALS short01 THEN short_true_result},
+      "short_less_than_equals_false": ${IF short02 LESS_THAN_EQUALS short01 THEN short_true_result ELSE short_false_result},
+      "short_less_than_equals_symbol": ${IF short01 <= short02 THEN short_true_result},
+      "short_less_than_equals_symbol_equal": ${IF short01 <= short01 THEN short_true_result},
+      "short_less_than_equals_symbol_false": ${IF short02 <= short01 THEN short_true_result ELSE short_false_result},
+
+      "long_less_than_equals": ${IF long01 LESS_THAN_EQUALS long02 THEN long_true_result},
+      "long_less_than_equals_equal": ${IF long01 LESS_THAN_EQUALS long01 THEN long_true_result},
+      "long_less_than_equals_false": ${IF long02 LESS_THAN_EQUALS long01 THEN long_true_result ELSE long_false_result},
+      "long_less_than_equals_symbol": ${IF long01 <= long02 THEN long_true_result},
+      "long_less_than_equals_symbol_equal": ${IF long01 <= long01 THEN long_true_result},
+      "long_less_than_equals_symbol_false": ${IF long02 <= long01 THEN long_true_result ELSE long_false_result},
+
+      "float_less_than_equals": ${IF float01 LESS_THAN_EQUALS float02 THEN float_true_result},
+      "float_less_than_equals_equal": ${IF float01 LESS_THAN_EQUALS float01 THEN float_true_result},
+      "float_less_than_equals_false": ${IF float02 LESS_THAN_EQUALS float01 THEN float_true_result ELSE float_false_result},
+      "float_less_than_equals_symbol": ${IF float01 <= float02 THEN float_true_result},
+      "float_less_than_equals_symbol_equal": ${IF float01 <= float01 THEN float_true_result},
+      "float_less_than_equals_symbol_false": ${IF float02 <= float01 THEN float_true_result ELSE float_false_result},
+
+      "double_less_than_equals": ${IF double01 LESS_THAN_EQUALS double02 THEN double_true_result},
+      "double_less_than_equals_equal": ${IF double01 LESS_THAN_EQUALS double01 THEN double_true_result},
+      "double_less_than_equals_false": ${IF double02 LESS_THAN_EQUALS double01 THEN double_true_result ELSE double_false_result},
+      "double_less_than_equals_symbol": ${IF double01 <= double02 THEN double_true_result},
+      "double_less_than_equals_symbol_equal": ${IF double01 <= double01 THEN double_true_result},
+      "double_less_than_equals_symbol_false": ${IF double02 <= double01 THEN double_true_result ELSE double_false_result},
+
+      "bigInteger_less_than_equals": ${IF bigInteger01 LESS_THAN_EQUALS bigInteger02 THEN bigInteger_true_result},
+      "bigInteger_less_than_equals_equal": ${IF bigInteger01 LESS_THAN_EQUALS bigInteger01 THEN bigInteger_true_result},
+      "bigInteger_less_than_equals_false": ${IF bigInteger02 LESS_THAN_EQUALS bigInteger01 THEN bigInteger_true_result ELSE bigInteger_false_result},
+      "bigInteger_less_than_equals_symbol": ${IF bigInteger01 <= bigInteger02 THEN bigInteger_true_result},
+      "bigInteger_less_than_equals_symbol_equal": ${IF bigInteger01 <= bigInteger01 THEN bigInteger_true_result},
+      "bigInteger_less_than_equals_symbol_false": ${IF bigInteger02 <= bigInteger01 THEN bigInteger_true_result ELSE bigInteger_false_result},
+
+      "bigDecimal_less_than_equals": ${IF bigDecimal01 LESS_THAN_EQUALS bigDecimal02 THEN bigDecimal_true_result},
+      "bigDecimal_less_than_equals_equal": ${IF bigDecimal01 LESS_THAN_EQUALS bigDecimal01 THEN bigDecimal_true_result},
+      "bigDecimal_less_than_equals_false": ${IF bigDecimal02 LESS_THAN_EQUALS bigDecimal01 THEN bigDecimal_true_result ELSE bigDecimal_false_result},
+      "bigDecimal_less_than_equals_symbol": ${IF bigDecimal01 <= bigDecimal02 THEN bigDecimal_true_result},
+      "bigDecimal_less_than_equals_symbol_equal": ${IF bigDecimal01 <= bigDecimal01 THEN bigDecimal_true_result},
+      "bigDecimal_less_than_equals_symbol_false": ${IF bigDecimal02 <= bigDecimal01 THEN bigDecimal_true_result ELSE bigDecimal_false_result}
     }
   }
 }

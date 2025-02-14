@@ -8,8 +8,8 @@ import com.vrozsa.tokens.TokenType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-abstract class NumericOperatorToken extends OperatorToken {
-    NumericOperatorToken(TokenType type, TokenInput input) {
+abstract class AbstractNumericOperatorToken extends OperatorToken {
+    AbstractNumericOperatorToken(TokenType type, TokenInput input) {
         super(type, input);
     }
 

@@ -3,7 +3,7 @@ package com.vrozsa.tokens.operators;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
-public class LessThanToken extends NumericOperatorToken {
+public class LessThanToken extends AbstractNumericOperatorToken {
     public LessThanToken(TokenInput input) {
         super(TokenType.LESS_THAN, input);
     }

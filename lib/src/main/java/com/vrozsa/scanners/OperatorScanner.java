@@ -7,6 +7,7 @@ import com.vrozsa.tokens.operators.EqualsToken;
 import com.vrozsa.tokens.operators.GreaterThanToken;
 import com.vrozsa.tokens.operators.GreaterThanEqualsToken;
 import com.vrozsa.tokens.operators.LessThanToken;
+import com.vrozsa.tokens.operators.LessThanEqualsToken;
 import com.vrozsa.tokens.operators.NotEqualsToken;
 import com.vrozsa.tokens.operators.OperatorToken;
 
@@ -23,9 +24,8 @@ public class OperatorScanner extends AbstractTokenScanner {
             Map.entry(NOT_EQUALS, NotEqualsToken::new),
             Map.entry(GREATER_THAN, GreaterThanToken::new),
             Map.entry(GREATER_THAN_EQUALS, GreaterThanEqualsToken::new),
-            Map.entry(LESS_THAN, LessThanToken::new)
-//            LESS_THAN
-//            LESS_THAN_EQUALS
+            Map.entry(LESS_THAN, LessThanToken::new),
+            Map.entry(LESS_THAN_EQUALS, LessThanEqualsToken::new)
     ));
 
     private static final OperatorScanner INSTANCE = new OperatorScanner();
