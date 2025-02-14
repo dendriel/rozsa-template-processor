@@ -97,6 +97,47 @@
       "bigDecimal_greater_than_equals_symbol": 9999999999.9999,
       "bigDecimal_greater_than_equals_symbol_equal": 9999999999.9999,
       "bigDecimal_greater_than_equals_symbol_false": 0
+    },
+    "less_than_scenarios": {
+      "int_less_than": 2147483647,
+      "int_less_than_false": -2147483648,
+      "int_less_than_symbol": 2147483647,
+      "int_less_than_symbol_false": -2147483648,
+
+      "byte_less_than": 127,
+      "byte_less_than_false": -128,
+      "byte_less_than_symbol": 127,
+      "byte_less_than_symbol_false": -128,
+
+      "short_less_than": 32767,
+      "short_less_than_false": -32768,
+      "short_less_than_symbol": 32767,
+      "short_less_than_symbol_false": -32768,
+
+      "long_less_than": 9223372036854775807,
+      "long_less_than_false": -9223372036854775808,
+      "long_less_than_symbol": 9223372036854775807,
+      "long_less_than_symbol_false": -9223372036854775808,
+
+      "float_less_than": 3.4028235E38,
+      "float_less_than_false": 1.4E-45,
+      "float_less_than_symbol": 3.4028235E38,
+      "float_less_than_symbol_false": 1.4E-45,
+
+      "double_less_than": 1.7976931348623157E308,
+      "double_less_than_false": 4.9E-324,
+      "double_less_than_symbol": 1.7976931348623157E308,
+      "double_less_than_symbol_false": 4.9E-324,
+
+      "bigInteger_less_than": 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+      "bigInteger_less_than_false": 0,
+      "bigInteger_less_than_symbol": 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+      "bigInteger_less_than_symbol_false": 0,
+
+      "bigDecimal_less_than": 9999999999.9999,
+      "bigDecimal_less_than_false": 0,
+      "bigDecimal_less_than_symbol": 9999999999.9999,
+      "bigDecimal_less_than_symbol_false": 0
     }
   }
 }
