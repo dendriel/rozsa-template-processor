@@ -1,5 +1,7 @@
-package com.vrozsa;
+package com.vrozsa.tokens;
 
+import com.vrozsa.ContextHolder;
+import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.exceptions.UnexpectedCharacterException;
 import com.vrozsa.scanners.MainTokenScanner;

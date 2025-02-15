@@ -12,8 +12,50 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 
 # Features
 
+- Expressions
+- Inner Expressions
 - Conditionals
 - Operators
+- Functions
+- Context Variables
+
+## Expressions
+
+Expressions are the way we declare that a part of a template is dynamic and where the language tokens can be used.
+
+Expressions are declared inside the `${}` guards. For instance, a dynamic properties .yml can be declared as:
+
+```yml
+data:
+  "propertyA": "${ IF UPPERCASE(foo) EQUALS bar THEN xpto }"
+  "propertyB": "satic value"
+  "propertyC": 123
+```
+
+Given a context containing the following values (foo=abc, bar=ABC, xpto=dummy_value), after processing the resulting
+properties content will be:
+
+```yml
+data:
+  "propertyA": "dummy_value"
+  "propertyB": "satic value"
+  "propertyC": 123
+```
+
+### Inner Expressions
+
+Inner Expressions empowers the language by allowing nesting expressions.
+
+You can use it to carry more complex transformations to provide a value to an outer expression. For instance:
+
+- `${IF ${IF true_var THEN inner_then_val ELSE inner_else_val} == target_val THEN success_val ELSE failure_val}`
+
+In the above example, the left side value of the outer IF condition is an inner expression.
+- `${IF true_var THEN inner_then_val ELSE inner_else_val}`
+
+It will be evaluated first to provide a value to be used in the outer if evaluation.
+
+- `${IF inner_expression_result == target_val THEN success_val ELSE failure_val}`
 
 ## Conditionals
 
@@ -44,7 +86,7 @@ Functions are transformations over the context variables.
 
 Context variables allow the template to refer to dynamic context passed to the processor in runtime.
 
-The context variables are the main source of dynamization in the template and you can refer to them stand-alone or use
+The context variables are the main source of dynamization in the template, and you can refer to them stand-alone or use
 inside expressions.
 
 ### Stand-alone usage
@@ -100,5 +142,8 @@ and the expected result after processing.
   - RENDER AS ON SEPARATOR
   - LIST OF
   - NOT (for reversing conditions result)
+  - CONCAT
 - Create the functional documentation
-- Remove escape characters.
+- Allow navigating context variables
+- Remove escape characters
+- 

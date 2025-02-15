@@ -1,6 +1,6 @@
 package com.vrozsa.scanners;
 
-import com.vrozsa.Expression;
+import com.vrozsa.tokens.Expression;
 import com.vrozsa.Reader;
 import com.vrozsa.tokens.Token;
 

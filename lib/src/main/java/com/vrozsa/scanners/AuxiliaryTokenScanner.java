@@ -3,7 +3,6 @@ package com.vrozsa.scanners;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.conditionals.ElseToken;
 import com.vrozsa.tokens.conditionals.ThenToken;
-import com.vrozsa.tokens.AbstractToken;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static com.vrozsa.Expression.END_BRACKET;
+import static com.vrozsa.tokens.Expression.END_BRACKET;
 import static com.vrozsa.tokens.TokenType.ELSE;
 import static com.vrozsa.tokens.TokenType.THEN;
 

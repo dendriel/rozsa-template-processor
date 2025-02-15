@@ -2,16 +2,12 @@ package com.vrozsa.scanners;
 
 import com.vrozsa.CharacterChecker;
 import com.vrozsa.CharacterSingle;
-import com.vrozsa.Expression;
 import com.vrozsa.Reader;
 import com.vrozsa.tokens.Condition;
-import com.vrozsa.tokens.AbstractToken;
 import com.vrozsa.tokens.Token;
 
 import java.util.Map;
 import java.util.Optional;
-
-import static java.util.Objects.isNull;
 
 
 public class ConditionScanner extends AbstractTokenScanner {

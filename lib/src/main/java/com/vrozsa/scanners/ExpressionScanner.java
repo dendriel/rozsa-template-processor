@@ -2,7 +2,7 @@ package com.vrozsa.scanners;
 
 import com.vrozsa.CharacterChecker;
 import com.vrozsa.CharacterSingle;
-import com.vrozsa.Expression;
+import com.vrozsa.tokens.Expression;
 import com.vrozsa.Reader;
 
 import java.util.ArrayList;

@@ -1,12 +1,12 @@
 data:
-  "if-then expression": "${ IF foo EQUALS xpto_value THEN result_then}",
-  "equals symbol operator": "${ IF foo == xpto_value THEN result_then}",
-  "full if expression": "${ IF foo EQUALS bar THEN inequality_result ELSE fallback_result  }",
-  "not equals operator": "${ IF foo NOT_EQUALS bar THEN result_then }",
-  "not equals symbol operator": "${ IF foo != bar THEN result_then ELSE fallback_result }",
-  "userRole": "${ IF valid_user THEN user.type}",
-  "userRole2\x": "${IF invalid_user THEN user.type2 }",
-  "userRole3": "${IF valid_user THEN user.type}",
+  "if-then expression": "${ IF foo EQUALS xpto_value THEN result_then}"
+  "equals symbol operator": "${ IF foo == xpto_value THEN result_then}"
+  "full if expression": "${ IF foo EQUALS bar THEN inequality_result ELSE fallback_result  }"
+  "not equals operator": "${ IF foo NOT_EQUALS bar THEN result_then }"
+  "not equals symbol operator": "${ IF foo != bar THEN result_then ELSE fallback_result }"
+  "userRole": "${ IF valid_user THEN user.type}"
+  "userRole2\x": "${IF invalid_user THEN user.type2 }"
+  "userRole3": "${IF valid_user THEN user.type}"
   "userRole4": "${
                   IF
                     invalid_user
