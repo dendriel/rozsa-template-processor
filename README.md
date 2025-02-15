@@ -10,6 +10,59 @@ specific configuration fields.
 Additionally, the Template Processor can also be extended with **custom functions** which will trigger the registered
 java methods and with an entire new **vocabulary** to be used in the language expressions.
 
+# Features
+
+- Conditionals
+- Operators
+
+## Conditionals
+
+- IF - ELSE - THEN
+
+## Operators
+
+- EQUALS, ==
+- NOT EQUALS, !=
+- GREATER_THAN, >
+- GREATER_THAN_EQUALS, >=
+- LESS_THAN, <
+- LESS_THAN_EQUALS, <=
+
+## Context Variables
+
+Context variables allow the template to refer to dynamic context passed to the processor in runtime.
+
+The context variables are the main source of dynamization in the template and you can refer to them stand-alone or use
+inside expressions.
+
+### Stand-alone usage
+
+```
+$variable
+```
+
+
+### Inside expressions
+
+```
+${variable}
+${IF condition_var THEN resulting_var ELSE another_var}
+```
+
+### Variable Navigation
+
+It is also to use variables to navigate inside complex objects. In this case, just chain the variable properties using
+a dot `.`:
+
+```
+$variable.propA / ${variable.propA}
+$variable.propA.innerProp / ${variable.propA.innerProp}
+```
+
+# Examples
+
+Check out the `resources` package from the testing module. There are all valid usage of the language inside templates
+and the expected result after processing.
 
 # TODO
 
@@ -23,7 +76,6 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 - Add a testing feature out of the box
   - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException
   - new TemplateProcessor().assertProcess("template.json", "expected_result.json")
-- Add missing operators
 - Add missing language tokens
   - SWITCH CASE THEN ELSE
   - FILTER AS ON
@@ -38,4 +90,5 @@ java methods and with an entire new **vocabulary** to be used in the language ex
   - LIST OF
   - IS_PRESENT
   - IS_NOT_PRESENT
+  - NOT (for reversing conditions result)
 - Create the functional documentation
