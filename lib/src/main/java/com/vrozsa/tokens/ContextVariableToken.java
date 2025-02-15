@@ -1,11 +1,10 @@
 package com.vrozsa.tokens;
 
 import com.vrozsa.ContextHolder;
-import com.vrozsa.exceptions.MissingContextVariableException;
 
 import java.util.Optional;
 
-public class ContextVariableToken extends Token {
+public class ContextVariableToken extends AbstractToken {
 
     /**
      * Creates a new context variable token containing the name of the variable.

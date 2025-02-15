@@ -1,0 +1,15 @@
+${IF ${IF true_var THEN inner_then_val ELSE inner_else_val} == target_val THEN success_val ELSE failure_val}
+${IF
+    ${IF
+        ${ IF IS_PRESENT(target_val) THEN true_var }
+    THEN
+        inner_then_val
+    ELSE
+        inner_else_val
+    }
+    EQUALS target_val
+THEN
+    success_val
+ELSE
+    failure_val
+}

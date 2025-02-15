@@ -6,7 +6,7 @@ import com.vrozsa.CharacterSingle;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.tokens.ContextVariableToken;
-import com.vrozsa.tokens.Token;
+import com.vrozsa.tokens.AbstractToken;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
@@ -35,9 +35,9 @@ abstract class AbstractTokenScanner {
             new CharacterSingle('=')
     );
 
-    private final Map<TokenType, Function<TokenInput, Token>> tokensCreator;
+    private final Map<TokenType, Function<TokenInput, AbstractToken>> tokensCreator;
 
-    AbstractTokenScanner(Map<TokenType, Function<TokenInput, Token>> tokensCreator) {
+    AbstractTokenScanner(Map<TokenType, Function<TokenInput, AbstractToken>> tokensCreator) {
         this.tokensCreator = tokensCreator;
     }
 
@@ -47,7 +47,7 @@ abstract class AbstractTokenScanner {
      * @param content content to be scanned.
      * @return the next token if found.
      */
-    public Optional<? extends Token> findNext(final int idx, final char[] content) {
+    public Optional<? extends AbstractToken> findNext(final int idx, final char[] content) {
         var startIdx = Reader.nextValidCharIndex(idx, content);
 
         var nextIdx = startIdx;
@@ -83,11 +83,11 @@ abstract class AbstractTokenScanner {
     }
 
     // Here it has a return to allow subclasses to return something instead of throwing.
-    protected Optional<Token> handleInvalidStartingChar(int idx, char[] content) {
+    protected Optional<AbstractToken> handleInvalidStartingChar(int idx, char[] content) {
         throw new InvalidSyntaxException(String.format("Invalid starting character with value %s", content[idx]), idx);
     }
 
-    protected Optional<? extends Token> createFallbackToken(String keyword, TokenInput tokenInput) {
+    protected Optional<? extends AbstractToken> createFallbackToken(String keyword, TokenInput tokenInput) {
         return Optional.of(new ContextVariableToken(tokenInput));
     }
 
@@ -96,7 +96,7 @@ abstract class AbstractTokenScanner {
                 .anyMatch(k -> k.match(name));
     }
 
-    protected Optional<Token> createToken(String name, int startIdx, int endIdx, char[] content) {
+    protected Optional<AbstractToken> createToken(String name, int startIdx, int endIdx, char[] content) {
         for (var tokenType : tokensCreator.keySet()) {
             if (tokenType.match(name)) {
                 var newToken = tokensCreator.get(tokenType).apply(new TokenInput(name, startIdx, endIdx, content));

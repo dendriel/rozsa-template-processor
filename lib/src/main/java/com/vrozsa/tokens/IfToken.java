@@ -10,10 +10,10 @@ import static com.vrozsa.tokens.TokenType.ELSE;
 import static com.vrozsa.tokens.TokenType.THEN;
 import static java.util.Objects.isNull;
 
-public class IfToken extends Token {
+public class IfToken extends AbstractToken {
     private Condition condition;
-    private Token then;
-    private Token orElse;
+    private AbstractToken then;
+    private AbstractToken orElse;
 
     public IfToken(TokenInput input) {
         super(TokenType.IF, input);

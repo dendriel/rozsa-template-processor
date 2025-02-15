@@ -82,6 +82,9 @@ and the expected result after processing.
   - IF x OR y OR z THEN ...
   - IF ((x >= y) AND (x <= z)) OR k THEN ...
   - Use the () as grouping tool, otherwise the expression will evaluate from left to right (not the ANDs first then the ORs)
+- Allow to compare against literals
+  - Maybe add a function token LITERAL/LIT() which provides the value. This would be easier bc it reuses the function
+  - tokens flows. Otherwise, we will have to start to handle literals everywhere
 - Handle inner-expressions ${IF ${inner expression} THEN ...}
 - Handle stand-alone expressions and provide examples
 - Add a testing feature out of the box
@@ -99,3 +102,4 @@ and the expected result after processing.
   - LIST OF
   - NOT (for reversing conditions result)
 - Create the functional documentation
+- Remove escape characters.

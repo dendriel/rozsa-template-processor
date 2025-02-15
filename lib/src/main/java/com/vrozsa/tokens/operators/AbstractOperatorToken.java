@@ -5,12 +5,12 @@ import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidOperationException;
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.scanners.FunctionTokenScanner;
-import com.vrozsa.tokens.Token;
+import com.vrozsa.tokens.AbstractToken;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
-public abstract class AbstractOperatorToken extends Token {
-    protected Token rightSideToken;
+public abstract class AbstractOperatorToken extends AbstractToken {
+    protected AbstractToken rightSideToken;
 
     protected AbstractOperatorToken(TokenType type, TokenInput input) {
         super(type, input);

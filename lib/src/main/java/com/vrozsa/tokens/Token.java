@@ -2,59 +2,33 @@ package com.vrozsa.tokens;
 
 import com.vrozsa.ContextHolder;
 
-public abstract class Token {
-    private final TokenType type;
-    protected final TokenInput input;
+public interface Token {
 
-    protected int endIdx;
+    /**
+     * Read the content as expected by this token.
+     */
+    void read();
 
-    protected Object result;
+    /**
+     * Get the last valid index for the whole expression related to this token.
+     * <p>
+     *     For instance, if this token represents an IF-ELSE-THEN condition, the endIdx will be the index of the last
+     *     character of the THEN token companion value.
+     * </p>
+     * @return the ending index of this token.
+     */
+    int endIdx();
 
-    protected Token(TokenType type, TokenInput input) {
-        this.type = type;
-        this.input = input;
-    }
+    /**
+     * Read the input of this token.
+     * @return the token input.
+     */
+    TokenInput input();
 
-    public abstract void read();
-
-    public abstract Object evaluate(ContextHolder context);
-
-    public Object getResult() {
-        return result;
-    }
-
-    public int startIdx() {
-        return input.startIdx();
-    }
-
-    protected int tokenEndIdx() {
-        return startIdx() + input.keyword().length() - 1;
-    }
-
-    public int endIdx() {
-        return endIdx;
-    }
-
-    public TokenType type() {
-        return type;
-    }
-
-    public char[] content() {
-        return input.content();
-    }
-
-    public String keyword() {
-        return input.keyword();
-    }
-
-    @Override
-    public String toString() {
-        return "Token{" +
-                " type=" + type +
-                //" name=" + String.valueOf(input.content()).substring(input.startIdx(), input.endIdx()+1) +
-                " name=" + String.valueOf(input.content(), input.startIdx(), input.endIdx() + 1 - input.startIdx()) +
-                " startIdx=" + input.startIdx() +
-                " endIdx=" + input.endIdx() +
-                " }";
-    }
+    /**
+     * Evaluate the read token expression.
+     * @param context the context to be used in the evaluation.
+     * @return the evaluation result.
+     */
+    Object evaluate(ContextHolder context);
 }

@@ -13,7 +13,9 @@ import java.util.List;
  */
 public class ExpressionScanner {
 
-    private static final Character EXPRESSION_TOKEN = '$';
+    private static final CharacterChecker expressionCharChecker = CharacterChecker.of(
+            new CharacterSingle('$')
+    );
     private static final Character ESCAPE_TOKEN = '\\';
 
     private static final CharacterChecker escapeCharChecker = CharacterChecker.of(
@@ -42,7 +44,7 @@ public class ExpressionScanner {
                 continue;
             }
 
-            if (!EXPRESSION_TOKEN.equals(nextChar)) {
+            if (!expressionCharChecker.match(nextChar)) {
                 continue;
             }
 
@@ -51,6 +53,9 @@ public class ExpressionScanner {
 
             expression.read();
             expressions.add(expression);
+
+            // Skip the whole expression body.
+            i += expression.endIdx();
         }
 
         return expressions;
@@ -58,13 +63,6 @@ public class ExpressionScanner {
 
     public static boolean isNextTokenAnExpression(final int idx, final char[] content) {
         var nextChar = content[idx];
-
-        if (ESCAPE_TOKEN.equals(nextChar)) {
-            // If the next char is the escape character, the next token is not an expression.
-            System.out.println("Found escaped token \\" + content[idx] + " at " + (idx - 1));
-            return false;
-        }
-
-        return EXPRESSION_TOKEN.equals(nextChar);
+        return expressionCharChecker.match(nextChar);
     }
 }

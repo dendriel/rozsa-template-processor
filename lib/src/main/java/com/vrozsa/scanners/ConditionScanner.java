@@ -2,11 +2,16 @@ package com.vrozsa.scanners;
 
 import com.vrozsa.CharacterChecker;
 import com.vrozsa.CharacterSingle;
+import com.vrozsa.Expression;
 import com.vrozsa.Reader;
 import com.vrozsa.tokens.Condition;
+import com.vrozsa.tokens.AbstractToken;
+import com.vrozsa.tokens.Token;
 
 import java.util.Map;
 import java.util.Optional;
+
+import static java.util.Objects.isNull;
 
 
 public class ConditionScanner extends AbstractTokenScanner {
@@ -29,19 +34,30 @@ public class ConditionScanner extends AbstractTokenScanner {
     public Optional<Condition> findNext(final int idx, final char[] content) {
         var startIdx = Reader.nextValidCharIndex(idx, content);
 
-        var nextChar = content[startIdx];
-        if (groupCharChecker.match(nextChar)) {
-            var token = super.findNext(startIdx + 1, content);
-            // TODO
-            return null;
+//        var nextChar = content[startIdx];
+//        if (groupCharChecker.match(nextChar)) {
+//            var token = super.findNext(startIdx + 1, content);
+//            // TODO
+//            return null;
+//        }
+
+        Token targetToken = null;
+
+        if (ExpressionScanner.isNextTokenAnExpression(startIdx, content)) {
+            var expressionStartIdx = startIdx + 1;
+            targetToken = new Expression(expressionStartIdx, content);
+        }
+        else {
+            var token = FunctionTokenScanner.instance().findNext(idx, content);
+            if (token.isPresent()) {
+                targetToken = token.get();
+            }
         }
 
-        var token = FunctionTokenScanner.instance().findNext(idx, content);
-        if (token.isEmpty()) {
+        if (isNull(targetToken)) {
             return Optional.empty();
         }
 
-        var targetToken = token.get();
         targetToken.read();
         var nextIdx = targetToken.endIdx() + 1;
 

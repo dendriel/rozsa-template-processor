@@ -2,7 +2,7 @@ package com.vrozsa.scanners;
 
 import com.vrozsa.tokens.IfToken;
 import com.vrozsa.tokens.SwitchToken;
-import com.vrozsa.tokens.Token;
+import com.vrozsa.tokens.AbstractToken;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
@@ -14,7 +14,7 @@ import static com.vrozsa.tokens.TokenType.IF;
 import static com.vrozsa.tokens.TokenType.SWITCH;
 
 public class MainTokenScanner extends AbstractTokenScanner {
-    private static final EnumMap<TokenType, Function<TokenInput, Token>> tokensCreator = new EnumMap<>(Map.ofEntries(
+    private static final EnumMap<TokenType, Function<TokenInput, AbstractToken>> tokensCreator = new EnumMap<>(Map.ofEntries(
             Map.entry(IF, IfToken::new),
             Map.entry(SWITCH, SwitchToken::new)
 //    FILTER,

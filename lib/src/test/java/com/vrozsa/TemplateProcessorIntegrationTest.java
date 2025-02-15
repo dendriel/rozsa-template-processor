@@ -115,4 +115,18 @@ class TemplateProcessorIntegrationTest {
 
         assertScenario(context, "empty_char_handling_scenarios.properties", "empty_char_handling_result.properties");
     }
+
+    @Test
+    void testInnerExpressionScenarios() {
+        var context = ContextHolder.create()
+                .add("true_var", true)
+                .add("inner_then_val", "inner then result")
+                .add("inner_else_val", "inner else result")
+                .add("target_val", "inner then result")
+                .add("success_val", "SUCCESS")
+                .add("failure_val", "FAILURE");
+
+        assertScenario(context, "inner_expression_scenarios.txt", "inner_expression_result.txt");
+
+    }
 }

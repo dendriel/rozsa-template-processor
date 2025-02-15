@@ -2,7 +2,7 @@ package com.vrozsa.tokens;
 
 import com.vrozsa.ContextHolder;
 
-public class SwitchToken extends Token {
+public class SwitchToken extends AbstractToken {
     public SwitchToken(TokenInput input) {
         super(myType(), input);
     }

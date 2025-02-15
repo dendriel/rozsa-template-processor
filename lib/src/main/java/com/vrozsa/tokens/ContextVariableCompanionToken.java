@@ -10,7 +10,7 @@ import static com.vrozsa.tokens.TokenType.CONTEXT_VARIABLE;
 /**
  * Companion tokens should have just a context variable to provide the final value.
  */
-public abstract class ContextVariableCompanionToken extends Token {
+public abstract class ContextVariableCompanionToken extends AbstractToken {
     protected ContextVariableToken variable;
 
     protected ContextVariableCompanionToken(TokenType type, TokenInput input) {

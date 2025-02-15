@@ -8,7 +8,7 @@ import static java.util.Objects.isNull;
 /**
  * Holds a token with condition semantics.
  */
-public class Condition extends Token {
+public class Condition extends AbstractToken {
     private final Token conditionToken;
 
     private final AbstractOperatorToken operator;
@@ -23,7 +23,7 @@ public class Condition extends Token {
     }
 
     public Condition(Token token, AbstractOperatorToken operator) {
-        super(TokenType.CONDITION, token.input);
+        super(TokenType.CONDITION, token.input());
 
         conditionToken = token;
         this.operator = operator;
@@ -36,6 +36,11 @@ public class Condition extends Token {
         }
 
         return operator.endIdx();
+    }
+
+    @Override
+    public TokenInput input() {
+        return new TokenInput("", startIdx(), endIdx(), content());
     }
 
     @Override

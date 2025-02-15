@@ -2,7 +2,7 @@ package com.vrozsa.scanners;
 
 import com.vrozsa.tokens.ElseToken;
 import com.vrozsa.tokens.ThenToken;
-import com.vrozsa.tokens.Token;
+import com.vrozsa.tokens.AbstractToken;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
@@ -16,7 +16,7 @@ import static com.vrozsa.tokens.TokenType.ELSE;
 import static com.vrozsa.tokens.TokenType.THEN;
 
 public class AuxiliaryTokenScanner extends AbstractTokenScanner {
-    private static final EnumMap<TokenType, Function<TokenInput, Token>> tokensCreator = new EnumMap<>(Map.ofEntries(
+    private static final EnumMap<TokenType, Function<TokenInput, AbstractToken>> tokensCreator = new EnumMap<>(Map.ofEntries(
             Map.entry(THEN, ThenToken::new),
             Map.entry(ELSE, ElseToken::new)
     ));
@@ -32,7 +32,7 @@ public class AuxiliaryTokenScanner extends AbstractTokenScanner {
     }
 
     @Override
-    protected Optional<Token> handleInvalidStartingChar(int idx, char[] content) {
+    protected Optional<AbstractToken> handleInvalidStartingChar(int idx, char[] content) {
         // If it is the end of the expression, there is no extra auxiliary token.
         if (content[idx] == END_BRACKET) {
             return Optional.empty();
