@@ -31,4 +31,13 @@ public interface Token {
      * @return the evaluation result.
      */
     Object evaluate(ContextHolder context);
+
+    /**
+     * The keyword used to reference this token.
+     * <p>
+     *     If it is a variable, will return the name of the variable.
+     * </p>
+     * @return the token instance keyword.
+     */
+    String keyword();
 }

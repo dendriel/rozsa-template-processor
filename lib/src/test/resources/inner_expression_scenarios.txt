@@ -16,3 +16,9 @@ ELSE
     failure_val
 }
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+
+${IF target_val == ${IF true_var THEN inner_then_val ELSE inner_else_val} THEN success_val ELSE failure_val}
+
+${IF IS_PRESENT(target_val) THEN ${ LOWERCASE(success_val) } ELSE failure_val}
+
+${IF IS_ABSENT(target_val) THEN ${ LOWERCASE(success_val) } ELSE ${ LOWERCASE(failure_val) } }

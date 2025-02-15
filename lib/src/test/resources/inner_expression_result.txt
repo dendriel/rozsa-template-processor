@@ -3,3 +3,9 @@ SUCCESS
 consectetur adipiscing elit
 SUCCESS
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+
+SUCCESS
+
+success
+
+failure

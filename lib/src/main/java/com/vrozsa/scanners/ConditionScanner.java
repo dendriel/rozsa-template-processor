@@ -41,29 +41,17 @@ public class ConditionScanner extends AbstractTokenScanner {
 //            return null;
 //        }
 
-        Token targetToken = null;
-
-        if (ExpressionScanner.isNextTokenAnExpression(startIdx, content)) {
-            var expressionStartIdx = startIdx + 1;
-            targetToken = new Expression(expressionStartIdx, content);
-        }
-        else {
-            var token = FunctionTokenScanner.instance().findNext(idx, content);
-            if (token.isPresent()) {
-                targetToken = token.get();
-            }
-        }
-
-        if (isNull(targetToken)) {
+        Optional<Token> optTargetToken = ExpressibleValueScanner.findNext(startIdx, content);
+        if (optTargetToken.isEmpty()) {
             return Optional.empty();
         }
 
+        var targetToken = optTargetToken.get();
         targetToken.read();
         var nextIdx = targetToken.endIdx() + 1;
 
         // Operator: equals, not equals, >, >= etc
         var optOperator = OperatorScanner.instance().findNext(nextIdx, content);
-
         if (optOperator.isEmpty()) {
             // return plain condition.
             return Optional.of(new Condition(targetToken));

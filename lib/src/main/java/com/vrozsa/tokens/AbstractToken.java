@@ -42,6 +42,7 @@ public abstract class AbstractToken implements Token {
         return input.content();
     }
 
+    @Override
     public String keyword() {
         return input.keyword();
     }

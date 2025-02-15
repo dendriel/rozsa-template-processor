@@ -87,6 +87,11 @@ public class Expression implements Token {
         return token.evaluate(context);
     }
 
+    @Override
+    public String keyword() {
+        throw new UnsupportedOperationException();
+    }
+
     public String getResult() {
         return String.valueOf(token.getResult());
     }

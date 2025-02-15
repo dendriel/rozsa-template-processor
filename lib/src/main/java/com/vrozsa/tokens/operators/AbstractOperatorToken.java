@@ -4,13 +4,14 @@ import com.vrozsa.ContextHolder;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidOperationException;
 import com.vrozsa.exceptions.InvalidSyntaxException;
-import com.vrozsa.scanners.FunctionTokenScanner;
+import com.vrozsa.scanners.ExpressibleValueScanner;
 import com.vrozsa.tokens.AbstractToken;
+import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
 public abstract class AbstractOperatorToken extends AbstractToken {
-    protected AbstractToken rightSideToken;
+    protected Token rightSideToken;
 
     protected AbstractOperatorToken(TokenType type, TokenInput input) {
         super(type, input);
@@ -22,7 +23,7 @@ public abstract class AbstractOperatorToken extends AbstractToken {
         var startIdx = tokenEndIdx() + 1;
         startIdx = Reader.nextValidCharIndex(startIdx, content());
 
-        var nextToken = FunctionTokenScanner.instance().findNext(startIdx, content());
+        var nextToken = ExpressibleValueScanner.findNext(startIdx, content());
         if (nextToken.isEmpty()) {
             throw new InvalidSyntaxException("Invalid syntax found ", startIdx);
         }
