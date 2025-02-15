@@ -18,7 +18,7 @@ public enum TokenType {
     UPPERCASE("UPPERCASE"),
     LOWERCASE("LOWERCASE"),
     IS_PRESENT("IS_PRESENT"),
-    IS_NOT_PRESENT("IS_NOT_PRESENT"),
+    IS_ABSENT("IS_ABSENT"),
 
     // OPERATORS
     EQUALS("EQUALS", "=="),

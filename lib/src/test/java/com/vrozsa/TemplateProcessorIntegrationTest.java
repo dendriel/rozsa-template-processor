@@ -99,7 +99,9 @@ class TemplateProcessorIntegrationTest {
                 .add("foo", "abc")
                 .add("bar", "ABC")
                 .add("result", "result from the comparison")
-                .add("else_result", "result when comparison yields false");
+                .add("else_result", "result when comparison yields false")
+                .add("then_result", "result when comparison yields true")
+                .add("absent_variable_val", null);
 
         assertScenario(context, "function_scenarios.properties", "function_result.properties");
     }

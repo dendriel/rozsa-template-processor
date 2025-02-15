@@ -28,6 +28,6 @@ public class ContextHolder {
         if (!context.containsKey(key)) {
             return Optional.empty();
         }
-        return Optional.of(context.get(key));
+        return Optional.ofNullable(context.get(key));
     }
 }

@@ -26,7 +26,7 @@ public class ContextVariableToken extends Token {
         Optional<Object> optValue = context.get(keyword());
 
         if (optValue.isEmpty()) {
-            throw new MissingContextVariableException(keyword());
+            return null;
         }
 
         result = optValue.get();

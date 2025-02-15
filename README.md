@@ -4,7 +4,7 @@ Enhances configuration-based solutions by enabling the use of **dynamic configur
 static data.
 
 The Template Processor can function as a **template engine**, capable of parsing entire files and evaluating language
-expressions where needed, or as a stand-alone expressions' processor, when you need to provide dynamic values for
+expressions where needed, or as a stand-alone expression's processor, when you need to provide dynamic values for
 specific configuration fields.
 
 Additionally, the Template Processor can also be extended with **custom functions** which will trigger the registered
@@ -21,12 +21,24 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 
 ## Operators
 
+Operators are used to express conditionals.
+
 - EQUALS, ==
 - NOT EQUALS, !=
 - GREATER_THAN, >
 - GREATER_THAN_EQUALS, >=
 - LESS_THAN, <
 - LESS_THAN_EQUALS, <=
+
+## Functions
+
+Functions are transformations over the context variables.
+
+- UPPERCASE
+- LOWERCASE
+- IS_PRESENT - if value is present, return true
+- IS_ABSENT - if value is absent, return false
+
 
 ## Context Variables
 
@@ -40,7 +52,6 @@ inside expressions.
 ```
 $variable
 ```
-
 
 ### Inside expressions
 
@@ -72,7 +83,7 @@ and the expected result after processing.
   - IF ((x >= y) AND (x <= z)) OR k THEN ...
   - Use the () as grouping tool, otherwise the expression will evaluate from left to right (not the ANDs first then the ORs)
 - Handle inner-expressions ${IF ${inner expression} THEN ...}
-- Handle functions ${UPPERCASE context.variable/expression}
+- Handle stand-alone expressions and provide examples
 - Add a testing feature out of the box
   - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException
   - new TemplateProcessor().assertProcess("template.json", "expected_result.json")
@@ -83,12 +94,8 @@ and the expected result after processing.
   - COMBINE AS AND AS ON EQUALS
   - SORT AS ON ASC/DESC
   - MAP REDUCE
-  - UPPERCASE
-  - LOWERCASE
   - EMPTY TEXT/MAP/LIST
   - RENDER AS ON SEPARATOR
   - LIST OF
-  - IS_PRESENT
-  - IS_NOT_PRESENT
   - NOT (for reversing conditions result)
 - Create the functional documentation

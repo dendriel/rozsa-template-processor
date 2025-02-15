@@ -4,30 +4,16 @@ import com.vrozsa.CharacterChecker;
 import com.vrozsa.CharacterSingle;
 import com.vrozsa.Reader;
 import com.vrozsa.tokens.Condition;
-import com.vrozsa.tokens.Token;
-import com.vrozsa.tokens.TokenInput;
-import com.vrozsa.tokens.TokenType;
-import com.vrozsa.tokens.functions.UppercaseToken;
-import com.vrozsa.tokens.functions.LowercaseToken;
 
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 
-import static com.vrozsa.tokens.TokenType.LOWERCASE;
-import static com.vrozsa.tokens.TokenType.UPPERCASE;
 
 public class ConditionScanner extends AbstractTokenScanner {
 
     private static final CharacterChecker groupCharChecker = CharacterChecker.of(
             new CharacterSingle('(')
     );
-
-    private static final EnumMap<TokenType, Function<TokenInput, Token>> tokensCreator = new EnumMap<>(Map.ofEntries(
-            Map.entry(UPPERCASE, UppercaseToken::new),
-            Map.entry(LOWERCASE, LowercaseToken::new)
-    ));
 
     private static final ConditionScanner INSTANCE = new ConditionScanner();
 
@@ -36,7 +22,7 @@ public class ConditionScanner extends AbstractTokenScanner {
     }
 
     ConditionScanner() {
-        super(tokensCreator);
+        super(Map.of());
     }
 
     @Override
@@ -50,7 +36,7 @@ public class ConditionScanner extends AbstractTokenScanner {
             return null;
         }
 
-        var token = super.findNext(idx, content);
+        var token = FunctionTokenScanner.instance().findNext(idx, content);
         if (token.isEmpty()) {
             return Optional.empty();
         }
