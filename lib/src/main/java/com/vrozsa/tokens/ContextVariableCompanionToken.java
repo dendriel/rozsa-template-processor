@@ -10,10 +10,10 @@ import static com.vrozsa.tokens.TokenType.CONTEXT_VARIABLE;
 /**
  * Companion tokens should have just a context variable to provide the final value.
  */
-abstract class ContextVariableCompanionToken extends Token {
+public abstract class ContextVariableCompanionToken extends Token {
     protected ContextVariableToken variable;
 
-    ContextVariableCompanionToken(TokenType type, TokenInput input) {
+    protected ContextVariableCompanionToken(TokenType type, TokenInput input) {
         super(type, input);
     }
 
@@ -24,6 +24,11 @@ abstract class ContextVariableCompanionToken extends Token {
 
         startIdx = Reader.nextValidCharIndex(startIdx, content());
 
+        read(startIdx);
+    }
+
+    // Allows skipping the grouping char '(' when evaluating for function tokens.
+    public void read(int startIdx) {
         var nextToken = ContextVariableScanner.instance().findNext(startIdx, content());
         if (nextToken.isEmpty()) {
             throw new RuntimeException("Invalid syntax close to index " + startIdx);

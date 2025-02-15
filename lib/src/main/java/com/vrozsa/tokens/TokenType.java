@@ -7,10 +7,18 @@ public enum TokenType {
     CONTEXT_VARIABLE,
     CONDITION,
     CONDITION_GROUP,
+
+    // CONDITIONALS
     IF("IF"),
     THEN("THEN"),
     ELSE("ELSE"),
     SWITCH("SWITCH"),
+
+    // FUNCTIONS
+    UPPERCASE("UPPERCASE"),
+    LOWERCASE("LOWERCASE"),
+    IS_PRESENT("IS_PRESENT"),
+    IS_NOT_PRESENT("IS_NOT_PRESENT"),
 
     // OPERATORS
     EQUALS("EQUALS", "=="),

@@ -92,4 +92,26 @@ class TemplateProcessorIntegrationTest {
 
         assertScenario(context, "condition_operators_scenarios.json", "condition_operators_result.json");
     }
+
+    @Test
+    void testFunctionScenarios() {
+
+        var context = ContextHolder.create()
+                .add("foo", "abc")
+                .add("bar", "ABC")
+                .add("result", "text should be all uppercase");
+
+        assertScenario(context, "function_scenarios.properties", "function_result.properties");
+    }
+
+    @Test
+    void testEmptyCharHandlingScenarios() {
+
+        var context = ContextHolder.create()
+                .add("foo", "abc")
+                .add("bar", "ABC")
+                .add("result", "variable result");
+
+        assertScenario(context, "empty_char_handling_scenarios.properties", "empty_char_handling_result.properties");
+    }
 }

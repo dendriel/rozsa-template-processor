@@ -7,15 +7,26 @@ import com.vrozsa.tokens.Condition;
 import com.vrozsa.tokens.ContextVariableToken;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
+import com.vrozsa.tokens.TokenType;
+import com.vrozsa.tokens.functions.UppercaseToken;
 
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+
+import static com.vrozsa.tokens.TokenType.UPPERCASE;
 
 public class ConditionScanner extends AbstractTokenScanner {
 
     private static final CharacterChecker groupCharChecker = CharacterChecker.of(
             new CharacterSingle('(')
     );
+
+    private static final EnumMap<TokenType, Function<TokenInput, Token>> tokensCreator = new EnumMap<>(Map.ofEntries(
+            Map.entry(UPPERCASE, UppercaseToken::new)
+//            Map.entry(LOWERCASE, ElseToken::new)
+    ));
 
     private static final ConditionScanner INSTANCE = new ConditionScanner();
 
@@ -24,7 +35,7 @@ public class ConditionScanner extends AbstractTokenScanner {
     }
 
     ConditionScanner() {
-        super(Map.of());
+        super(tokensCreator);
     }
 
     @Override
@@ -59,15 +70,5 @@ public class ConditionScanner extends AbstractTokenScanner {
         operator.read();
 
         return Optional.of(new Condition(targetToken, operator));
-    }
-
-    @Override
-    protected boolean matchAnyToken(String name) {
-        return true;
-    }
-
-    @Override
-    protected Optional<Token> createToken(String keyword, int startIdx, int endIdx, char[] content) {
-        return Optional.of(new ContextVariableToken(new TokenInput(keyword, startIdx, endIdx, content)));
     }
 }

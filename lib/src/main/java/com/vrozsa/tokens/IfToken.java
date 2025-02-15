@@ -101,7 +101,7 @@ public class IfToken extends Token {
     @Override
     public Object evaluate(ContextHolder context) {
 
-        var isTrueCondition = (Boolean) condition.evaluate(context);
+        var isTrueCondition = condition.evaluate(context);
 
         if (isTrueCondition) {
             result = then.evaluate(context);
@@ -109,13 +109,12 @@ public class IfToken extends Token {
         }
 
         if (isNull(orElse)) {
-            // TODO: orElse
+            // set default result to empty str otherwise it will print 'null'
             result = "";
             return result;
         }
 
         result = orElse.evaluate(context);
-
         return result;
     }
 
