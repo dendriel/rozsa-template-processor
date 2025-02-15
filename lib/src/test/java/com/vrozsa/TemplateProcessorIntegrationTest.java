@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,6 +33,7 @@ class TemplateProcessorIntegrationTest {
 
     @Test
     void testIfThenElseTokenScenarios() {
+        var useObjData = new TestUser("Jane Doe", 21, new TestUser.TestContact("55 20 445687966"));
         var context = ContextHolder.create()
                 .add("valid_user", false)
                 .add("user.type", "GUEST")
@@ -42,7 +45,8 @@ class TemplateProcessorIntegrationTest {
                 .add("inequality_result", "this value wont show")
                 .add("fallback_result", "fallback result from else")
                 .add("result_then", "result when then value is used")
-                .add("user.type2", "ADMIN");
+                .add("user.type2", "ADMIN")
+                .add("user", useObjData);
 
         assertScenario(context, "if_then_else_scenarios.yml", "if_then_else_scenarios_result.yml");
     }
@@ -127,6 +131,25 @@ class TemplateProcessorIntegrationTest {
                 .add("failure_val", "FAILURE");
 
         assertScenario(context, "inner_expression_scenarios.txt", "inner_expression_result.txt");
+
+    }
+
+    @Test
+    void testNavigationalVariables() {
+
+        var userData = new HashMap<>();
+        userData.put("contact_info", null);
+        userData.put("name", "John Doe");
+        userData.put("age", 25);
+        userData.put("contact", Map.of("phone_number", "55 10 333442233"));
+
+        var useObjData = new TestUser("Jane Doe", 21, new TestUser.TestContact("55 20 445687966"));
+
+        var context = ContextHolder.create()
+                .add("user", userData)
+                .add("user_obj", useObjData);
+
+        assertScenario(context, "navigational_variable_scenarios.properties", "navigational_variable_result.properties");
 
     }
 }

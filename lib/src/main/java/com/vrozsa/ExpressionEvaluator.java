@@ -46,7 +46,7 @@ class ExpressionEvaluator {
             var segment = contentAsText.substring(contentIdx, startIdx);
             newContent.append(segment);
 
-            var expValue = currExp.getResult();
+            var expValue = currExp.result();
             newContent.append(expValue);
             // +1 for the $ and +1 to get to the next char after the expression
             contentIdx += segment.length() + currExp.length() + 2;

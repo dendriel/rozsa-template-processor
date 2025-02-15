@@ -104,12 +104,14 @@ ${IF condition_var THEN resulting_var ELSE another_var}
 
 ### Variable Navigation
 
-It is also to use variables to navigate inside complex objects. In this case, just chain the variable properties using
-a dot `.`:
+It is also to use variables to navigate inside complex objects. In this case, chain the variable properties using a
+dot `.`:
 
 ```
-$variable.propA / ${variable.propA}
-$variable.propA.innerProp / ${variable.propA.innerProp}
+$variable.propA
+${variable.propA}
+$variable.propA.innerProp
+${variable.propA.innerProp}
 ```
 
 # Examples

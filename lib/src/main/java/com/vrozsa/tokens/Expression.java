@@ -10,6 +10,7 @@ import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
 import static com.vrozsa.Reader.assertValidIndex;
+import static java.util.Objects.isNull;
 
 public class Expression implements Token {
     private static final char START_BRACKET = '{';
@@ -95,6 +96,10 @@ public class Expression implements Token {
     @Override
     public Object evaluate(ContextHolder context) {
         result = token.evaluate(context);
+        if (isNull(result)) {
+            result = "";
+        }
+
         return result;
     }
 
@@ -106,10 +111,6 @@ public class Expression implements Token {
     @Override
     public String keyword() {
         throw new UnsupportedOperationException();
-    }
-
-    public String getResult() {
-        return String.valueOf(token.result());
     }
 
     @Override

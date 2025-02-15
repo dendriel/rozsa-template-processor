@@ -13,3 +13,5 @@ data:
                   THEN
                     user.type2
                   }"
+  "userRole5":${IF user.alive THEN result_then}
+  "userRole6": ${IF IS_PRESENT(user.age) THEN result_then}

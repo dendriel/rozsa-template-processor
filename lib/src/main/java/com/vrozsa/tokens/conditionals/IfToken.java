@@ -108,7 +108,7 @@ public class IfToken extends AbstractToken {
 
         var isTrueCondition = condition.evaluate(context);
 
-        if (isTrueCondition) {
+        if (!isNull(isTrueCondition) && isTrueCondition) {
             result = then.evaluate(context);
             return result;
         }
