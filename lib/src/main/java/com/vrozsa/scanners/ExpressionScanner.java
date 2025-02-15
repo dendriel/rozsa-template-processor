@@ -55,7 +55,7 @@ public class ExpressionScanner {
             expressions.add(expression);
 
             // Skip the whole expression body.
-            i += expression.endIdx();
+            i += expression.length() + 1;
         }
 
         return expressions;

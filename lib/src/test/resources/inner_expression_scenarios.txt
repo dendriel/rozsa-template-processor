@@ -1,4 +1,6 @@
+Lorem ipsum dolor sit amet
 ${IF ${IF true_var THEN inner_then_val ELSE inner_else_val} == target_val THEN success_val ELSE failure_val}
+consectetur adipiscing elit
 ${IF
     ${IF
         ${ IF IS_PRESENT(target_val) THEN true_var }
@@ -13,3 +15,4 @@ THEN
 ELSE
     failure_val
 }
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
