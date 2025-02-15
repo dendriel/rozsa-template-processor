@@ -1,6 +1,7 @@
 package com.vrozsa.scanners;
 
 import com.vrozsa.tokens.AbstractToken;
+import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 import com.vrozsa.tokens.functions.IsAbsentToken;
@@ -18,7 +19,7 @@ import static com.vrozsa.tokens.TokenType.LOWERCASE;
 import static com.vrozsa.tokens.TokenType.UPPERCASE;
 
 public class FunctionTokenScanner extends AbstractTokenScanner {
-    private static final EnumMap<TokenType, Function<TokenInput, AbstractToken>> tokensCreator = new EnumMap<>(Map.ofEntries(
+    private static final EnumMap<TokenType, Function<TokenInput, Token>> tokensCreator = new EnumMap<>(Map.ofEntries(
             Map.entry(UPPERCASE, UppercaseToken::new),
             Map.entry(LOWERCASE, LowercaseToken::new),
             Map.entry(IS_PRESENT, IsPresentToken::new),

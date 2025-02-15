@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum TokenType {
+    // ENTITIES
     CONTEXT_VARIABLE,
+    EXPRESSION,
     CONDITION,
     CONDITION_GROUP,
 

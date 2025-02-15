@@ -3,9 +3,9 @@ package com.vrozsa;
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.exceptions.UnexpectedCharacterException;
 import com.vrozsa.scanners.MainTokenScanner;
-import com.vrozsa.tokens.AbstractToken;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
+import com.vrozsa.tokens.TokenType;
 
 import static com.vrozsa.Reader.assertValidIndex;
 
@@ -17,19 +17,27 @@ public class Expression implements Token {
     private final char[] content;
     private boolean hasStartBracket;
     private int endIdx;
-    private AbstractToken token;
+    private Object result;
+    private Token token;
 
     public Expression(int startIdx, char[] content) {
         this.startIdx = startIdx;
         this.content = content;
     }
 
+    @Override
     public int startIdx() {
         return startIdx;
     }
 
+    @Override
     public int endIdx() {
         return endIdx;
+    }
+
+    @Override
+    public TokenType type() {
+        return TokenType.EXPRESSION;
     }
 
     @Override
@@ -84,7 +92,13 @@ public class Expression implements Token {
 
     @Override
     public Object evaluate(ContextHolder context) {
-        return token.evaluate(context);
+        result = token.evaluate(context);
+        return result;
+    }
+
+    @Override
+    public Object result() {
+        return result;
     }
 
     @Override
@@ -93,7 +107,7 @@ public class Expression implements Token {
     }
 
     public String getResult() {
-        return String.valueOf(token.getResult());
+        return String.valueOf(token.result());
     }
 
     @Override

@@ -16,19 +16,5 @@ class FileReader {
             throw new RuntimeException("Error reading resource file: " + fileName, e);
         }
         // TODO: handle errors if we provide this as a feature.
-
-        /*
-        try {
-            // TODO: better handle this.
-            var content = Files.readString(Paths.get(getClass().getResource(filePath).toURI()));
-            return Optional.of(content);
-        } catch (IOException e) {
-            System.out.println(e); // todo: handle
-            return Optional.empty();
-        } catch (URISyntaxException e) {
-            System.out.println(e); // todo: handle
-            return Optional.empty();
-        }
-         */
     }
 }

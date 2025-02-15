@@ -18,10 +18,12 @@ public abstract class AbstractToken implements Token {
         return input;
     }
 
-    public Object getResult() {
+    @Override
+    public Object result() {
         return result;
     }
 
+    @Override
     public int startIdx() {
         return input.startIdx();
     }
@@ -30,10 +32,12 @@ public abstract class AbstractToken implements Token {
         return startIdx() + input.keyword().length() - 1;
     }
 
+    @Override
     public int endIdx() {
         return endIdx;
     }
 
+    @Override
     public TokenType type() {
         return type;
     }

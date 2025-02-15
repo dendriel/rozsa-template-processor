@@ -8,13 +8,29 @@ import static java.util.Objects.isNull;
 /**
  * Holds a token with condition semantics.
  */
-public class Condition extends AbstractToken {
+public class Condition implements Token {
     private final Token conditionToken;
-
     private final AbstractOperatorToken operator;
+
+    private Object result;
 
     public Condition(Token token) {
         this(token, null);
+    }
+
+    public Condition(Token token, AbstractOperatorToken operator) {
+        conditionToken = token;
+        this.operator = operator;
+    }
+
+    @Override
+    public TokenType type() {
+        return TokenType.CONDITION;
+    }
+
+    @Override
+    public String keyword() {
+        return conditionToken.keyword();
     }
 
     @Override
@@ -22,11 +38,9 @@ public class Condition extends AbstractToken {
         conditionToken.read();
     }
 
-    public Condition(Token token, AbstractOperatorToken operator) {
-        super(TokenType.CONDITION, token.input());
-
-        conditionToken = token;
-        this.operator = operator;
+    @Override
+    public int startIdx() {
+        return conditionToken.startIdx();
     }
 
     @Override
@@ -40,7 +54,7 @@ public class Condition extends AbstractToken {
 
     @Override
     public TokenInput input() {
-        return new TokenInput("", startIdx(), endIdx(), content());
+        return new TokenInput("", conditionToken.startIdx(), endIdx(), null);
     }
 
     @Override
@@ -49,9 +63,16 @@ public class Condition extends AbstractToken {
 
         if (isNull(operator)) {
             // maybe cast from string
-            return (Boolean) leftSideResult;
+            result = leftSideResult;
+            return (Boolean) result;
         }
 
-        return operator.evaluate(context, leftSideResult);
+        result = operator.evaluate(context, leftSideResult);
+        return (Boolean) result;
+    }
+
+    @Override
+    public Object result() {
+        return null;
     }
 }

@@ -1,6 +1,9 @@
-package com.vrozsa.tokens;
+package com.vrozsa.tokens.conditionals;
 
 import com.vrozsa.ContextHolder;
+import com.vrozsa.tokens.AbstractToken;
+import com.vrozsa.tokens.TokenInput;
+import com.vrozsa.tokens.TokenType;
 
 public class SwitchToken extends AbstractToken {
     public SwitchToken(TokenInput input) {

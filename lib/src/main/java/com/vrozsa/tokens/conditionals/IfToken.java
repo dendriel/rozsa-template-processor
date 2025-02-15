@@ -1,10 +1,15 @@
-package com.vrozsa.tokens;
+package com.vrozsa.tokens.conditionals;
 
 import com.vrozsa.scanners.AuxiliaryTokenScanner;
 import com.vrozsa.ContextHolder;
 import com.vrozsa.scanners.ConditionScanner;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.UnexpectedTokenException;
+import com.vrozsa.tokens.AbstractToken;
+import com.vrozsa.tokens.Condition;
+import com.vrozsa.tokens.Token;
+import com.vrozsa.tokens.TokenInput;
+import com.vrozsa.tokens.TokenType;
 
 import static com.vrozsa.tokens.TokenType.ELSE;
 import static com.vrozsa.tokens.TokenType.THEN;
@@ -12,8 +17,8 @@ import static java.util.Objects.isNull;
 
 public class IfToken extends AbstractToken {
     private Condition condition;
-    private AbstractToken then;
-    private AbstractToken orElse;
+    private Token then;
+    private Token orElse;
 
     public IfToken(TokenInput input) {
         super(TokenType.IF, input);
@@ -119,7 +124,7 @@ public class IfToken extends AbstractToken {
     }
 
     @Override
-    public String getResult() {
+    public String result() {
         return String.valueOf(result);
     }
 

@@ -1,6 +1,7 @@
 package com.vrozsa.scanners;
 
 import com.vrozsa.tokens.AbstractToken;
+import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 import com.vrozsa.tokens.operators.EqualsToken;
@@ -19,7 +20,7 @@ import java.util.function.Function;
 import static com.vrozsa.tokens.TokenType.*;
 
 public class OperatorScanner extends AbstractTokenScanner {
-    private static final EnumMap<TokenType, Function<TokenInput, AbstractToken>> tokensCreator = new EnumMap<>(Map.ofEntries(
+    private static final EnumMap<TokenType, Function<TokenInput, Token>> tokensCreator = new EnumMap<>(Map.ofEntries(
             Map.entry(EQUALS, EqualsToken::new),
             Map.entry(NOT_EQUALS, NotEqualsToken::new),
             Map.entry(GREATER_THAN, GreaterThanToken::new),
@@ -44,7 +45,7 @@ public class OperatorScanner extends AbstractTokenScanner {
     }
 
     @Override
-    protected Optional<? extends AbstractToken> createFallbackToken(String keyword, TokenInput tokenInput) {
+    protected Optional<? extends Token> createFallbackToken(String keyword, TokenInput tokenInput) {
         return Optional.empty();
     }
 }

@@ -8,7 +8,6 @@ public class ContextVariableToken extends AbstractToken {
 
     /**
      * Creates a new context variable token containing the name of the variable.
-     * @param variable the name of the variable.
      * @param input token metadata.
      */
     public ContextVariableToken(TokenInput input) {

@@ -2,12 +2,20 @@ package com.vrozsa.tokens;
 
 import com.vrozsa.ContextHolder;
 
+/**
+ * Token abstraction with all required methods to process token.
+ */
 public interface Token {
-
     /**
      * Read the content as expected by this token.
      */
     void read();
+
+    /**
+     * Get the index of the first character in this token.
+     * @return the starting token index.
+     */
+    int startIdx();
 
     /**
      * Get the last valid index for the whole expression related to this token.
@@ -33,6 +41,15 @@ public interface Token {
     Object evaluate(ContextHolder context);
 
     /**
+     * Get the result of the token evalution.
+     * <p>
+     *     WARNING: only available after calling {@link Token#evaluate(ContextHolder)}
+     * </p>
+     * @return the token's evaluation result.
+     */
+    Object result();
+
+    /**
      * The keyword used to reference this token.
      * <p>
      *     If it is a variable, will return the name of the variable.
@@ -40,4 +57,9 @@ public interface Token {
      * @return the token instance keyword.
      */
     String keyword();
+
+    /**
+     * @return this token's type.
+     */
+    TokenType type();
 }

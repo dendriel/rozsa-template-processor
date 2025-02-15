@@ -1,7 +1,5 @@
 package com.vrozsa;
 
-import com.vrozsa.exceptions.MissingContextVariableException;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

@@ -85,7 +85,6 @@ and the expected result after processing.
 - Allow to compare against literals
   - Maybe add a function token LITERAL/LIT() which provides the value. This would be easier bc it reuses the function
   - tokens flows. Otherwise, we will have to start to handle literals everywhere
-- Handle inner-expressions ${IF ${inner expression} THEN ...}
 - Handle stand-alone expressions and provide examples
 - Add a testing feature out of the box
   - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException
