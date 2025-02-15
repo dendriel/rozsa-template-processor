@@ -7,9 +7,9 @@ import com.vrozsa.tokens.TokenType;
 
 import java.util.Locale;
 
-public class UppercaseToken extends AbstractFunctionToken {
-    public UppercaseToken(TokenInput input) {
-        super(TokenType.UPPERCASE, input);
+public class LowercaseToken extends AbstractFunctionToken {
+    public LowercaseToken(TokenInput input) {
+        super(TokenType.LOWERCASE, input);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class UppercaseToken extends AbstractFunctionToken {
         var result = super.evaluate(context);
 
         if (result instanceof String textResult) {
-            return textResult.toUpperCase(Locale.ROOT);
+            return textResult.toLowerCase(Locale.ROOT);
         }
 
         throw new NonTextContextVariableException(variable.keyword());

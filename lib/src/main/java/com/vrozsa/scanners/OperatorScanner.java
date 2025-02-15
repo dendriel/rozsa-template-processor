@@ -9,7 +9,7 @@ import com.vrozsa.tokens.operators.GreaterThanEqualsToken;
 import com.vrozsa.tokens.operators.LessThanToken;
 import com.vrozsa.tokens.operators.LessThanEqualsToken;
 import com.vrozsa.tokens.operators.NotEqualsToken;
-import com.vrozsa.tokens.operators.OperatorToken;
+import com.vrozsa.tokens.operators.AbstractOperatorToken;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -39,8 +39,8 @@ public class OperatorScanner extends AbstractTokenScanner {
     }
 
     @Override
-    public Optional<OperatorToken> findNext(final int idx, final char[] content) {
-        return (Optional<OperatorToken>) super.findNext(idx, content);
+    public Optional<AbstractOperatorToken> findNext(final int idx, final char[] content) {
+        return (Optional<AbstractOperatorToken>) super.findNext(idx, content);
     }
 
     @Override

@@ -95,18 +95,17 @@ class TemplateProcessorIntegrationTest {
 
     @Test
     void testFunctionScenarios() {
-
         var context = ContextHolder.create()
                 .add("foo", "abc")
                 .add("bar", "ABC")
-                .add("result", "text should be all uppercase");
+                .add("result", "result from the comparison")
+                .add("else_result", "result when comparison yields false");
 
         assertScenario(context, "function_scenarios.properties", "function_result.properties");
     }
 
     @Test
     void testEmptyCharHandlingScenarios() {
-
         var context = ContextHolder.create()
                 .add("foo", "abc")
                 .add("bar", "ABC")

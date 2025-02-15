@@ -1,7 +1,7 @@
 package com.vrozsa.tokens;
 
 import com.vrozsa.ContextHolder;
-import com.vrozsa.tokens.operators.OperatorToken;
+import com.vrozsa.tokens.operators.AbstractOperatorToken;
 
 import static java.util.Objects.isNull;
 
@@ -11,7 +11,7 @@ import static java.util.Objects.isNull;
 public class Condition extends Token {
     private final Token conditionToken;
 
-    private final OperatorToken operator;
+    private final AbstractOperatorToken operator;
 
     public Condition(Token token) {
         this(token, null);
@@ -22,7 +22,7 @@ public class Condition extends Token {
         conditionToken.read();
     }
 
-    public Condition(Token token, OperatorToken operator) {
+    public Condition(Token token, AbstractOperatorToken operator) {
         super(TokenType.CONDITION, token.input);
 
         conditionToken = token;

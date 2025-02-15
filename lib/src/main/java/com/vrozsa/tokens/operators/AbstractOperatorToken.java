@@ -4,19 +4,15 @@ import com.vrozsa.ContextHolder;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidOperationException;
 import com.vrozsa.exceptions.InvalidSyntaxException;
-import com.vrozsa.exceptions.UnexpectedTokenException;
-import com.vrozsa.scanners.ContextVariableScanner;
-import com.vrozsa.tokens.ContextVariableToken;
+import com.vrozsa.scanners.FunctionTokenScanner;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
-import static com.vrozsa.tokens.TokenType.CONTEXT_VARIABLE;
-
-public abstract class OperatorToken extends Token {
+public abstract class AbstractOperatorToken extends Token {
     protected Token rightSideToken;
 
-    protected OperatorToken(TokenType type, TokenInput input) {
+    protected AbstractOperatorToken(TokenType type, TokenInput input) {
         super(type, input);
     }
 
@@ -24,22 +20,14 @@ public abstract class OperatorToken extends Token {
     public void read() {
         // Next element after the token
         var startIdx = tokenEndIdx() + 1;
-
         startIdx = Reader.nextValidCharIndex(startIdx, content());
 
-        var nextToken = ContextVariableScanner.instance().findNext(startIdx, content());
+        var nextToken = FunctionTokenScanner.instance().findNext(startIdx, content());
         if (nextToken.isEmpty()) {
             throw new InvalidSyntaxException("Invalid syntax found ", startIdx);
         }
 
-        var token = nextToken.get();
-        if (token instanceof ContextVariableToken contextVariableToken) {
-            rightSideToken = contextVariableToken;
-        }
-        else {
-            throw new UnexpectedTokenException(CONTEXT_VARIABLE, token.type(), startIdx);
-        }
-
+        rightSideToken = nextToken.get();
         rightSideToken.read();
         endIdx = rightSideToken.endIdx();
     }
