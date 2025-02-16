@@ -1,0 +1,1 @@
+My sorted list will be: ${SORT myList AS entry ON entry.id ASC}

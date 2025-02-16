@@ -8,6 +8,7 @@ public enum TokenType {
     CONTEXT_VARIABLE,
     EXPRESSION,
     CONDITION,
+    LABEL,
     CONDITION_GROUP,
 
     // CONDITIONALS
@@ -29,6 +30,12 @@ public enum TokenType {
     GREATER_THAN_EQUALS("GREATER_THAN_EQUALS", ">="),
     LESS_THAN("LESS_THAN", "<"),
     LESS_THAN_EQUALS("LESS_THAN_EQUALS", "<="),
+
+    // TRANSFORMATIONS
+    SORT("SORT"),
+    AS("AS"),
+    ON("ON"),
+    SORT_ORDER("ASCENDING", "ASC", "DESCENDING", "DESC"),
     ;
 
 

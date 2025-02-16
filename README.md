@@ -89,6 +89,8 @@ Context variables allow the template to refer to dynamic context passed to the p
 The context variables are the main source of dynamization in the template, and you can refer to them stand-alone or use
 inside expressions.
 
+> If a variable results in 'null' and it is the expression result, an empty string value will be used instead of null.
+
 ### Stand-alone usage
 
 ```
@@ -146,6 +148,11 @@ and the expected result after processing.
   - NOT (for reversing conditions result)
   - CONCAT
 - Create the functional documentation
-- Allow navigating context variables
 - Remove escape characters
-- 
+- Allow enriching context from within the template
+  - eg. ${SET some-expression AS new_var_name}
+  - ${SET ${SORT myList AS entry ON entry.name ASC} AS mySortedList}
+- Handle comment expressions
+  - Expressions just to add comments in the template
+  - The whole expression is erased during processing
+  - eg. ${// this is a comment and won't appear in the final result}

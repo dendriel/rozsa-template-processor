@@ -26,11 +26,9 @@ public class IfToken extends AbstractToken {
 
     @Override
     public void read() {
-        var content = content();
-
         // Next valid char after the IF token
         var startIdx = tokenEndIdx() + 1;
-        startIdx = Reader.nextValidCharIndex(startIdx, content);
+        startIdx = Reader.nextValidCharIndex(startIdx, content());
 
         var nextIdx = scanCondition(startIdx);
 

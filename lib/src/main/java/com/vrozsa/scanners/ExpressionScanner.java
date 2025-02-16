@@ -16,7 +16,6 @@ public class ExpressionScanner {
     private static final CharacterChecker expressionCharChecker = CharacterChecker.of(
             new CharacterSingle('$')
     );
-    private static final Character ESCAPE_TOKEN = '\\';
 
     private static final CharacterChecker escapeCharChecker = CharacterChecker.of(
             new CharacterSingle('\\')

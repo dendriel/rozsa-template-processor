@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -136,7 +137,6 @@ class TemplateProcessorIntegrationTest {
 
     @Test
     void testNavigationalVariables() {
-
         var userData = new HashMap<>();
         userData.put("contact_info", null);
         userData.put("name", "John Doe");
@@ -150,6 +150,14 @@ class TemplateProcessorIntegrationTest {
                 .add("user_obj", useObjData);
 
         assertScenario(context, "navigational_variable_scenarios.properties", "navigational_variable_result.properties");
+    }
 
+    @Test
+    void testSortScenarios() {
+
+        var context = ContextHolder.create()
+                .add("myList", List.of(5, 6, 3, 2, 4, 1, 9, 7, 8));
+
+        assertScenario(context, "sort_scenarios.txt", "sort_result.txt");
     }
 }

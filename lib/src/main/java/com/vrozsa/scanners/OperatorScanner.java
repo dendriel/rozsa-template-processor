@@ -45,7 +45,7 @@ public class OperatorScanner extends AbstractTokenScanner {
     }
 
     @Override
-    protected Optional<? extends Token> createFallbackToken(String keyword, TokenInput tokenInput) {
+    protected Optional<? extends Token> createFallbackToken(TokenInput tokenInput) {
         return Optional.empty();
     }
 }

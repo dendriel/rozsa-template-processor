@@ -1,5 +1,7 @@
 package com.vrozsa.tokens;
 
+import com.vrozsa.Reader;
+
 public abstract class AbstractToken implements Token {
     private final TokenType type;
     protected final TokenInput input;
@@ -30,6 +32,15 @@ public abstract class AbstractToken implements Token {
 
     protected int tokenEndIdx() {
         return startIdx() + input.keyword().length() - 1;
+    }
+
+    /**
+     * Returns the starting index to read the token's content.
+     * @return the starting index of the token's content.
+     */
+    protected int contentStartIdx() {
+        var startIdx = tokenEndIdx() + 1;
+        return Reader.nextValidCharIndex(startIdx, content());
     }
 
     @Override
