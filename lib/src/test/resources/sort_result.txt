@@ -1,0 +1,17 @@
+My asc sorted user's list will be: [TestUser[name=Earp Doe, age=6, contact=null], TestUser[name=Bill Doe, age=7, contact=null], TestUser[name=Holliday Doe, age=9, contact=null], TestUser[name=Jane Doe, age=21, contact=null], TestUser[name=John Doe, age=25, contact=null]]
+My desc sorted user's list will be: [TestUser[name=John Doe, age=25, contact=null], TestUser[name=Jane Doe, age=21, contact=null], TestUser[name=Holliday Doe, age=9, contact=null], TestUser[name=Bill Doe, age=7, contact=null], TestUser[name=Earp Doe, age=6, contact=null]]
+
+My asc sorted user's list by name will be: [TestUser[name=Bill Doe, age=7, contact=null], TestUser[name=Earp Doe, age=6, contact=null], TestUser[name=Holliday Doe, age=9, contact=null], TestUser[name=Jane Doe, age=21, contact=null], TestUser[name=John Doe, age=25, contact=null]]
+My desc sorted user's list by name will be: [TestUser[name=John Doe, age=25, contact=null], TestUser[name=Jane Doe, age=21, contact=null], TestUser[name=Holliday Doe, age=9, contact=null], TestUser[name=Earp Doe, age=6, contact=null], TestUser[name=Bill Doe, age=7, contact=null]]
+
+My asc sorted user's array will be: [TestUser[name=John Doe, age=25, contact=null], TestUser[name=Jane Doe, age=21, contact=null], TestUser[name=Holliday Doe, age=9, contact=null], TestUser[name=Bill Doe, age=7, contact=null], TestUser[name=Earp Doe, age=6, contact=null]]
+My desc sorted user's array will be: [TestUser[name=John Doe, age=25, contact=null], TestUser[name=Jane Doe, age=21, contact=null], TestUser[name=Holliday Doe, age=9, contact=null], TestUser[name=Bill Doe, age=7, contact=null], TestUser[name=Earp Doe, age=6, contact=null]]
+
+My asc sorted numbers list will be: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+My desc sorted numbers list will be: [9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+My asc sorted numbers array will be: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+My desc sorted numbers array will be: [9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+My asc sorted char array will be: [97, 98, 99, 99, 101, 103, 104, 114, 116, 118]
+My desc sorted char array will be: [118, 116, 114, 104, 103, 101, 99, 99, 98, 97]

@@ -155,8 +155,20 @@ class TemplateProcessorIntegrationTest {
     @Test
     void testSortScenarios() {
 
+        var userList = List.of(
+                new TestUser("John Doe", 25, null),
+                new TestUser("Jane Doe", 21, null),
+                new TestUser("Bill Doe", 7, null),
+                new TestUser("Holliday Doe", 9, null),
+                new TestUser("Earp Doe", 6, null)
+        );
+
         var context = ContextHolder.create()
-                .add("myList", List.of(5, 6, 3, 2, 4, 1, 9, 7, 8));
+                .add("numberList", List.of(5, 6, 3, 2, 4, 1, 9, 7, 8))
+                .add("numberArray", new int[]{5, 6, 3, 2, 4, 1, 9, 7, 8})
+                .add("charArray", new int[]{'g', 'h', 'e', 'r', 't', 'c', 'v', 'b', 'c', 'a'})
+                .add("userList", userList)
+                .add("userArray", userList.toArray());
 
         assertScenario(context, "sort_scenarios.txt", "sort_result.txt");
     }

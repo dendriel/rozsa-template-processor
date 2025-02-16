@@ -6,6 +6,9 @@ import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
 public class SortOrderToken extends AbstractToken {
+
+    private boolean isAscending;
+
     public SortOrderToken(TokenInput input) {
         super(TokenType.SORT_ORDER, input);
     }
@@ -16,8 +19,16 @@ public class SortOrderToken extends AbstractToken {
     }
 
     @Override
-    public Object evaluate(ContextHolder context) {
-        // TODO
-        return null;
+    public Boolean evaluate(ContextHolder context) {
+        isAscending = keyword().startsWith("ASC");
+        return isAscending;
+    }
+
+    public boolean isAsc() {
+        return isAscending;
+    }
+
+    public boolean isDesc() {
+        return !isAscending;
     }
 }

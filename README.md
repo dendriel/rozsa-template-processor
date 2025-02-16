@@ -17,6 +17,7 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 - Conditionals
 - Operators
 - Functions
+- Transformations
 - Context Variables
 
 ## Expressions
@@ -81,6 +82,11 @@ Functions are transformations over the context variables.
 - IS_PRESENT - if value is present, return true
 - IS_ABSENT - if value is absent, return false
 
+## Transformations
+
+- SORT
+  - SORT {set} [ASC|DESC]
+  - SORT {set} AS {key} ON {key.prop} [ASC|DESC]
 
 ## Context Variables
 
@@ -140,7 +146,6 @@ and the expected result after processing.
   - FILTER AS ON
   - MAP AS ON SEPARATOR
   - COMBINE AS AND AS ON EQUALS
-  - SORT AS ON ASC/DESC
   - MAP REDUCE
   - EMPTY TEXT/MAP/LIST
   - RENDER AS ON SEPARATOR

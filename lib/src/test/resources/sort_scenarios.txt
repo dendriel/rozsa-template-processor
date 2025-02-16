@@ -1,1 +1,17 @@
-My sorted list will be: ${SORT myList AS entry ON entry.id ASC}
+My asc sorted user's list will be: ${SORT userList AS user ON user.age ASC}
+My desc sorted user's list will be: ${SORT userList AS user ON user.age DESC}
+
+My asc sorted user's list by name will be: ${SORT userList AS user ON user.name ASC}
+My desc sorted user's list by name will be: ${SORT userList AS user ON user.name DESC}
+
+My asc sorted user's array will be: ${SORT userArray AS user ON user.age ASC}
+My desc sorted user's array will be: ${SORT userArray AS user ON user.age DESC}
+
+My asc sorted numbers list will be: ${SORT numberList ASC}
+My desc sorted numbers list will be: ${SORT numberList DESC}
+
+My asc sorted numbers array will be: ${SORT numberArray ASC}
+My desc sorted numbers array will be: ${SORT numberArray DESC}
+
+My asc sorted char array will be: ${SORT charArray ASC}
+My desc sorted char array will be: ${SORT charArray DESC}
