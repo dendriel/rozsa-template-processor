@@ -102,39 +102,77 @@ public class SortToken extends AbstractToken {
         endIdx = sortOrderToken.endIdx();
     }
 
-    // TODO: improve this code.
     @Override
     public Object evaluate(ContextHolder context) {
-
         Object set = setVarToken.evaluate(context);
         if (isNull(set)) {
             throw new MissingContextVariableException(setVarToken.keyword());
         }
 
         var listToSort = getSetAsList(set, setVarToken.keyword());
-
         if (listToSort.isEmpty()) {
             return null;
         }
+
         var sortAsc = sortOrderToken.evaluate(context);
 
         if (isNull(asToken)) {
-            // Plain sort.
-            listToSort.sort((o1, o2) -> {
-
-                        Object value1 = sortAsc ? o1 : o2;
-                        Object value2 = sortAsc ? o2 : o1;
-
-                        if (value1 instanceof Comparable && value2 instanceof Comparable) {
-                            return ((Comparable) value1).compareTo(value2);
-                        }
-                        return 0;
-                    }
-            );
-
-            return listToSort;
+            sortByElement(listToSort, sortAsc);
+        }
+        else {
+            sortByElementProp(listToSort, context, sortAsc);
         }
 
+        return listToSort;
+    }
+
+    private List<?> getSetAsList(Object set, String keyword) {
+        if (set instanceof List<?> setAsList) {
+            return new ArrayList<>(setAsList);
+        }
+        else if  (set instanceof Object[] setAsArray) {
+            return Arrays.asList(setAsArray);
+        }
+        else if (set.getClass().isArray()) {
+            int length = Array.getLength(set);
+            List<Object> list = new ArrayList<>(length);
+            for (var i = 0; i < length; i++) {
+                list.add(Array.get(set, i));
+            }
+            return list;
+        }
+
+        throw new InvalidContextVariableTypeException(keyword, "Lists or Arrays");
+    }
+
+
+    private static String getSortingProperty(String sortOnPropExpression, String entryLabel) {
+        String[] split = DELIMITER_PATTERN.split(sortOnPropExpression);
+        if (split.length != 2) {
+            throw new InvalidLabelException("Expecting 2 tokens");
+        }
+
+        if (!split[0].equals(entryLabel)) {
+            throw new InvalidLabelException(String.format("Unexpected token %s in label. Should be %s", split[0], entryLabel));
+        }
+
+        return split[1];
+    }
+
+    private static void sortByElement(List<?> listToSort, boolean sortAsc) {
+        listToSort.sort((o1, o2) -> {
+                Object value1 = sortAsc ? o1 : o2;
+                Object value2 = sortAsc ? o2 : o1;
+
+                if (value1 instanceof Comparable && value2 instanceof Comparable) {
+                    return ((Comparable) value1).compareTo(value2);
+                }
+                return 0;
+            }
+        );
+    }
+
+    private void sortByElementProp(List<?> listToSort, ContextHolder context, boolean sortAsc) {
         var entryLabel = asToken.evaluate(context);
         var sortOnPropExpression = onToken.evaluate(context);
 
@@ -144,7 +182,8 @@ public class SortToken extends AbstractToken {
         try {
             field = listToSort.get(0).getClass().getDeclaredField(sortingProperty);
             field.setAccessible(true);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new InvalidOperationException(String.format("The field %s can't be used in the comparison.", sortingProperty), e);
         }
 
@@ -158,51 +197,11 @@ public class SortToken extends AbstractToken {
                     return ((Comparable) value1).compareTo(value2);
                 }
                 return 0;
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new InvalidOperationException(String.format("The set %s couldn't be sorted.", setVarToken.keyword()), e);
             }
-
         });
-
-        return listToSort;
-    }
-
-    private List<?> getSetAsList(Object set, String keyword) {
-        if (set instanceof List<?> setAsList) {
-            var listToSort = new ArrayList<>();
-            listToSort.addAll(setAsList);
-            return listToSort;
-        }
-        else if  (set instanceof Object[] setAsArray) {
-            return Arrays.asList(setAsArray);
-        }
-        else if (set.getClass().isArray()) {
-            int length = Array.getLength(set);
-            List<Object> list = new ArrayList<>(length);
-            for (var i = 0; i < length; i++) {
-                list.add(Array.get(set, i));
-            }
-
-            return list;
-
-
-        }
-
-        throw new InvalidContextVariableTypeException(keyword, "Lists or Arrays");
-    }
-
-
-    private String getSortingProperty(String sortOnPropExpression, String entryLabel) {
-        String[] split = DELIMITER_PATTERN.split(sortOnPropExpression);
-        if (split.length != 2) {
-            throw new InvalidLabelException("Expecting 2 tokens");
-        }
-
-        if (!split[0].equals(entryLabel)) {
-            throw new InvalidLabelException(String.format("Unexpected token %s in label. Should be %s", entryLabel));
-        }
-
-        return split[1];
     }
 
 }
