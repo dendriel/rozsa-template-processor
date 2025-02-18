@@ -154,7 +154,6 @@ class TemplateProcessorIntegrationTest {
 
     @Test
     void testSortScenarios() {
-
         var userList = List.of(
                 new TestUser("John Doe", 25, null),
                 new TestUser("Jane Doe", 21, null),
@@ -171,5 +170,19 @@ class TemplateProcessorIntegrationTest {
                 .add("userArray", userList.toArray());
 
         assertScenario(context, "sort_scenarios.txt", "sort_result.txt");
+    }
+
+    @Test
+    void testSetVariablesScenarios() {
+        var context = ContextHolder.create()
+                .add("numberList", List.of(5, 6, 3, 2, 4, 1, 9, 7, 8))
+                .add("userName", "John Doe")
+                .add("user", testUser01());
+
+        assertScenario(context, "set_var_scenarios.txt", "set_var_result.txt");
+    }
+
+    private TestUser testUser01() {
+        return new TestUser("Jane Doe", 21, new TestUser.TestContact("55 20 445687966"));
     }
 }

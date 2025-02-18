@@ -36,6 +36,7 @@ public enum TokenType {
     AS("AS"),
     ON("ON"),
     SORT_ORDER("ASCENDING", "ASC", "DESCENDING", "DESC"),
+    SET("SET"),
     ;
 
 

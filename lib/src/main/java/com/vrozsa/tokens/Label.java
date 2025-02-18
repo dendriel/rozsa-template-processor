@@ -13,7 +13,7 @@ public class Label implements Token {
 
     @Override
     public void read() {
-        endIdx = input.startIdx() + input.keyword().length();
+        endIdx = input.startIdx() + input.keyword().length() - 1;
     }
 
     @Override

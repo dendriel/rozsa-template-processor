@@ -1,0 +1,10 @@
+Function:
+${SET UPPERCASE(userName) AS upperUserName
+}The username in lower is $userName, but it was transformed in uppercase, and now it is $upperUserName\.
+
+Inner Expression:
+${SET ${SORT numberList ASC} AS sortedNumberList
+}My unsorted list is $numberList and the sorted one is $sortedNumberList
+
+Define an alias for longer variable names or inner properties:
+${SET user.contact.phone_number AS number}Accessing the phone number "$number" using an alias.

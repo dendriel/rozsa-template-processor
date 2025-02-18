@@ -93,7 +93,7 @@ public class IfToken extends AbstractToken {
         }
 
         orElse = elseToken.get();
-        if (!ELSE.equals(orElse.type())) {
+        if (orElse.type() != ELSE) {
             throw new UnexpectedTokenException(ELSE, then.type(), startIdx);
         }
 

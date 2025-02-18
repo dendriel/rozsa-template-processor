@@ -19,6 +19,7 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 - Functions
 - Transformations
 - Context Variables
+- Context Enrichment
 
 ## Expressions
 
@@ -88,6 +89,22 @@ Functions are transformations over the context variables.
   - SORT {set} [ASC|DESC]
   - SORT {set} AS {key} ON {key.prop} [ASC|DESC]
 
+
+### Context Enrichment
+
+It is possible to use the `SET` transformation to create custom context variables directly from the template
+specification.
+
+This is useful because it allows reducing the template pollution with the expression and duplicated entries.
+
+Instead, one can define beforehand, at the start of the template, all necessary transformations or expressions and save
+it to new variables which will be available in the context.
+
+- SET
+  - SET {some-expression} AS {new_var_name}
+
+Examples available at the `set_var_scenarios.txt` testing scenarios.
+
 ## Context Variables
 
 Context variables allow the template to refer to dynamic context passed to the processor in runtime.
@@ -154,9 +171,6 @@ and the expected result after processing.
   - CONCAT
 - Create the functional documentation
 - Remove escape characters
-- Allow enriching context from within the template
-  - eg. ${SET some-expression AS new_var_name}
-  - ${SET ${SORT myList AS entry ON entry.name ASC} AS mySortedList}
 - Handle comment expressions
   - Expressions just to add comments in the template
   - The whole expression is erased during processing
