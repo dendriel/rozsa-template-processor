@@ -5,9 +5,6 @@ import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.exceptions.UnexpectedCharacterException;
 import com.vrozsa.scanners.MainTokenScanner;
-import com.vrozsa.tokens.Token;
-import com.vrozsa.tokens.TokenInput;
-import com.vrozsa.tokens.TokenType;
 
 import static com.vrozsa.Reader.assertValidIndex;
 import static java.util.Objects.isNull;

@@ -2,8 +2,10 @@ package com.vrozsa.scanners;
 
 import com.vrozsa.CharacterChecker;
 import com.vrozsa.CharacterSingle;
+import com.vrozsa.EscapeCharacter;
 import com.vrozsa.tokens.Expression;
 import com.vrozsa.Reader;
+import com.vrozsa.tokens.Token;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +29,8 @@ public class ExpressionScanner {
      * @param content the content to be scanned.
      * @return a list of expressions found in the content.
      */
-    public static List<Expression> scan(final int idx, final char[] content) {
-        var expressions = new ArrayList<Expression>();
+    public static List<Token> scan(final int idx, final char[] content) {
+        var expressions = new ArrayList<Token>();
 
         int startIdx = Reader.nextValidCharIndex(idx, content);
 
@@ -40,6 +42,9 @@ public class ExpressionScanner {
                 // If the next char is the escape character, skip the next char.
                 i++;
                 System.out.println("Skipped escaped token \\" + content[i] + " at " + (i - 1));
+
+                expressions.add(new EscapeCharacter(i - 1));
+
                 continue;
             }
 

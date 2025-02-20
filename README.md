@@ -146,6 +146,8 @@ and the expected result after processing.
 
 # TODO
 
+- NEXT: Remove escape characters
+- NEXT: LITERALS
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
   - IF x OR y OR z THEN ...
@@ -169,8 +171,9 @@ and the expected result after processing.
   - LIST OF
   - NOT (for reversing conditions result)
   - CONCAT
+  - SUBSTRING/ARRAY (todo)
+- Allow to access elements in arrays/lists
 - Create the functional documentation
-- Remove escape characters
 - Handle comment expressions
   - Expressions just to add comments in the template
   - The whole expression is erased during processing

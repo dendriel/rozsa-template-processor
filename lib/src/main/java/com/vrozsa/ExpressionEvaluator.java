@@ -1,19 +1,20 @@
 package com.vrozsa;
 
 import com.vrozsa.tokens.Expression;
+import com.vrozsa.tokens.Token;
 
 import java.util.List;
 
 class ExpressionEvaluator {
     private final ContextHolder context;
-    private final List<Expression> expressions;
+    private final List<Token> expressions;
     private final String contentAsText;
 
-    ExpressionEvaluator(ContextHolder context, List<Expression> expressions, char[] content) {
+    ExpressionEvaluator(ContextHolder context, List<Token> expressions, char[] content) {
         this(context, expressions, String.copyValueOf(content));
     }
 
-    ExpressionEvaluator(ContextHolder context, List<Expression> expressions, String contentAsText) {
+    ExpressionEvaluator(ContextHolder context, List<Token> expressions, String contentAsText) {
         this.context = context;
         this.expressions = expressions;
         this.contentAsText = contentAsText;
@@ -41,7 +42,7 @@ class ExpressionEvaluator {
 
         for (var currExp : expressions) {
             // -1 for the $
-            var startIdx = currExp.startIdx() - 1;
+            var startIdx = expressionStartIdx(currExp);
 
             var segment = contentAsText.substring(contentIdx, startIdx);
             newContent.append(segment);
@@ -49,7 +50,7 @@ class ExpressionEvaluator {
             var expValue = currExp.result();
             newContent.append(expValue);
             // +1 for the $ and +1 to get to the next char after the expression
-            contentIdx += segment.length() + currExp.length() + 2;
+            contentIdx += segment.length() + tokenLength(currExp);
         }
 
         // Add the rest of the content
@@ -59,5 +60,23 @@ class ExpressionEvaluator {
         newContent.append(lastSegment);
 
         return newContent.toString();
+    }
+
+    private static int expressionStartIdx(Token token) {
+        // -1 for the $
+        var startIdx = token.startIdx();
+        if (token instanceof Expression) {
+            startIdx--;
+        }
+        return startIdx;
+    }
+
+    private static int tokenLength(Token token) {
+        int length = token.endIdx() - token.startIdx();
+        if (token instanceof Expression) {
+            length += 2;
+        }
+
+        return length;
     }
 }
