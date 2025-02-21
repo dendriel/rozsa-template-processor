@@ -143,10 +143,10 @@ ${variable.propA.innerProp}
 ## Escape Characters
 
 Some characters as `$`, `.`, `-` and `_` are used in the language. Sometimes it is necessary to use them in the template
-but to make the template processor ignore then is necessary to use the escape expression.
+but to do that it is necessary to use the escape notation `\`.
 
 For instance `This library is $key.` ends with a `.`. So the processor will try to find a variable named `key.` in
-the context and will fail. In order to this work, you have to escape the dot `This is library $key\.`.
+the context and will fail. To make this work, you have to escape the dot `This is library $key\.`.
 
 The same stands for expression starts `$`.
 
@@ -155,6 +155,11 @@ in `I own you \$US 10.00.`
 
 Note that the processor removes the escape token `\`. So the previous template would be rendered as 
 `I own you $US 10.00.`.
+
+For convenience, escape the `.`, `-` and `_` characters only when conflicting with the template. Otherwise, you can use
+these characters freely.
+
+The '$' is the only character that has to be always escaped when not trying to write an expression. 
 
 # Examples
 

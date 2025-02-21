@@ -1,4 +1,15 @@
-escaped_dot=\.
+expression_started=\$
+expression=\$wont_evaluate
+mixed_exp_dot=$value\.
+mixed_exp_hyphen=$value\-
+mixed_exp_underscore=$value\_
+keep_one_slash_in_final_resul=$value\\.
+
+mixed_exp_dot=$value\. This part is the free text of the template
+
+if not escaped, the '.', '-', '_' can be used normally.
+
+These won't be considered by the template processor
 double_escaped=\\x
 two_escapes=\\\\
 breakline=\\n

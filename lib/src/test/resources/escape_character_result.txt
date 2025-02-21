@@ -1,7 +1,18 @@
-escaped_dot=.
-double_escaped=\x
-two_escapes=\\
-breakline=\n
-tab=\t
-mixed=longboat
-mixed_double=long\boat
+expression_started=$
+expression=$wont_evaluate
+mixed_exp_dot=evaluation result.
+mixed_exp_hyphen=evaluation result-
+mixed_exp_underscore=evaluation result_
+keep_one_slash_in_final_resul=evaluation result\.
+
+mixed_exp_dot=evaluation result. This part is the free text of the template
+
+if not escaped, the '.', '-', '_' can be used normally.
+
+These won't be considered by the template processor
+double_escaped=\\x
+two_escapes=\\\\
+breakline=\\n
+tab=\\t
+mixed=long\boat
+mixed_double=long\\boat

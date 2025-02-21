@@ -184,7 +184,9 @@ class TemplateProcessorIntegrationTest {
 
     @Test
     void testEscapeCharacterScenarios() {
-        assertScenario(ContextHolder.create(), "escape_character_scenarios.txt", "escape_character_result.txt");
+        ContextHolder context = ContextHolder.create().add("value", "evaluation result");
+
+        assertScenario(context, "escape_character_scenarios.txt", "escape_character_result.txt");
     }
 
     private TestUser testUser01() {

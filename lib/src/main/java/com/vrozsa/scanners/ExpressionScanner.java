@@ -1,6 +1,7 @@
 package com.vrozsa.scanners;
 
 import com.vrozsa.CharacterChecker;
+import com.vrozsa.CharacterRange;
 import com.vrozsa.CharacterSingle;
 import com.vrozsa.EscapeCharacter;
 import com.vrozsa.tokens.Expression;
@@ -17,6 +18,13 @@ public class ExpressionScanner {
 
     private static final CharacterChecker expressionCharChecker = CharacterChecker.of(
             new CharacterSingle('$')
+    );
+
+    private static final CharacterChecker escapeCharValueChecker = CharacterChecker.of(
+            new CharacterSingle('$'),
+            new CharacterSingle('.'),
+            new CharacterSingle('_'),
+            new CharacterSingle('-')
     );
 
     private static final CharacterChecker escapeCharChecker = CharacterChecker.of(
@@ -39,13 +47,26 @@ public class ExpressionScanner {
             var nextChar = content[i];
 
             if (escapeCharChecker.match(nextChar)) {
-                // If the next char is the escape character, skip the next char.
+                // move to the next char
+
+                if (i >= content.length) {
+                    // end of the template.
+                    continue;
+                }
+
+
+                var escapeCharValue = content[i + 1];
+                if (!escapeCharValueChecker.match(escapeCharValue)) {
+                    continue;
+                }
+
+                // Store the escape char '\' to be removed in the final template.
+                expressions.add(new EscapeCharacter(i));
+
                 i++;
-                System.out.println("Skipped escaped token \\" + content[i] + " at " + (i - 1));
 
-                expressions.add(new EscapeCharacter(i - 1));
-
-                continue;
+                // If the next char is the escape character, skip the next char.
+                System.out.println("Skipped escaped token \\" + content[i] + " at " + i);
             }
 
             if (!expressionCharChecker.match(nextChar)) {
