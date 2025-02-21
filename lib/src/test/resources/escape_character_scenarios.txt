@@ -1,7 +1,7 @@
 escaped_dot=\.
 double_escaped=\\x
-mixed=long\boat
-mixed_double=long\\boat
 two_escapes=\\\\
 breakline=\\n
 tab=\\t
+mixed=long\boat
+mixed_double=long\\boat

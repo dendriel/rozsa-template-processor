@@ -20,6 +20,7 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 - Transformations
 - Context Variables
 - Context Enrichment
+- Escape Characters
 
 ## Expressions
 
@@ -138,6 +139,22 @@ ${variable.propA}
 $variable.propA.innerProp
 ${variable.propA.innerProp}
 ```
+
+## Escape Characters
+
+Some characters as `$`, `.`, `-` and `_` are used in the language. Sometimes it is necessary to use them in the template
+but to make the template processor ignore then is necessary to use the escape expression.
+
+For instance `This library is $key.` ends with a `.`. So the processor will try to find a variable named `key.` in
+the context and will fail. In order to this work, you have to escape the dot `This is library $key\.`.
+
+The same stands for expression starts `$`.
+
+If it is necessary to use it for something else, just escape the character as
+in `I own you \$US 10.00.`
+
+Note that the processor removes the escape token `\`. So the previous template would be rendered as 
+`I own you $US 10.00.`.
 
 # Examples
 

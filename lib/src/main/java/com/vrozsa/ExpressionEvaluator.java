@@ -56,7 +56,7 @@ class ExpressionEvaluator {
         // Add the rest of the content
         var lastExp = expressions.get(expressions.size() - 1);
 
-        var lastSegment = contentAsText.substring(lastExp.endIdx() + 1);
+        var lastSegment = contentAsText.substring(expressionEndIdx(lastExp));
         newContent.append(lastSegment);
 
         return newContent.toString();
@@ -69,6 +69,15 @@ class ExpressionEvaluator {
             startIdx--;
         }
         return startIdx;
+    }
+
+    private static int expressionEndIdx(Token token) {
+        var endIdx = token.endIdx();
+        if (token instanceof Expression) {
+            endIdx++;
+        }
+
+        return endIdx;
     }
 
     private static int tokenLength(Token token) {
