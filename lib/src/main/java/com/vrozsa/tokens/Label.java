@@ -3,7 +3,6 @@ package com.vrozsa.tokens;
 import com.vrozsa.ContextHolder;
 
 public class Label implements Token {
-
     private final TokenInput input;
     private int endIdx;
 

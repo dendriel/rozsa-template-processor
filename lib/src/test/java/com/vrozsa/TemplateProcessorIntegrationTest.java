@@ -189,6 +189,12 @@ class TemplateProcessorIntegrationTest {
         assertScenario(context, "escape_character_scenarios.txt", "escape_character_result.txt");
     }
 
+    @Test
+    void testLiteralsScenarios() {
+
+        assertScenario(ContextHolder.create(), "literals_scenarios.properties", "literals_result.properties");
+    }
+
     private TestUser testUser01() {
         return new TestUser("Jane Doe", 21, new TestUser.TestContact("55 20 445687966"));
     }

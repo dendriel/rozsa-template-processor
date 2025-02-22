@@ -6,6 +6,7 @@ import com.vrozsa.CharacterSingle;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.tokens.ContextVariableToken;
+import com.vrozsa.tokens.Literal;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
@@ -23,6 +24,11 @@ abstract class AbstractTokenScanner {
             new CharacterSingle('='),
             new CharacterSingle('>'),
             new CharacterSingle('!')
+    );
+
+    private static final CharacterChecker literalStartingCharsChecker = CharacterChecker.of(
+            new CharacterRange('0', '9'),
+            new CharacterSingle('"')
     );
 
     private static final CharacterChecker middleCharsChecker = CharacterChecker.of(
@@ -75,11 +81,17 @@ abstract class AbstractTokenScanner {
         // -1 for the stop character
         var endIdx = nextIdx - 1;
 
+        var tokenInput = new TokenInput(keyword, startIdx, endIdx, content);
+
         if (matchAnyToken(keyword)) {
             return createToken(keyword, startIdx, endIdx, content);
         }
 
-        return createFallbackToken(new TokenInput(keyword, startIdx, endIdx, content));
+        if (literalStartingCharsChecker.match(keyword.charAt(0))) {
+            return createLiteralToken(tokenInput);
+        }
+
+        return createFallbackToken(tokenInput);
     }
 
     // Here it has a return to allow subclasses to return something instead of throwing.
@@ -87,7 +99,11 @@ abstract class AbstractTokenScanner {
         throw new InvalidSyntaxException(String.format("Invalid starting character with value %s", content[idx]), idx);
     }
 
-    protected Optional<? extends Token> createFallbackToken(TokenInput tokenInput) {
+    protected Optional<Token> createLiteralToken(TokenInput tokenInput) {
+        return Optional.of(new Literal(tokenInput));
+    }
+
+    protected Optional<Token> createFallbackToken(TokenInput tokenInput) {
         return Optional.of(new ContextVariableToken(tokenInput));
     }
 

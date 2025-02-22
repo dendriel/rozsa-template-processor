@@ -9,6 +9,7 @@ public enum TokenType {
     EXPRESSION,
     CONDITION,
     LABEL,
+    LITERAL,
     CONDITION_GROUP,
 
     // CONDITIONALS

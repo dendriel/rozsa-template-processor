@@ -200,6 +200,7 @@ and the expected result after processing.
 # TODO
 
 - NEXT: LITERALS
+- Rename ContextVariableToken to ContextVariable
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
   - IF x OR y OR z THEN ...

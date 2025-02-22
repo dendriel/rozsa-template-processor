@@ -1,5 +1,7 @@
 package com.vrozsa.scanners;
 
+import com.vrozsa.exceptions.InvalidSyntaxException;
+import com.vrozsa.exceptions.UnexpectedTokenException;
 import com.vrozsa.tokens.AbstractToken;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
@@ -45,7 +47,12 @@ public class OperatorScanner extends AbstractTokenScanner {
     }
 
     @Override
-    protected Optional<? extends Token> createFallbackToken(TokenInput tokenInput) {
+    public Optional<Token> createLiteralToken(TokenInput tokenInput) {
+        throw new InvalidSyntaxException("Expecting an OPERATOR", tokenInput.startIdx());
+    }
+
+    @Override
+    protected Optional<Token> createFallbackToken(TokenInput tokenInput) {
         return Optional.empty();
     }
 }

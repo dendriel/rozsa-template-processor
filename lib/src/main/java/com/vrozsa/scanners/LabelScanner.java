@@ -1,8 +1,10 @@
 package com.vrozsa.scanners;
 
+import com.vrozsa.exceptions.UnexpectedTokenException;
 import com.vrozsa.tokens.Label;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
+import com.vrozsa.tokens.TokenType;
 
 import java.util.Map;
 import java.util.Optional;
@@ -28,7 +30,12 @@ public class LabelScanner extends AbstractTokenScanner {
     }
 
     @Override
-    protected Optional<? extends Token> createFallbackToken(TokenInput tokenInput) {
+    public Optional<Token> createLiteralToken(TokenInput tokenInput) {
+        throw new UnexpectedTokenException(TokenType.LABEL, TokenType.LITERAL, tokenInput.startIdx());
+    }
+
+    @Override
+    protected Optional<Token> createFallbackToken(TokenInput tokenInput) {
         return Optional.of(new Label(tokenInput));
     }
 }

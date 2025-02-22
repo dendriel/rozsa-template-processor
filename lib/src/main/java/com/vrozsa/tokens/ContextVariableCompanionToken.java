@@ -3,7 +3,6 @@ package com.vrozsa.tokens;
 import com.vrozsa.ContextHolder;
 import com.vrozsa.Reader;
 import com.vrozsa.scanners.ExpressibleValueScanner;
-import com.vrozsa.scanners.FunctionTokenScanner;
 
 /**
  * Companion tokens should have just a context variable to provide the final value.
