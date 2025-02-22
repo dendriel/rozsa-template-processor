@@ -8,11 +8,10 @@ import com.vrozsa.exceptions.InvalidLiteralException;
 import java.math.BigDecimal;
 
 public class Literal implements Token {
+    private static final BigDecimal MAX_DOUBLE_VAL = BigDecimal.valueOf(Double.MAX_VALUE);
     private static final CharacterChecker numberCharChecker = CharacterChecker.of(
-            new CharacterRange(0, 9)
+            new CharacterRange('0', '9')
     );
-
-
 
     private final TokenInput input;
     private int endIdx;
@@ -48,7 +47,7 @@ public class Literal implements Token {
         var firstChar = keyword().charAt(0);
 
         if (numberCharChecker.match(firstChar)) {
-            result = evaluateNumber(context);
+            result = evaluateAsNumber();
         }
         else {
             // It evaluates to a string.
@@ -59,11 +58,16 @@ public class Literal implements Token {
     }
 
 
-    private Object evaluateNumber(ContextHolder context) {
+    private Object evaluateAsNumber() {
         try {
             var number = new BigDecimal(keyword());
 
-            if (number.scale() <= 0) {
+            // Check if the value is too large for double
+            if (number.compareTo(MAX_DOUBLE_VAL) > 0) {
+                return number;
+            }
+
+            if (number.scale() == 0) {
                 var longValue = number.longValueExact();
                 if (longValue >= Integer.MIN_VALUE && longValue <= Integer.MAX_VALUE) {
                     // Convert to Integer if it fits
@@ -73,7 +77,7 @@ public class Literal implements Token {
                 return longValue;
             }
 
-            if (number.precision() <= 16) {
+            if (number.precision() <= 17) {
                 return number.doubleValue();
             }
 

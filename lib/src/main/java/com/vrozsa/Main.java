@@ -4,7 +4,7 @@ import com.vrozsa.scanners.ExpressionScanner;
 
 public class Main {
     public static void main(String[] args) {
-        var content = FileReader.readFile("sample_template_1.yml").toCharArray();
+        var content = FileReader.readFile("sample_template_2.yml").toCharArray();
 
         var context = ContextHolder.create()
                 .add("valid_user", false)
@@ -17,12 +17,12 @@ public class Main {
                 .add("inequality_result", "this value wont show")
                 .add("fallback_result", "fallback result from else")
                 .add("result_then", "result when then value is used")
-                .add("user.type2", "ADMIN");
+                .add("user.type2", "ADMIN")
+                .add("value01", 1234);
 
         var evaluatedContent = new TemplateProcessor().process(content, context);
 
-        System.out.println("\n\n\n\nEvaluated Content:\n" + evaluatedContent);
+        System.out.println("\nEvaluated Content:\n\n" + evaluatedContent);
 
     }
-
 }

@@ -37,7 +37,6 @@ public class IfToken extends AbstractToken {
         scanElseToken(nextIdx);
     }
 
-    // TODO: The condition can be an expression, a conditional or a context variable
     /**
      * Scan the condition.
      * @param startIdx start index in the content to perform the scan.

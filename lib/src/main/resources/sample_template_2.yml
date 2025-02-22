@@ -1,0 +1,1 @@
+comparison_agaisnt_var_true=${ IF 1234 == value01 THEN 1 ELSE 0}
