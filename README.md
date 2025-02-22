@@ -13,7 +13,7 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 # Features
 
 - Expressions
-- Inner Expressions
+- Inner Expressions (aka Nested Expressions)
 - Conditionals
 - Operators
 - Functions
@@ -21,6 +21,7 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 - Context Variables
 - Context Enrichment
 - Escape Characters
+- Flexible Formatting
 
 ## Expressions
 
@@ -30,7 +31,7 @@ Expressions are declared inside the `${}` guards. For instance, a dynamic proper
 
 ```yml
 data:
-  "propertyA": "${ IF UPPERCASE(foo) EQUALS bar THEN xpto }"
+  "propertyA": "${IF UPPERCASE(foo) EQUALS bar THEN xpto}"
   "propertyB": "satic value"
   "propertyC": 123
 ```
@@ -161,6 +162,36 @@ these characters freely.
 
 The '$' is the only character that has to be always escaped when not trying to write an expression. 
 
+## Flexible Formatting
+
+Flexible Formatting is just a quality of life feature that allows you to use spaces, tabs, and break-lines to format
+expressions as you will.
+
+For instance, the expression inside this phrase `I have ${IF UPPERCASE(foo) EQUALS bar THEN xpto} apples.` which results
+to `"I have 5 apples.` can also be written in the following forms and keep yielding the same result:
+
+```
+I have ${ IF UPPERCASE(foo) EQUALS bar THEN xpto } apples.
+```
+```
+I have ${ 	IF UPPERCASE(foo) EQUALS bar THEN xpto		} apples.
+```
+```
+I have ${IF UPPERCASE(foo)
+	EQUALS bar
+	THEN xpto} apples.
+```
+```
+I have ${
+          IF
+              UPPERCASE(foo)
+          EQUALS
+              bar
+          THEN
+              xpto
+} apples.
+```
+
 # Examples
 
 Check out the `resources` package from the testing module. There are all valid usage of the language inside templates
@@ -168,7 +199,6 @@ and the expected result after processing.
 
 # TODO
 
-- NEXT: Remove escape characters
 - NEXT: LITERALS
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
