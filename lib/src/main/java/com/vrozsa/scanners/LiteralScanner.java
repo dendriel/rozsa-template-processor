@@ -27,6 +27,10 @@ public class LiteralScanner {
             new CharacterSingle('E')
     );
 
+    private static final CharacterChecker escapeCharChecker = CharacterChecker.of(
+            new CharacterSingle('\\')
+    );
+
     public boolean isLiteralStartingCharacter(char startingChar) {
         return literalStartingCharsChecker.match(startingChar);
     }
@@ -77,14 +81,21 @@ public class LiteralScanner {
         char nextChar;
         var nextIdx = startIdx + 1;
 
+        // When the escape char is detected, it 'turns on' for the next characted evaluated.
+        var escapeEnabled = false;
+
         while (nextIdx < content.length) {
             nextChar = content[nextIdx];
             literalBuilder.append(nextChar);
             nextIdx++;
 
-            if (literalTextMarkCharChecker.match(nextChar)) {
+
+            if (literalTextMarkCharChecker.match(nextChar) && !escapeEnabled) {
                 break;
             }
+
+            // verify escape char here too, so we can escape the escape char '\\'
+            escapeEnabled = !escapeEnabled && escapeCharChecker.match(nextChar);
         }
 
         return nextIdx - 1;

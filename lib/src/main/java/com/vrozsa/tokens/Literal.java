@@ -2,6 +2,7 @@ package com.vrozsa.tokens;
 
 import com.vrozsa.CharacterChecker;
 import com.vrozsa.CharacterRange;
+import com.vrozsa.CharacterSingle;
 import com.vrozsa.ContextHolder;
 import com.vrozsa.exceptions.InvalidLiteralException;
 import com.vrozsa.scanners.LiteralScanner;
@@ -12,6 +13,15 @@ public class Literal implements Token {
     private static final BigDecimal MAX_DOUBLE_VAL = BigDecimal.valueOf(Double.MAX_VALUE);
     private static final CharacterChecker numberCharChecker = CharacterChecker.of(
             new CharacterRange('0', '9')
+    );
+
+    private static final CharacterChecker escapeCharChecker = CharacterChecker.of(
+            new CharacterSingle('\\')
+    );
+
+    private static final CharacterChecker allowedCharsToEscapeChecker = CharacterChecker.of(
+            new CharacterSingle('"'),
+            new CharacterSingle('\\')
     );
 
     private final TokenInput input;
@@ -57,7 +67,8 @@ public class Literal implements Token {
             return result;
         }
 
-        result = keyword().substring(1, keyword().length() - 1);
+//        result = keyword().substring(1, keyword().length() - 1);
+        result = evaluateAsText();
         return result;
     }
 
@@ -89,6 +100,40 @@ public class Literal implements Token {
         catch (Exception e) {
             throw new InvalidLiteralException(keyword(), e);
         }
+    }
+
+    private Object evaluateAsText() {
+        // remove the quotes
+        var rawText = keyword().substring(1, keyword().length() - 1);
+
+        // remove escapes
+        var currIdx = 0;
+        var resultBuilder = new StringBuilder();
+
+        // do until before the last char
+        while (currIdx < rawText.length() - 1) {
+
+            var currChar = rawText.charAt(currIdx);
+            if (escapeCharChecker.match(currChar)) {
+                var nextChar = rawText.charAt(currIdx + 1);
+                if (allowedCharsToEscapeChecker.match(nextChar)) {
+                    // Append the next char and skip 2 positions.
+                    resultBuilder.append(nextChar);
+                    currIdx += 2;
+                    continue;
+                }
+            }
+
+            resultBuilder.append(currChar);
+            currIdx++;
+        }
+
+        if (currIdx < rawText.length()) {
+            var lastChar = rawText.charAt(currIdx);
+            resultBuilder.append(lastChar);
+        }
+
+        return resultBuilder.toString();
     }
 
     @Override

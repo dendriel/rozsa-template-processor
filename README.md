@@ -169,9 +169,11 @@ The Literals feature allows using literal values inside expressions. The followi
 
 - **Text** - declare inside expressions between quotes.
   - eg. `${IF varX == "myLiteral" THEN 100 ELSE 200}`
-  - **Numbers** - declare inside expressions without quotes.
-  - eg. `${IF varX == 123 THEN 4321}`
-
+  - Inside text literals, if you have to use quotes " or backslash \\, it is necessary to escape them as `\"` and `\\`.
+- **Numbers** - declare inside expressions without quotes.
+  - eg. `${IF varY == 123 THEN 4321}`
+- **Booleans** - declare inside expressions without quotes using `true` or `false`.
+  - eg. `IF varZ == true THEN true ELSE false`
 
 ## Flexible Formatting
 
@@ -210,8 +212,8 @@ and the expected result after processing.
 
 # TODO
 
-- NEXT: LITERALS
 - Rename ContextVariableToken to ContextVariable
+- Reuse char checkers
 - Allow accessing elements in arrays/lists
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
