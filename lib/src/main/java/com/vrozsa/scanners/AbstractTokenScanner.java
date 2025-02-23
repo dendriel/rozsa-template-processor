@@ -95,6 +95,10 @@ abstract class AbstractTokenScanner {
             return createToken(keyword, startIdx, endIdx, content);
         }
 
+        if (literalScanner.isBooleanLiteral(keyword)) {
+            return literalScanner.createLiteralToken(tokenInput);
+        }
+
         return createFallbackToken(tokenInput);
     }
 

@@ -194,7 +194,8 @@ class TemplateProcessorIntegrationTest {
 
         var context = ContextHolder.create()
                 .add("value01", 1234)
-                .add("varFoo", "foo");
+                .add("varFoo", "foo")
+                .add("trueVar", true);
 
         assertScenario(context, "literals_scenarios.properties", "literals_result.properties");
     }

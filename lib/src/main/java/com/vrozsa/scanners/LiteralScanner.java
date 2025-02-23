@@ -7,6 +7,7 @@ import com.vrozsa.tokens.Literal;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 
+import java.util.Locale;
 import java.util.Optional;
 
 public class LiteralScanner {
@@ -30,6 +31,11 @@ public class LiteralScanner {
         return literalStartingCharsChecker.match(startingChar);
     }
 
+    public static boolean isBooleanLiteral(String keyword) {
+        var lowerKeyword = keyword.toLowerCase(Locale.ROOT);
+        return Boolean.TRUE.toString().equals(lowerKeyword) || Boolean.FALSE.toString().equals(lowerKeyword);
+    }
+
     public Optional<Token> readNextLiteral(final int startIdx, final char startChar, final char[] content) {
 
         var literalBuilder = new StringBuilder();
@@ -49,8 +55,7 @@ public class LiteralScanner {
         return createLiteralToken(new TokenInput(keyword, startIdx, endIdx, content));
     }
 
-    public int readNumberLiteral(StringBuilder literalBuilder, final int startIdx, final char[] content) {
-
+    private static int readNumberLiteral(StringBuilder literalBuilder, final int startIdx, final char[] content) {
         char nextChar;
         var nextIdx = startIdx + 1;
 
@@ -68,7 +73,7 @@ public class LiteralScanner {
         return nextIdx - 1;
     }
 
-    private int readTextLiteral(StringBuilder literalBuilder, final int startIdx, final char[] content) {
+    private static int readTextLiteral(StringBuilder literalBuilder, final int startIdx, final char[] content) {
         char nextChar;
         var nextIdx = startIdx + 1;
 

@@ -4,6 +4,7 @@ import com.vrozsa.CharacterChecker;
 import com.vrozsa.CharacterRange;
 import com.vrozsa.ContextHolder;
 import com.vrozsa.exceptions.InvalidLiteralException;
+import com.vrozsa.scanners.LiteralScanner;
 
 import java.math.BigDecimal;
 
@@ -48,15 +49,17 @@ public class Literal implements Token {
 
         if (numberCharChecker.match(firstChar)) {
             result = evaluateAsNumber();
-        }
-        else {
-            // It evaluates to a string.
-            result = keyword().substring(1, keyword().length() - 1);
+            return result;
         }
 
+        if (LiteralScanner.isBooleanLiteral(keyword())) {
+            result = Boolean.parseBoolean(keyword());
+            return result;
+        }
+
+        result = keyword().substring(1, keyword().length() - 1);
         return result;
     }
-
 
     private Object evaluateAsNumber() {
         try {
