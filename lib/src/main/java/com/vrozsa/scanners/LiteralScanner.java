@@ -32,17 +32,24 @@ public class LiteralScanner {
 
     public Optional<Token> readNextLiteral(final int startIdx, final char startChar, final char[] content) {
 
+        var literalBuilder = new StringBuilder();
+        literalBuilder.append(startChar);
+
+        int endIdx;
+
         var isTextLiteral = literalTextMarkCharChecker.match(startChar);
         if (isTextLiteral) {
-            return readTextLiteral(startIdx, startChar, content);
+            endIdx = readTextLiteral(literalBuilder, startIdx, content);
+        }
+        else {
+            endIdx = readNumberLiteral(literalBuilder, startIdx, content);
         }
 
-        return readNumberLiteral(startIdx, startChar, content);
+        var keyword = literalBuilder.toString();
+        return createLiteralToken(new TokenInput(keyword, startIdx, endIdx, content));
     }
 
-    public Optional<Token> readNumberLiteral(final int startIdx, final char startChar, final char[] content) {
-        var keywordBuilder = new StringBuilder();
-        keywordBuilder.append(startChar);
+    public int readNumberLiteral(StringBuilder literalBuilder, final int startIdx, final char[] content) {
 
         char nextChar;
         var nextIdx = startIdx + 1;
@@ -54,40 +61,29 @@ public class LiteralScanner {
                 break;
             }
 
-            keywordBuilder.append(nextChar);
+            literalBuilder.append(nextChar);
             nextIdx++;
         }
 
-        var keyword = keywordBuilder.toString();
-        var endIdx = nextIdx - 1;
-
-        return createLiteralToken(new TokenInput(keyword, startIdx, endIdx, content));
+        return nextIdx - 1;
     }
 
-    private Optional<Token> readTextLiteral(final int startIdx, final char startChar, final char[] content) {
-        var keywordBuilder = new StringBuilder();
-        keywordBuilder.append(startChar);
-
+    private int readTextLiteral(StringBuilder literalBuilder, final int startIdx, final char[] content) {
         char nextChar;
         var nextIdx = startIdx + 1;
 
         while (nextIdx < content.length) {
-
             nextChar = content[nextIdx];
-
-            keywordBuilder.append(nextChar);
+            literalBuilder.append(nextChar);
             nextIdx++;
+
             if (literalTextMarkCharChecker.match(nextChar)) {
                 break;
             }
         }
 
-        var keyword = keywordBuilder.toString();
-        var endIdx = nextIdx - 1;
-
-        return createLiteralToken(new TokenInput(keyword, startIdx, endIdx, content));
+        return nextIdx - 1;
     }
-
 
     protected Optional<Token> createLiteralToken(TokenInput tokenInput) {
         return Optional.of(new Literal(tokenInput));
