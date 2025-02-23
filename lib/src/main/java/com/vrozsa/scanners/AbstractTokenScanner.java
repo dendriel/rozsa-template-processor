@@ -36,7 +36,6 @@ abstract class AbstractTokenScanner {
             new CharacterSingle('"')
     );
 
-
     private static final CharacterChecker middleCharsChecker = CharacterChecker.of(
             new CharacterRange('A', 'Z'), // TODO: use classes to define default ranges
             new CharacterRange('a', 'z'),
@@ -70,6 +69,9 @@ abstract class AbstractTokenScanner {
         }
 
         var isLiteral = literalStartingCharsChecker.match(nextChar);
+        if (isLiteral) {
+            return readNextLiteral(startIdx, nextChar, content);
+        }
 
         var keywordBuilder = new StringBuilder();
         keywordBuilder.append(nextChar);
@@ -110,6 +112,46 @@ abstract class AbstractTokenScanner {
         }
 
         return createFallbackToken(tokenInput);
+    }
+
+    private Optional<Token> readNextLiteral(final int startIdx, final char startChar, final char[] content) {
+
+        var isTextLiteral = literalTextMarkCharChecker.match(startChar);
+
+        var keywordBuilder = new StringBuilder();
+        keywordBuilder.append(startChar);
+
+        char nextChar;
+        var nextIdx = startIdx + 1;
+
+        while (nextIdx < content.length) {
+
+            nextChar = content[nextIdx];
+
+            if (isTextLiteral) {
+                keywordBuilder.append(nextChar);
+                nextIdx++;
+                if (literalTextMarkCharChecker.match(nextChar)) {
+                    break;
+                }
+                continue;
+            }
+
+            //TODO: revisar
+            // Only validate the middle chars if it is not a text literal. Otherwise, anything is allowed.
+            if (!middleCharsChecker.match(nextChar)) {
+                break;
+            }
+
+            keywordBuilder.append(nextChar);
+            nextIdx++;
+        }
+
+        var keyword = keywordBuilder.toString();
+        // -1 for the stop character
+        var endIdx = nextIdx - 1;
+
+        return createLiteralToken(new TokenInput(keyword, startIdx, endIdx, content));
     }
 
     // Here it has a return to allow subclasses to return something instead of throwing.

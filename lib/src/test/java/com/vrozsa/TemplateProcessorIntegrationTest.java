@@ -193,7 +193,8 @@ class TemplateProcessorIntegrationTest {
     void testLiteralsScenarios() {
 
         var context = ContextHolder.create()
-                .add("value01", 1234);
+                .add("value01", 1234)
+                .add("varFoo", "foo");
 
         assertScenario(context, "literals_scenarios.properties", "literals_result.properties");
     }

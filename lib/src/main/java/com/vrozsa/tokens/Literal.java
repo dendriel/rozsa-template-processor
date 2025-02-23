@@ -51,7 +51,7 @@ public class Literal implements Token {
         }
         else {
             // It evaluates to a string.
-            result = keyword();
+            result = keyword().substring(1, keyword().length() - 1);
         }
 
         return result;
