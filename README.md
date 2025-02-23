@@ -19,6 +19,7 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 - Functions
 - Transformations
 - Context Variables
+- Literals
 - Context Enrichment
 - Escape Characters
 - Flexible Formatting
@@ -162,6 +163,16 @@ these characters freely.
 
 The '$' is the only character that has to be always escaped when not trying to write an expression. 
 
+## Literals
+
+The Literals feature allows using literal values inside expressions. The following is supported:
+
+- **Text** - declare inside expressions between quotes.
+  - eg. `${IF varX == "myLiteral" THEN 100 ELSE 200}`
+  - **Numbers** - declare inside expressions without quotes.
+  - eg. `${IF varX == 123 THEN 4321}`
+
+
 ## Flexible Formatting
 
 Flexible Formatting is just a quality of life feature that allows you to use spaces, tabs, and break-lines to format
@@ -201,14 +212,12 @@ and the expected result after processing.
 
 - NEXT: LITERALS
 - Rename ContextVariableToken to ContextVariable
+- Allow accessing elements in arrays/lists
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
   - IF x OR y OR z THEN ...
   - IF ((x >= y) AND (x <= z)) OR k THEN ...
   - Use the () as grouping tool, otherwise the expression will evaluate from left to right (not the ANDs first then the ORs)
-- Allow to compare against literals
-  - Maybe add a function token LITERAL/LIT() which provides the value. This would be easier bc it reuses the function
-  - tokens flows. Otherwise, we will have to start to handle literals everywhere
 - Handle stand-alone expressions and provide examples
 - Add a testing feature out of the box
   - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException
@@ -225,7 +234,6 @@ and the expected result after processing.
   - NOT (for reversing conditions result)
   - CONCAT
   - SUBSTRING/ARRAY (todo)
-- Allow to access elements in arrays/lists
 - Create the functional documentation
 - Handle comment expressions
   - Expressions just to add comments in the template

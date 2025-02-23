@@ -19,7 +19,7 @@ abstract class AbstractTokenScanner {
     private static final CharacterChecker startingCharsChecker = CharacterChecker.of(
             new CharacterRange('A', 'Z'),
             new CharacterRange('a', 'z'),
-//            new CharacterRange('0', '9'),
+            new CharacterRange('0', '9'),
             new CharacterSingle('<'),
             new CharacterSingle('='),
             new CharacterSingle('>'),
@@ -27,17 +27,8 @@ abstract class AbstractTokenScanner {
             new CharacterSingle('"')
     );
 
-    private static final CharacterChecker literalStartingCharsChecker = CharacterChecker.of(
-            new CharacterRange('0', '9'),
-            new CharacterSingle('"')
-    );
-
-    private static final CharacterChecker literalTextMarkCharChecker = CharacterChecker.of(
-            new CharacterSingle('"')
-    );
-
     private static final CharacterChecker middleCharsChecker = CharacterChecker.of(
-            new CharacterRange('A', 'Z'), // TODO: use classes to define default ranges
+            new CharacterRange('A', 'Z'),
             new CharacterRange('a', 'z'),
             new CharacterRange('0', '9'),
             new CharacterSingle('.'),
@@ -48,8 +39,15 @@ abstract class AbstractTokenScanner {
 
     private final Map<TokenType, Function<TokenInput, Token>> tokensCreator;
 
+    private final LiteralScanner literalScanner;
+
     AbstractTokenScanner(Map<TokenType, Function<TokenInput, Token>> tokensCreator) {
+        this(tokensCreator, new LiteralScanner());
+    }
+
+    AbstractTokenScanner(Map<TokenType, Function<TokenInput, Token>> tokensCreator, LiteralScanner literalScanner) {
         this.tokensCreator = tokensCreator;
+        this.literalScanner = literalScanner;
     }
 
     /**
@@ -64,13 +62,12 @@ abstract class AbstractTokenScanner {
         var nextIdx = startIdx;
 
         var nextChar = content[nextIdx++];
-        if (!startingCharsChecker.match(nextChar) && !literalStartingCharsChecker.match(nextChar)) {
+        if (!startingCharsChecker.match(nextChar)) {
             return handleInvalidStartingChar(startIdx, content);
         }
 
-        var isLiteral = literalStartingCharsChecker.match(nextChar);
-        if (isLiteral) {
-            return readNextLiteral(startIdx, nextChar, content);
+        if (literalScanner.isLiteralStartingCharacter(nextChar)) {
+            return literalScanner.readNextLiteral(startIdx, nextChar, content);
         }
 
         var keywordBuilder = new StringBuilder();
@@ -79,15 +76,6 @@ abstract class AbstractTokenScanner {
         while (nextIdx < content.length) {
 
             nextChar = content[nextIdx];
-
-            // Include the text mark char only if we are scanning a literal Text. Otherwise we may scan a stand-alone
-            // context variable that happens to be followed by the quote as in `"$ctx_variable"` and it would be read as
-            // `ctx_variable"`
-            if (literalTextMarkCharChecker.match(nextChar) && isLiteral) {
-                keywordBuilder.append(nextChar);
-                nextIdx++;
-                break;
-            }
 
             if (!middleCharsChecker.match(nextChar)) {
                 break;
@@ -107,60 +95,12 @@ abstract class AbstractTokenScanner {
             return createToken(keyword, startIdx, endIdx, content);
         }
 
-        if (literalStartingCharsChecker.match(keyword.charAt(0))) {
-            return createLiteralToken(tokenInput);
-        }
-
         return createFallbackToken(tokenInput);
-    }
-
-    private Optional<Token> readNextLiteral(final int startIdx, final char startChar, final char[] content) {
-
-        var isTextLiteral = literalTextMarkCharChecker.match(startChar);
-
-        var keywordBuilder = new StringBuilder();
-        keywordBuilder.append(startChar);
-
-        char nextChar;
-        var nextIdx = startIdx + 1;
-
-        while (nextIdx < content.length) {
-
-            nextChar = content[nextIdx];
-
-            if (isTextLiteral) {
-                keywordBuilder.append(nextChar);
-                nextIdx++;
-                if (literalTextMarkCharChecker.match(nextChar)) {
-                    break;
-                }
-                continue;
-            }
-
-            //TODO: revisar
-            // Only validate the middle chars if it is not a text literal. Otherwise, anything is allowed.
-            if (!middleCharsChecker.match(nextChar)) {
-                break;
-            }
-
-            keywordBuilder.append(nextChar);
-            nextIdx++;
-        }
-
-        var keyword = keywordBuilder.toString();
-        // -1 for the stop character
-        var endIdx = nextIdx - 1;
-
-        return createLiteralToken(new TokenInput(keyword, startIdx, endIdx, content));
     }
 
     // Here it has a return to allow subclasses to return something instead of throwing.
     protected Optional<Token> handleInvalidStartingChar(int idx, char[] content) {
         throw new InvalidSyntaxException(String.format("Invalid starting character with value %s", content[idx]), idx);
-    }
-
-    protected Optional<Token> createLiteralToken(TokenInput tokenInput) {
-        return Optional.of(new Literal(tokenInput));
     }
 
     protected Optional<Token> createFallbackToken(TokenInput tokenInput) {

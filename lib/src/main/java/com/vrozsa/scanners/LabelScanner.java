@@ -1,6 +1,5 @@
 package com.vrozsa.scanners;
 
-import com.vrozsa.exceptions.UnexpectedTokenException;
 import com.vrozsa.tokens.Label;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
@@ -16,7 +15,7 @@ public class LabelScanner extends AbstractTokenScanner {
     private static final LabelScanner INSTANCE = new LabelScanner();
 
     LabelScanner() {
-        super(Map.of());
+        super(Map.of(), new RestrictedLiteralScanner(TokenType.LABEL));
         // TODO: allow AbstractTokenScanner to receive a list of starting and middle characters so we can allow labels of just a-zA-Z
     }
 
@@ -27,11 +26,6 @@ public class LabelScanner extends AbstractTokenScanner {
     @Override
     public Optional<Label> findNext(final int idx, final char[] content) {
         return (Optional<Label>) super.findNext(idx, content);
-    }
-
-    @Override
-    public Optional<Token> createLiteralToken(TokenInput tokenInput) {
-        throw new UnexpectedTokenException(TokenType.LABEL, TokenType.LITERAL, tokenInput.startIdx());
     }
 
     @Override

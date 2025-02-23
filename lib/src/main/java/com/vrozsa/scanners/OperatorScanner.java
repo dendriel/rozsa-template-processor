@@ -38,17 +38,12 @@ public class OperatorScanner extends AbstractTokenScanner {
     }
 
     OperatorScanner() {
-        super(tokensCreator);
+        super(tokensCreator, new RestrictedLiteralScanner("OPERATOR"));
     }
 
     @Override
     public Optional<AbstractOperatorToken> findNext(final int idx, final char[] content) {
         return (Optional<AbstractOperatorToken>) super.findNext(idx, content);
-    }
-
-    @Override
-    public Optional<Token> createLiteralToken(TokenInput tokenInput) {
-        throw new InvalidSyntaxException("Expecting an OPERATOR", tokenInput.startIdx());
     }
 
     @Override
