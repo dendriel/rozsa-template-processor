@@ -93,7 +93,7 @@ Functions are transformations over the context variables.
   - SORT {set} AS {key} ON {key.prop} [ASC|DESC]
 
 
-### Context Enrichment
+## Context Enrichment
 
 It is possible to use the `SET` transformation to create custom context variables directly from the template
 specification.
@@ -103,8 +103,11 @@ This is useful because it allows reducing the template pollution with the expres
 Instead, one can define beforehand, at the start of the template, all necessary transformations or expressions and save
 it to new variables which will be available in the context.
 
-- SET
-  - SET {some-expression} AS {new_var_name}
+```
+SET {some-expression} AS {new_var_name}
+
+${SET UPPERCASE(userName) AS upperUserName}
+```
 
 Examples available at the `set_var_scenarios.txt` testing scenarios.
 
@@ -181,7 +184,7 @@ Flexible Formatting is just a quality of life feature that allows you to use spa
 expressions as you will.
 
 For instance, the expression inside this phrase `I have ${IF UPPERCASE(foo) EQUALS bar THEN xpto} apples.` which results
-to `"I have 5 apples.` can also be written in the following forms and keep yielding the same result:
+to `I have 5 apples.` can also be written in the following forms and keep yielding the same result:
 
 ```
 I have ${ IF UPPERCASE(foo) EQUALS bar THEN xpto } apples.
@@ -212,7 +215,6 @@ and the expected result after processing.
 
 # TODO
 
-- Rename ContextVariableToken to ContextVariable
 - Reuse char checkers
 - Allow accessing elements in arrays/lists
 - Handle conditions with combined expressions such as
@@ -221,6 +223,7 @@ and the expected result after processing.
   - IF ((x >= y) AND (x <= z)) OR k THEN ...
   - Use the () as grouping tool, otherwise the expression will evaluate from left to right (not the ANDs first then the ORs)
 - Handle stand-alone expressions and provide examples
+  - Allows processing a single expression inside the specified string without the need for expression tokens `$` or `${}`
 - Add a testing feature out of the box
   - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException
   - new TemplateProcessor().assertProcess("template.json", "expected_result.json")
@@ -241,3 +244,5 @@ and the expected result after processing.
   - Expressions just to add comments in the template
   - The whole expression is erased during processing
   - eg. ${// this is a comment and won't appear in the final result}
+- Select a license type
+- Release

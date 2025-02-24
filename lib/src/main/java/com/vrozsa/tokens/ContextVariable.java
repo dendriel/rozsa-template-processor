@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
 
-public class ContextVariableToken extends AbstractToken {
+public class ContextVariable extends AbstractToken {
     private static final Pattern DELIMITER_PATTERN = Pattern.compile("\\.");
     private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -19,7 +19,7 @@ public class ContextVariableToken extends AbstractToken {
      * Creates a new context variable token containing the name of the variable.
      * @param input token metadata.
      */
-    public ContextVariableToken(TokenInput input) {
+    public ContextVariable(TokenInput input) {
         super(TokenType.CONTEXT_VARIABLE, input);
     }
 

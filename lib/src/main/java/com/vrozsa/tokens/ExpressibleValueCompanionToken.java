@@ -5,12 +5,12 @@ import com.vrozsa.Reader;
 import com.vrozsa.scanners.ExpressibleValueScanner;
 
 /**
- * Companion tokens should have just a context variable to provide the final value.
+ * Companion tokens should be followed by an expressible value to provide the final value.
  */
-public abstract class ContextVariableCompanionToken extends AbstractToken {
+public abstract class ExpressibleValueCompanionToken extends AbstractToken {
     protected Token variable;
 
-    protected ContextVariableCompanionToken(TokenType type, TokenInput input) {
+    protected ExpressibleValueCompanionToken(TokenType type, TokenInput input) {
         super(type, input);
     }
 

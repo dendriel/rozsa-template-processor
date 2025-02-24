@@ -5,8 +5,7 @@ import com.vrozsa.CharacterRange;
 import com.vrozsa.CharacterSingle;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.InvalidSyntaxException;
-import com.vrozsa.tokens.ContextVariableToken;
-import com.vrozsa.tokens.Literal;
+import com.vrozsa.tokens.ContextVariable;
 import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
@@ -108,7 +107,7 @@ abstract class AbstractTokenScanner {
     }
 
     protected Optional<Token> createFallbackToken(TokenInput tokenInput) {
-        return Optional.of(new ContextVariableToken(tokenInput));
+        return Optional.of(new ContextVariable(tokenInput));
     }
 
     protected boolean matchAnyToken(String name) {

@@ -4,11 +4,11 @@ import com.vrozsa.CharacterChecker;
 import com.vrozsa.CharacterSingle;
 import com.vrozsa.Reader;
 import com.vrozsa.exceptions.UnexpectedCharacterException;
-import com.vrozsa.tokens.ContextVariableCompanionToken;
+import com.vrozsa.tokens.ExpressibleValueCompanionToken;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
-abstract class AbstractFunctionToken extends ContextVariableCompanionToken {
+abstract class AbstractFunctionToken extends ExpressibleValueCompanionToken {
 
     private static final CharacterChecker startGroupCharChecker = CharacterChecker.of(
             new CharacterSingle('(')
