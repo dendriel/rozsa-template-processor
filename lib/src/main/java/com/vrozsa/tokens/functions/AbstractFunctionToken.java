@@ -45,24 +45,5 @@ abstract class AbstractFunctionToken extends ExpressibleValueCompanionToken {
         if (!endGroupCharChecker.match(nextChar)) {
             throw new UnexpectedCharacterException(')', nextChar, endIdx);
         }
-
-//        startIdx = Reader.nextValidCharIndex(startIdx, content);
-//
-//        var nextToken = ContextVariableScanner.instance().findNext(startIdx, content());
-//        if (nextToken.isEmpty()) {
-//            throw new RuntimeException("Invalid syntax close to index " + startIdx);
-//        }
-//
-//        var token = nextToken.get();
-//        if (token instanceof ContextVariableToken contextVariableToken) {
-//            variable = contextVariableToken;
-//        }
-//        else {
-//            throw new UnexpectedTokenException(CONTEXT_VARIABLE, token.type(), startIdx);
-//        }
-//
-//        variable.read();
-//        endIdx = variable.endIdx();
-
     }
 }

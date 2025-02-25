@@ -191,13 +191,20 @@ class TemplateProcessorIntegrationTest {
 
     @Test
     void testLiteralsScenarios() {
-
         var context = ContextHolder.create()
                 .add("value01", 1234)
                 .add("varFoo", "foo")
                 .add("trueVar", true);
 
         assertScenario(context, "literals_scenarios.properties", "literals_result.properties");
+    }
+
+    @Test
+    void testArrayAccessScenarios() {
+        var context = ContextHolder.create()
+                .add("dwarfs", new String[]{"Doc", "Grumpy", "Happy", "Sleepy", "Bashful", "Sneezy", "Dopey"});
+
+        assertScenario(context, "array_access_scenarios.txt", "array_access_result.txt");
     }
 
     private TestUser testUser01() {

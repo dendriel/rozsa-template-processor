@@ -2,6 +2,7 @@ package com.vrozsa.tokens.transformations;
 
 import com.vrozsa.ContextHolder;
 import com.vrozsa.Reader;
+import com.vrozsa.TypeConverter;
 import com.vrozsa.exceptions.InvalidContextVariableTypeException;
 import com.vrozsa.exceptions.InvalidLabelException;
 import com.vrozsa.exceptions.InvalidOperationException;
@@ -107,7 +108,7 @@ public class SortToken extends AbstractToken {
             throw new MissingContextVariableException(setVarToken.keyword());
         }
 
-        var listToSort = getSetAsList(set, setVarToken.keyword());
+        var listToSort = TypeConverter.getSetAsList(set, setVarToken.keyword());
         if (listToSort.isEmpty()) {
             return null;
         }
@@ -123,26 +124,6 @@ public class SortToken extends AbstractToken {
 
         return listToSort;
     }
-
-    private List<?> getSetAsList(Object set, String keyword) {
-        if (set instanceof List<?> setAsList) {
-            return new ArrayList<>(setAsList);
-        }
-        else if  (set instanceof Object[] setAsArray) {
-            return Arrays.asList(setAsArray);
-        }
-        else if (set.getClass().isArray()) {
-            int length = Array.getLength(set);
-            List<Object> list = new ArrayList<>(length);
-            for (var i = 0; i < length; i++) {
-                list.add(Array.get(set, i));
-            }
-            return list;
-        }
-
-        throw new InvalidContextVariableTypeException(keyword, "Lists or Arrays");
-    }
-
 
     private static String getSortingProperty(String sortOnPropExpression, String entryLabel) {
         String[] split = DELIMITER_PATTERN.split(sortOnPropExpression);

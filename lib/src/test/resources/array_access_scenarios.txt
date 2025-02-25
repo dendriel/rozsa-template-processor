@@ -1,0 +1,8 @@
+The dwarfs from Snow White are ${dwarfs[0]}, ${dwarfs[1]}, ${dwarfs[2]}, ${dwarfs[3]}, ${dwarfs[4]}, ${dwarfs[5]} and ${dwarfs[6]}.
+
+Do index work inside expressions? ${IF dwarfs[3] == "Sleepy" THEN "They work!" ELSE "This is embarrassing.."}
+
+Do index work for stand-alone variables? Maybe $dwarfs[0] knows the answer. He is the smartest dwarf.
+
+true_dwarf=${IF true THEN dwarfs[2] ELSE dwarfs[6]}
+false_dwarf=${IF false THEN dwarfs[2] ELSE dwarfs[6]}

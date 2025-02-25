@@ -33,7 +33,9 @@ abstract class AbstractTokenScanner {
             new CharacterSingle('.'),
             new CharacterSingle('_'),
             new CharacterSingle('-'),
-            new CharacterSingle('=')
+            new CharacterSingle('='),
+            new CharacterSingle('['),
+            new CharacterSingle(']')
     );
 
     private final Map<TokenType, Function<TokenInput, Token>> tokensCreator;

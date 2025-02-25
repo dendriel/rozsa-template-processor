@@ -1,0 +1,8 @@
+The dwarfs from Snow White are Doc, Grumpy, Happy, Sleepy, Bashful, Sneezy and Dopey.
+
+Do index work inside expressions? They work!
+
+Do index work for stand-alone variables? Maybe Doc knows the answer. He is the smartest dwarf.
+
+true_dwarf=Happy
+false_dwarf=Dopey

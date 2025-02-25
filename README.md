@@ -19,6 +19,7 @@ java methods and with an entire new **vocabulary** to be used in the language ex
 - Functions
 - Transformations
 - Context Variables
+- Arrays and List elements Access
 - Literals
 - Context Enrichment
 - Escape Characters
@@ -120,6 +121,16 @@ inside expressions.
 
 > If a variable results in 'null' and it is the expression result, an empty string value will be used instead of null.
 
+### Arrays and List elements Access
+
+If you have a type which is a list or array type, you can access their elements using the brackets notation `[]`:
+
+- Stand-alone variable: `$myList[0]`
+- Inside expressions: `${IF myList[0] == true THEN "xpto"}`
+
+> Check out the valid usages in the array_access_scenarios.txt file.
+
+
 ### Stand-alone usage
 
 ```
@@ -215,8 +226,7 @@ and the expected result after processing.
 
 # TODO
 
-- Reuse char checkers
-- Allow accessing elements in arrays/lists
+- Allow accessing elements in arrays/lists (WIP) - TODO: handle nested arrays variables
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
   - IF x OR y OR z THEN ...
@@ -224,9 +234,6 @@ and the expected result after processing.
   - Use the () as grouping tool, otherwise the expression will evaluate from left to right (not the ANDs first then the ORs)
 - Handle stand-alone expressions and provide examples
   - Allows processing a single expression inside the specified string without the need for expression tokens `$` or `${}`
-- Add a testing feature out of the box
-  - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException
-  - new TemplateProcessor().assertProcess("template.json", "expected_result.json")
 - Add missing language tokens
   - SWITCH CASE THEN ELSE
   - FILTER AS ON
@@ -239,6 +246,10 @@ and the expected result after processing.
   - NOT (for reversing conditions result)
   - CONCAT
   - SUBSTRING/ARRAY (todo)
+- Reuse char checkers
+- Add a testing feature out of the box
+  - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException
+  - new TemplateProcessor().assertProcess("template.json", "expected_result.json")
 - Create the functional documentation
 - Handle comment expressions
   - Expressions just to add comments in the template
