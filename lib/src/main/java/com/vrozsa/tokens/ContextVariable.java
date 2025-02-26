@@ -47,7 +47,7 @@ public class ContextVariable extends AbstractToken {
 
         if (!endingIndexCharChecker.match(lastChar)) {
             // Resolve plain variable.
-            return context.get(keyword());
+            return context.get(key);
         }
 
         // Resolve array.
@@ -100,7 +100,7 @@ public class ContextVariable extends AbstractToken {
 
     @Override
     public Object evaluate(ContextHolder context) {
-        // Find plain variables by keyword.
+        // First, try to resolve as a plain variable.
         Optional<Object> optValue = resolveVariable(context, keyword());
         if (optValue.isPresent()) {
             result = optValue.get();
@@ -117,7 +117,7 @@ public class ContextVariable extends AbstractToken {
         var idx = 0;
 
         // Find the first segment
-        optValue = context.get(keywords[idx]);
+        optValue = resolveVariable(context, keywords[idx]);
         if (optValue.isEmpty()) {
             return result;
         }
@@ -127,20 +127,16 @@ public class ContextVariable extends AbstractToken {
 
         // Find the remaining segments.
         while (++idx < keywords.length) {
-
-            if (isNull(variableValue)) {
-                break;
-            }
-
             var variableContext = valueAsMap(variableValue, fullKeyword.toString());
 
             var nextKeyword = keywords[idx];
-            if (!variableContext.containsKey(nextKeyword)) {
+            var optNextVariable = resolveVariable(ContextHolder.create(variableContext), nextKeyword);
+            if (optNextVariable.isEmpty()) {
                 variableValue = null;
                 break;
             }
 
-            variableValue = variableContext.get(nextKeyword);
+            variableValue = optNextVariable.get();
             fullKeyword.append(".").append(nextKeyword);
         }
 

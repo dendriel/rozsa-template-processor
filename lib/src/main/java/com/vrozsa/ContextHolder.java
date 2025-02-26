@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class ContextHolder {
+public final class ContextHolder {
     private final Map<String, Object> context;
 
     // Context created via SET token.
@@ -15,8 +15,17 @@ public class ContextHolder {
         customContext = new HashMap<>();
     }
 
+    private ContextHolder(Map<String, Object> values) {
+        context = values;
+        customContext = new HashMap<>();
+    }
+
     public static ContextHolder create() {
         return new ContextHolder();
+    }
+
+    public static ContextHolder create(Map<String, Object> values) {
+        return new ContextHolder(values);
     }
 
     public ContextHolder add(String key, Object value) {

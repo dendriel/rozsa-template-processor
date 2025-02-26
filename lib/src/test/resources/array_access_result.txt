@@ -6,3 +6,12 @@ Do index work for stand-alone variables? Maybe Doc knows the answer. He is the s
 
 true_dwarf=Happy
 false_dwarf=Dopey
+
+Array access from an object property (access inner-object): {name=Dutch, foods=[]}
+Array access from an object property (access inner-object property): Dutch
+
+
+Onwer at [1]: TestPetOwner[name=Janne Second, pets=[TestPet[name=Pet #4, foods=[Food 1 from pet #4, Food 2 from pet #4, Food 3 from pet #4]], TestPet[name=Pet #5, foods=[Food 1 from pet #5, Food 2 from pet #5, Food 3 from pet #5]], TestPet[name=Pet #6, foods=[Food 1 from pet #6, Food 2 from pet #6, Food 3 from pet #6]]]]
+
+Array access in the whole chain: Food 2 from pet #6
+Array access in the whole chain (stand-alone): Food 2 from pet #6

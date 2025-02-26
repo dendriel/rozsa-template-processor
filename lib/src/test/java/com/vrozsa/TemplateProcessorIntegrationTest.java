@@ -202,12 +202,37 @@ class TemplateProcessorIntegrationTest {
     @Test
     void testArrayAccessScenarios() {
         var context = ContextHolder.create()
-                .add("dwarfs", new String[]{"Doc", "Grumpy", "Happy", "Sleepy", "Bashful", "Sneezy", "Dopey"});
+                .add("dwarfs", new String[]{"Doc", "Grumpy", "Happy", "Sleepy", "Bashful", "Sneezy", "Dopey"})
+                .add("pet-owner", testPetOwner())
+                .add("owners", petOwners());
 
         assertScenario(context, "array_access_scenarios.txt", "array_access_result.txt");
     }
 
     private TestUser testUser01() {
         return new TestUser("Jane Doe", 21, new TestUser.TestContact("55 20 445687966"));
+    }
+
+    public static TestPetOwner testPetOwner() {
+        var pets = List.of(
+                new TestPetOwner.TestPet("Dutch", List.of()),
+                new TestPetOwner.TestPet("Fifi", List.of()),
+                new TestPetOwner.TestPet("Toby", List.of())
+
+        );
+
+        return new TestPetOwner("John", pets);
+    }
+
+    private List<TestPetOwner> petOwners() {
+        return List.of(
+                new TestPetOwner("John First", List.of(createPet(1), createPet(2), createPet(3))),
+                new TestPetOwner("Janne Second", List.of(createPet(4), createPet(5), createPet(6))),
+                new TestPetOwner("Tobias Third", List.of(createPet(7), createPet(8), createPet(9)))
+        );
+    }
+
+    private TestPetOwner.TestPet createPet(int suffix) {
+        return new TestPetOwner.TestPet("Pet #" + suffix, List.of("Food 1 from pet #" + suffix, "Food 2 from pet #" + suffix, "Food 3 from pet #" + suffix));
     }
 }

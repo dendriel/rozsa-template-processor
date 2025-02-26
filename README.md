@@ -127,6 +127,7 @@ If you have a type which is a list or array type, you can access their elements 
 
 - Stand-alone variable: `$myList[0]`
 - Inside expressions: `${IF myList[0] == true THEN "xpto"}`
+- Lists inside lists: `$first[1].second[2].third[1].prop`
 
 > Check out the valid usages in the array_access_scenarios.txt file.
 
@@ -226,7 +227,6 @@ and the expected result after processing.
 
 # TODO
 
-- Allow accessing elements in arrays/lists (WIP) - TODO: handle nested arrays variables
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
   - IF x OR y OR z THEN ...

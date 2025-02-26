@@ -6,3 +6,12 @@ Do index work for stand-alone variables? Maybe $dwarfs[0] knows the answer. He i
 
 true_dwarf=${IF true THEN dwarfs[2] ELSE dwarfs[6]}
 false_dwarf=${IF false THEN dwarfs[2] ELSE dwarfs[6]}
+
+Array access from an object property (access inner-object): ${pet-owner.pets[0]}
+Array access from an object property (access inner-object property): ${pet-owner.pets[0].name}
+
+
+Onwer at [1]: $owners[1]
+
+Array access in the whole chain: ${owners[1].pets[2].foods[1]}
+Array access in the whole chain (stand-alone): $owners[1].pets[2].foods[1]
