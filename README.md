@@ -89,9 +89,9 @@ Functions are transformations over the context variables.
 
 ## Transformations
 
-- SORT
-  - SORT {set} [ASC|DESC]
-  - SORT {set} AS {key} ON {key.prop} [ASC|DESC]
+- **SORT** - Sort a set by is elements or by elements properties
+  - `SORT {set} [ASC|DESC]`
+  - `SORT {set} AS {key} ON {key.prop} [ASC|DESC]`
 
 
 ## Context Enrichment
@@ -224,6 +224,13 @@ I have ${
 
 Check out the `resources` package from the testing module. There are all valid usage of the language inside templates
 and the expected result after processing.
+
+# FAQ
+
+**Q. Can I use the tokens in lowercase?**
+> No. You have to always declare the tokens in uppercase. I did this mandatory because otherwise people may forget to
+use uppercase and make the templates hard to read.
+
 
 # TODO
 

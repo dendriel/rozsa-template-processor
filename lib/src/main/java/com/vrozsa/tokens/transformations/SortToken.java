@@ -3,90 +3,34 @@ package com.vrozsa.tokens.transformations;
 import com.vrozsa.ContextHolder;
 import com.vrozsa.Reader;
 import com.vrozsa.TypeConverter;
-import com.vrozsa.exceptions.InvalidContextVariableTypeException;
 import com.vrozsa.exceptions.InvalidLabelException;
 import com.vrozsa.exceptions.InvalidOperationException;
 import com.vrozsa.exceptions.InvalidSyntaxException;
 import com.vrozsa.exceptions.MissingContextVariableException;
 import com.vrozsa.scanners.AuxiliaryTokenScanner;
-import com.vrozsa.scanners.ExpressibleValueScanner;
-import com.vrozsa.tokens.AbstractToken;
-import com.vrozsa.tokens.Token;
 import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
 
-public class SortToken extends AbstractToken {
+public class SortToken extends AbstractTransformationToken {
     private static final Pattern DELIMITER_PATTERN = Pattern.compile("\\.");
-    private Token setVarToken;
-    private AsToken asToken;
-    private OnToken onToken;
     private SortOrderToken sortOrderToken;
 
     public SortToken(TokenInput input) {
-        super(TokenType.SORT, input);
+        super(TokenType.SORT, input, false);
     }
 
     @Override
     public void read() {
-        var startIdx = contentStartIdx();
+        super.read();
 
-        var nextIdx = scanSetVariableToken(startIdx);
-
-        // Optional.
-        var idxAfterAs = scanAsToken(nextIdx);
-
-        if (idxAfterAs > nextIdx) {
-            // If AS is present, ON is required
-            nextIdx = scanOnToken(idxAfterAs);
-        }
-
+        var nextIdx = Reader.nextValidCharIndex(endIdx + 1, content());
         scanSortOrderToken(nextIdx);
-    }
-
-    private int scanSetVariableToken(int startIdx) {
-        Optional<Token> optTargetToken = ExpressibleValueScanner.findNext(startIdx, content());
-        if (optTargetToken.isEmpty()) {
-            throw new InvalidSyntaxException("No token found", startIdx);
-        }
-
-        setVarToken = optTargetToken.get();
-        setVarToken.read();
-
-        return Reader.nextValidCharIndex(setVarToken.endIdx() + 1, content());
-    }
-
-    private int scanAsToken(int startIdx) {
-        var optAsToken = AuxiliaryTokenScanner.instance().findNext(startIdx, content());
-        if (optAsToken.isEmpty() || !optAsToken.get().type().equals(TokenType.AS)) {
-            return startIdx;
-        }
-
-        asToken = (AsToken) optAsToken.get();
-        asToken.read();
-
-        return Reader.nextValidCharIndex(asToken.endIdx() + 1, content());
-    }
-
-    private int scanOnToken(int startIdx) {
-        var optOnToken = AuxiliaryTokenScanner.instance().findNext(startIdx, content());
-        if (optOnToken.isEmpty() || !optOnToken.get().type().equals(TokenType.ON)) {
-            throw new InvalidSyntaxException("ON token expected", startIdx);
-        }
-
-        onToken = (OnToken) optOnToken.get();
-        onToken.read();
-
-        return Reader.nextValidCharIndex(onToken.endIdx() + 1, content());
     }
 
     private void scanSortOrderToken(int startIdx) {

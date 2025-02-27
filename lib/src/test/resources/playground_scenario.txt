@@ -1,1 +1,2 @@
 Array access from an object property: $pet-owner.pets[0].name
+${IF $pet-owner.pets[0].name == "Dutch" THEN "It is Dutch!"}
