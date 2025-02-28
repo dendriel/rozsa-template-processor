@@ -92,6 +92,9 @@ Functions are transformations over the context variables.
 - **SORT** - Sort a set by is elements or by elements properties
   - `SORT {set} [ASC|DESC]`
   - `SORT {set} AS {key} ON {key.prop} [ASC|DESC]`
+- **FILTER** Filter a set by a conditional
+  - `FILTER {set} AS {element-alias} ON {conditional}`
+  - `FILTER petOwners AS currOwner ON currOwner.name == "John Doe`
 
 
 ## Context Enrichment
@@ -234,8 +237,8 @@ use uppercase and make the templates hard to read.
 
 # TODO
 
-- WIP - filter transformation. Test with objects and add testing scenarios.
-
+- Add WHERE token instead of ON to handle conditionals
+- Add filtering inside a filter expression examples (looking in a set from a element being filtered)
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
   - IF x OR y OR z THEN ...

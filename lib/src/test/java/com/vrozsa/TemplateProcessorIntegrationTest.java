@@ -209,6 +209,18 @@ class TemplateProcessorIntegrationTest {
         assertScenario(context, "array_access_scenarios.txt", "array_access_result.txt");
     }
 
+    @Test
+    void testFilterScenarios() {
+        var context = ContextHolder.create()
+                .add("dwarfs", new String[]{"Doc", "Grumpy", "Happy", "Sleepy", "Bashful", "Sneezy", "Dopey"})
+                .add("pet-owner", testPetOwner())
+                .add("pet-owners", petOwners());
+
+
+        assertScenario(context, "filter_scenarios.txt", "filter_result.txt");
+
+    }
+
     private TestUser testUser01() {
         return new TestUser("Jane Doe", 21, new TestUser.TestContact("55 20 445687966"));
     }

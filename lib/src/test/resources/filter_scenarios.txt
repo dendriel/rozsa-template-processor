@@ -1,0 +1,6 @@
+${FILTER pet-owners AS owner ON owner.pets[2].name == "Pet #3"}
+
+${FILTER pet-owners AS owner ON ${IF owner.pets[2].foods[0] != "Food 3#1" THEN true ELSE false} == true}
+
+${SET ${FILTER pet-owners AS owner ON owner.name == "John First"} AS targetOwner
+}Filtered target Owner is: $targetOwner[0].name

@@ -47,6 +47,12 @@ public class OperatorScanner extends AbstractTokenScanner {
     }
 
     @Override
+    protected Optional<Token> handleInvalidStartingChar(int idx, char[] content) {
+        // Return empty if there is no operator. Maybe the first token provides the conditional expression itself.
+        return Optional.empty();
+    }
+
+    @Override
     protected Optional<Token> createFallbackToken(TokenInput tokenInput) {
         return Optional.empty();
     }
