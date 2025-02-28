@@ -1,2 +1,1 @@
-Array access from an object property: Dutch
-It is Dutch!
+[Sneezy]

@@ -11,13 +11,16 @@ public final class ContextHolder {
     private final Map<String, Object> customContext;
 
     private ContextHolder() {
-        context = new HashMap<>();
-        customContext = new HashMap<>();
+        this(new HashMap<>(), new HashMap<>());
     }
 
     private ContextHolder(Map<String, Object> values) {
+        this(values, new HashMap<>());
+    }
+
+    private ContextHolder(Map<String, Object> values, Map<String, Object> customContext) {
         context = values;
-        customContext = new HashMap<>();
+        this.customContext = customContext;
     }
 
     public static ContextHolder create() {
@@ -26,6 +29,10 @@ public final class ContextHolder {
 
     public static ContextHolder create(Map<String, Object> values) {
         return new ContextHolder(values);
+    }
+
+    public static ContextHolder from(ContextHolder context) {
+        return new ContextHolder(context.context, context.customContext);
     }
 
     public ContextHolder add(String key, Object value) {

@@ -97,7 +97,7 @@ public class SortToken extends AbstractTransformationToken {
 
     private void sortByElementProp(List<?> listToSort, ContextHolder context, boolean sortAsc) {
         var entryLabel = asToken.evaluate(context);
-        var sortOnPropExpression = onToken.evaluate(context);
+        var sortOnPropExpression = onToken.evaluateAsLabel(context);
 
         var sortingProperty = getSortingProperty(sortOnPropExpression, entryLabel);
 

@@ -16,7 +16,7 @@ class PlaygroundTest {
         var context = ContextHolder.create()
                 .add("dwarfs", new String[]{"Doc", "Grumpy", "Happy", "Sleepy", "Bashful", "Sneezy", "Dopey"})
                 .add("pet-owner", testPetOwner())
-                .add("owners", petOwners());
+                .add("pet-owners", petOwners());
 
         assertScenario(context, "playground_scenario.txt", "playground_result.txt");
     }

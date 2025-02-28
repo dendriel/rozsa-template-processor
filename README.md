@@ -234,6 +234,8 @@ use uppercase and make the templates hard to read.
 
 # TODO
 
+- WIP - filter transformation. Test with objects and add testing scenarios.
+
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
   - IF x OR y OR z THEN ...
@@ -253,6 +255,9 @@ use uppercase and make the templates hard to read.
   - NOT (for reversing conditions result)
   - CONCAT
   - SUBSTRING/ARRAY (todo)
+- New OPERATORS
+  - STARTS_WITH
+  - CONTAINS
 - Reuse char checkers
 - Add a testing feature out of the box
   - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException

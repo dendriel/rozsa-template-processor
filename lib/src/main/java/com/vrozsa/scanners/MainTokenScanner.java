@@ -7,6 +7,7 @@ import com.vrozsa.tokens.TokenInput;
 import com.vrozsa.tokens.TokenType;
 import com.vrozsa.tokens.functions.LowercaseToken;
 import com.vrozsa.tokens.functions.UppercaseToken;
+import com.vrozsa.tokens.transformations.FilterToken;
 import com.vrozsa.tokens.transformations.SetToken;
 import com.vrozsa.tokens.transformations.SortToken;
 
@@ -23,7 +24,8 @@ public class MainTokenScanner extends AbstractTokenScanner {
             Map.entry(UPPERCASE, UppercaseToken::new),
             Map.entry(LOWERCASE, LowercaseToken::new),
             Map.entry(SORT, SortToken::new),
-            Map.entry(SET, SetToken::new)
+            Map.entry(SET, SetToken::new),
+            Map.entry(FILTER, FilterToken::new)
     ));
 
     private static final MainTokenScanner INSTANCE = new MainTokenScanner();
