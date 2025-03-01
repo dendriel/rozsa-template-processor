@@ -1,1 +1,2 @@
-${FILTER pet-owners AS owner ON ${IF owner.pets[2].foods[0] != "Food 3#1" THEN true ELSE false}}
+
+${FILTER numbers AS curr ON NOT_EMPTY(${FILTER numbers AS test ON SUM(curr, test) == 11})}

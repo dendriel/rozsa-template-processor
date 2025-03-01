@@ -260,7 +260,12 @@ use uppercase and make the templates hard to read.
   - SUBSTRING/ARRAY (todo)
 - New OPERATORS
   - STARTS_WITH
+  - ENDS_WITH
   - CONTAINS
+  - MATCH ? (REGEX ?)
+- Allow adding custom functions (lang extension)
+  - CUSTOM({funcName}, {...argsList})
+  - templateProcessor.register("funcName", Function<T, R>)
 - Reuse char checkers
 - Add a testing feature out of the box
   - void assertProcess(String template, String expectedResult) throws UnexpectedProcessingResultException
@@ -270,5 +275,6 @@ use uppercase and make the templates hard to read.
   - Expressions just to add comments in the template
   - The whole expression is erased during processing
   - eg. ${// this is a comment and won't appear in the final result}
+- All logic should check if the index is inside the content bound before accessing it
 - Select a license type
 - Release

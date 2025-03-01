@@ -23,6 +23,7 @@ public enum TokenType {
     LOWERCASE("LOWERCASE"),
     IS_PRESENT("IS_PRESENT"),
     IS_ABSENT("IS_ABSENT"),
+    SUM("SUM"),
 
     // OPERATORS
     EQUALS("EQUALS", "=="),

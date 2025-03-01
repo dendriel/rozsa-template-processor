@@ -150,4 +150,9 @@ public class Literal implements Token {
     public TokenType type() {
         return TokenType.LITERAL;
     }
+
+    @Override
+    public String toString() {
+        return "Literal=" + input.keyword();
+    }
 }

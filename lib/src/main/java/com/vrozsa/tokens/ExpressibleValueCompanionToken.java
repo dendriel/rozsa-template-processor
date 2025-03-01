@@ -16,7 +16,7 @@ public abstract class ExpressibleValueCompanionToken extends AbstractToken {
 
     @Override
     public void read() {
-        // Next element after the token
+        // Next element after the token plus +1 for the group start char '('
         var startIdx = tokenEndIdx() + 1;
 
         startIdx = Reader.nextValidCharIndex(startIdx, content());
