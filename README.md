@@ -238,7 +238,6 @@ use uppercase and make the templates hard to read.
 # TODO
 
 - Add WHERE token instead of ON to handle conditionals
-- Add filtering inside a filter expression examples (looking in a set from a element being filtered)
 - Handle conditions with combined expressions such as
   - IF x AND y AND z THEN ...
   - IF x OR y OR z THEN ...

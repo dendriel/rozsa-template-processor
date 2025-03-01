@@ -6,6 +6,7 @@ import com.vrozsa.tokens.TokenType;
 import com.vrozsa.tokens.functions.IsAbsentToken;
 import com.vrozsa.tokens.functions.IsPresentToken;
 import com.vrozsa.tokens.functions.LowercaseToken;
+import com.vrozsa.tokens.functions.NotEmptyToken;
 import com.vrozsa.tokens.functions.SumToken;
 import com.vrozsa.tokens.functions.UppercaseToken;
 
@@ -21,7 +22,8 @@ public class FunctionTokenScanner extends AbstractTokenScanner {
             Map.entry(LOWERCASE, LowercaseToken::new),
             Map.entry(SUM, SumToken::new),
             Map.entry(IS_PRESENT, IsPresentToken::new),
-            Map.entry(IS_ABSENT, IsAbsentToken::new)
+            Map.entry(IS_ABSENT, IsAbsentToken::new),
+            Map.entry(NOT_EMPTY, NotEmptyToken::new)
     ));
 
     private static final FunctionTokenScanner INSTANCE = new FunctionTokenScanner();

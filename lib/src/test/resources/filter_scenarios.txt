@@ -4,3 +4,23 @@ ${FILTER pet-owners AS owner ON ${IF owner.pets[2].foods[0] != "Food 3#1" THEN t
 
 ${SET ${FILTER pet-owners AS owner ON owner.name == "John First"} AS targetOwner
 }Filtered target Owner is: $targetOwner[0].name
+
+Given an array of numbers and a target number, find two numbers whose sum is the target number:
+*Not perfect because it sums the same number. For instance, if the target is 10 and we have a 5 in the array, it will
+return true. But the purpose of the template processor is not to be a programming language anyway :-)
+$NOT_EMPTY(${
+    FILTER
+        numbers
+    AS
+        curr
+    ON
+        NOT_EMPTY(${
+            FILTER
+                numbers
+            AS
+                test
+            ON
+                SUM(curr, test) == 11
+            })
+    }
+)

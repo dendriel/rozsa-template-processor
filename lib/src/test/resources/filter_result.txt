@@ -3,3 +3,8 @@
 [TestPetOwner[name=John First, pets=[TestPet[name=Pet #1, foods=[Food 1 from pet #1, Food 2 from pet #1, Food 3 from pet #1]], TestPet[name=Pet #2, foods=[Food 1 from pet #2, Food 2 from pet #2, Food 3 from pet #2]], TestPet[name=Pet #3, foods=[Food 1 from pet #3, Food 2 from pet #3, Food 3 from pet #3]]]], TestPetOwner[name=Janne Second, pets=[TestPet[name=Pet #4, foods=[Food 1 from pet #4, Food 2 from pet #4, Food 3 from pet #4]], TestPet[name=Pet #5, foods=[Food 1 from pet #5, Food 2 from pet #5, Food 3 from pet #5]], TestPet[name=Pet #6, foods=[Food 1 from pet #6, Food 2 from pet #6, Food 3 from pet #6]]]], TestPetOwner[name=Tobias Third, pets=[TestPet[name=Pet #7, foods=[Food 1 from pet #7, Food 2 from pet #7, Food 3 from pet #7]], TestPet[name=Pet #8, foods=[Food 1 from pet #8, Food 2 from pet #8, Food 3 from pet #8]], TestPet[name=Pet #9, foods=[Food 1 from pet #9, Food 2 from pet #9, Food 3 from pet #9]]]]]
 
 Filtered target Owner is: John First
+
+Given an array of numbers and a target number, find two numbers whose sum is the target number:
+*Not perfect because it sums the same number. For instance, if the target is 10 and we have a 5 in the array, it will
+return true. But the purpose of the template processor is not to be a programming language anyway :-)
+true

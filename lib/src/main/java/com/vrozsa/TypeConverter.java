@@ -3,6 +3,7 @@ package com.vrozsa;
 import com.vrozsa.exceptions.InvalidContextVariableTypeException;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,5 +30,14 @@ public class TypeConverter {
         }
 
         throw new InvalidContextVariableTypeException(keyword, "Lists or Arrays");
+    }
+
+    // Transforms a number in a BigDecimal.
+    public static BigDecimal asBigDecimal(Object object) {
+        if (object instanceof BigDecimal casted) {
+            return casted;
+        }
+
+        return new BigDecimal(object.toString());
     }
 }

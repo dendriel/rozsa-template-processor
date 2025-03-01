@@ -213,6 +213,7 @@ class TemplateProcessorIntegrationTest {
     void testFilterScenarios() {
         var context = ContextHolder.create()
                 .add("dwarfs", new String[]{"Doc", "Grumpy", "Happy", "Sleepy", "Bashful", "Sneezy", "Dopey"})
+                .add("numbers", new String[]{"5", "3", "4", "9", "2", "1", "11"})
                 .add("pet-owner", testPetOwner())
                 .add("pet-owners", petOwners());
 

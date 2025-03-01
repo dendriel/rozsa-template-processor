@@ -8,12 +8,25 @@ import com.vrozsa.tokens.TokenType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import static com.vrozsa.TypeConverter.asBigDecimal;
+
 abstract class AbstractNumericOperatorToken extends AbstractOperatorToken {
     AbstractNumericOperatorToken(TokenType type, TokenInput input) {
         super(type, input);
     }
 
-    protected int compareNumbers(Object leftSide, Object rightSide) {
+    protected static int compareNumbers(Object leftSide, Object rightSide) {
+        try {
+            return asBigDecimal(leftSide)
+                    .compareTo(asBigDecimal(rightSide));
+        }
+        catch (Exception e) {
+            throw new InvalidComparisonException(leftSide, rightSide, e);
+        }
+    }
+
+    /*
+    protected static int compareNumbers(Object leftSide, Object rightSide) {
         try {
             if (leftSide instanceof Byte numericLeftSide) {
                 return numericLeftSide.compareTo((Byte)rightSide);
@@ -50,4 +63,5 @@ abstract class AbstractNumericOperatorToken extends AbstractOperatorToken {
             throw new InvalidComparisonException(leftSide, rightSide, e);
         }
     }
+     */
 }

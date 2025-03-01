@@ -1,2 +1,17 @@
 
-${FILTER numbers AS curr ON NOT_EMPTY(${FILTER numbers AS test ON SUM(curr, test) == 11})}
+$NOT_EMPTY(${
+    FILTER
+        numbers
+    AS
+        curr
+    ON
+        NOT_EMPTY(${
+            FILTER
+                numbers
+            AS
+                test
+            ON
+                SUM(curr, test) == 11
+            })
+    }
+)
