@@ -26,17 +26,11 @@ abstract class AbstractFunctionToken extends ExpressibleValueCompanionToken {
             new CharacterSingle(',')
     );
 
-    private final boolean isMultiParam;
-
+    // When using multiple parameters, consume from this field.
     protected List<Token> params;
 
     AbstractFunctionToken(TokenType type, TokenInput input) {
-        this(type, input, false);
-    }
-
-    AbstractFunctionToken(TokenType type, TokenInput input, boolean isMultiParam) {
         super(type, input);
-        this.isMultiParam = isMultiParam;
         params = new ArrayList<>();
     }
 
@@ -48,37 +42,29 @@ abstract class AbstractFunctionToken extends ExpressibleValueCompanionToken {
 
         var content = content();
 
-        var nextChar = content[startIdx++];
+        var nextChar = content[startIdx];
         if (!startGroupCharChecker.match(nextChar)) {
             throw new UnexpectedCharacterException('(', nextChar, startIdx);
         }
 
         // Read the expected context variable.
-        super.read(startIdx);
-        params.add(super.variable);
+        readNextParams(startIdx, content);
 
         // Next valid char after the variable
         endIdx = Reader.nextValidCharIndex(endIdx + 1, content());
         nextChar = content[endIdx];
-
-        if (varSeparatorCharChecker.match(nextChar) && isMultiParam) {
-            readNextParams(endIdx, content);
-
-            // Next valid char after the variable
-            endIdx = Reader.nextValidCharIndex(endIdx, content());
-            nextChar = content[endIdx];
-        }
 
         if (!endGroupCharChecker.match(nextChar)) {
             throw new UnexpectedCharacterException(')', nextChar, endIdx);
         }
     }
 
-    private void readNextParams(int startIdx, char[] content) {
+    private void readNextParams(final int startIdx, final char[] content) {
         var nextIdx = startIdx;
         char nextChar;
 
         do {
+            // +1 skips the separator '(' in the first run; and the comma ',' in the following runs
             nextIdx = Reader.nextValidCharIndex(nextIdx + 1, content());
             super.read(nextIdx);
             params.add(super.variable);
@@ -86,7 +72,5 @@ abstract class AbstractFunctionToken extends ExpressibleValueCompanionToken {
             nextIdx = Reader.nextValidCharIndex(endIdx + 1, content());
             nextChar = content[nextIdx];
         } while (varSeparatorCharChecker.match(nextChar));
-
-        endIdx = Reader.nextValidCharIndex(endIdx + 1, content());
     }
 }

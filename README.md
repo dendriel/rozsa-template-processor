@@ -247,7 +247,6 @@ use uppercase and make the templates hard to read.
   - Allows processing a single expression inside the specified string without the need for expression tokens `$` or `${}`
 - Add missing language tokens
   - SWITCH CASE THEN ELSE
-  - FILTER AS ON
   - MAP AS ON SEPARATOR
   - COMBINE AS AND AS ON EQUALS
   - MAP REDUCE

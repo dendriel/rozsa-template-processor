@@ -7,4 +7,9 @@ public class CharacterSingle extends CharacterRange {
     public CharacterSingle(int targetChar) {
         super(targetChar, CharacterRange.EMPTY_CHAR);
     }
+
+    @Override
+    public String toString() {
+        return "CharacterSingle='" + (char)startChar + "'";
+    }
 }

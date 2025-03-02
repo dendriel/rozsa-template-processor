@@ -10,7 +10,7 @@ import static java.util.Objects.nonNull;
 
 public class SumToken extends AbstractFunctionToken {
     public SumToken(TokenInput input) {
-        super(TokenType.SUM, input, true);
+        super(TokenType.SUM, input);
     }
 
     @Override

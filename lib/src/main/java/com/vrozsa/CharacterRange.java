@@ -3,7 +3,7 @@ package com.vrozsa;
 // We could use object values and reuse checkers with the same data, but too much effort to little benefit in this case.
 public class CharacterRange {
     protected static final int EMPTY_CHAR = -1;
-    private final int startChar;
+    protected final int startChar;
 
     private final int endChar;
 
@@ -26,5 +26,12 @@ public class CharacterRange {
 
         // exact checking
         return targetChar == startChar;
+    }
+
+
+    @Override
+    public String toString() {
+        return "CharacterRange='" + (char)startChar + "', " +
+                + (char)endChar + "'";
     }
 }
