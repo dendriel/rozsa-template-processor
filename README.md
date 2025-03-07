@@ -50,7 +50,7 @@ data:
 
 ### Inner Expressions
 
-Inner Expressions empowers the language by allowing nesting expressions.
+Inner Expressions empowers the language by allowing nested expressions.
 
 You can use it to carry more complex transformations to provide a value to an outer expression. For instance:
 
@@ -65,7 +65,14 @@ It will be evaluated first to provide a value to be used in the outer if evaluat
 
 ## Conditionals
 
-- IF - ELSE - THEN
+- IF - THEN - ELSE
+
+```
+${IF {some condition} THEN {true-value}}
+${IF {some condition} THEN {true-value} ELSE {false-value} }
+
+"${ IF foo EQUALS bar THEN inequality_result ELSE fallback_result  }"
+```
 
 ## Operators
 
@@ -86,6 +93,8 @@ Functions are transformations over the context variables.
 - LOWERCASE
 - IS_PRESENT - if value is present, return true
 - IS_ABSENT - if value is absent, return false
+- SUM - Sum a list of numbers
+  - `SUM(12, 3.5, numVar)`
 
 ## Transformations
 
@@ -259,8 +268,7 @@ use uppercase and make the templates hard to read.
 - New OPERATORS
   - STARTS_WITH
   - ENDS_WITH
-  - CONTAINS
-  - MATCH ? (REGEX ?)
+  - CONTAINS - match text
 - Allow adding custom functions (lang extension)
   - CUSTOM({funcName}, {...argsList})
   - templateProcessor.register("funcName", Function<T, R>)
