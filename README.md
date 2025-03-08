@@ -240,9 +240,14 @@ and the expected result after processing.
 # FAQ
 
 **Q. Can I use the tokens in lowercase?**
-> No. You have to always declare the tokens in uppercase. I did this mandatory because otherwise people may forget to
+> No. You have to always declare the tokens in uppercase. I did this mandatory because otherwise, people may forget to
 use uppercase and make the templates hard to read.
 
+**Q. This project is production ready?**
+> If you plan to use this project in a productive environment, I'd recommend you to test it in every scenario it is
+> expected to handle.
+> If you are associated with a company, you would benefit from forking the project and evolving it accordingly to your
+> company needs.
 
 # TODO
 
@@ -282,5 +287,7 @@ use uppercase and make the templates hard to read.
   - The whole expression is erased during processing
   - eg. ${// this is a comment and won't appear in the final result}
 - All logic should check if the index is inside the content bound before accessing it
+- Review code design
+  - Every time we read a token the caller is responsible for calling read() (why not return the token read by default?)
 - Select a license type
 - Release
