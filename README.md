@@ -290,4 +290,6 @@ use uppercase and make the templates hard to read.
 - Review code design
   - Every time we read a token the caller is responsible for calling read() (why not return the token read by default?)
 - Select a license type
+- Add usage examples in the doc
+- Add build configuration
 - Release
