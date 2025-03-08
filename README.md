@@ -10,10 +10,10 @@ specific configuration fields.
 Additionally, the Template Processor can also be extended with **custom functions** which will trigger the registered
 java methods and with an entire new **vocabulary** to be used in the language expressions.
 
-# Features
+# Available Features
 
 - Expressions
-- Inner Expressions (aka Nested Expressions)
+- Inner Expressions (a.k.a. Nested Expressions)
 - Conditionals
 - Operators
 - Functions
